@@ -66,7 +66,7 @@ namespace TT
 		if(_physicsWorld)
 			delete _physicsWorld;
 
-		b2Vec2 gravity(0.0f, 9.81f*1.5f);
+		b2Vec2 gravity(0.0f, 9.81f);
 		_physicsWorld = new b2World(gravity);
 	}
 

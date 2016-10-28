@@ -13,7 +13,7 @@ namespace TT
 		_object = nullptr;
 
 		_object = World::CreateSprite("assets/textures/player.png");
-		_object->setTextureRect(sf::IntRect(0, 0, 92, 124));
+		_object->setTextureRect(sf::IntRect(0, 0, 64, 64));
 		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->move(position);
 
@@ -72,11 +72,9 @@ namespace TT
 
 		moveDirection.x = sf::Keyboard::isKeyPressed(sf::Keyboard::D)-sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 		moveDirection.y = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-
-
 		moveDirection.x *= 0.07f;
 
-/*		if(fabsf(moveDirection.x) > 0.0f)
+		if(fabsf(moveDirection.x) > 0.0f)
 		{
 			_boxFixture->SetFriction(0.0f);
 
@@ -110,7 +108,7 @@ namespace TT
 		if((moveDirection.x < 0.0f && _body->GetLinearVelocity().x > -2.0f) || (moveDirection.x > 0.0f && _body->GetLinearVelocity().x < 2.0f))
 		{
 			_body->ApplyLinearImpulse(b2Vec2(moveDirection.x*(isGrounded?1.0f:0.5f), 0.0f), b2Vec2(_body->GetPosition().x, _body->GetPosition().y), true);
-		} */
+		}
 
 		if(_object && _body)
 		{
@@ -118,13 +116,27 @@ namespace TT
 			_object->setRotation(_body->GetAngle()*180.0f/3.14f);
 		}
 
-		/* if(fabsf(moveDirection.x) > 0.0f)
+		const b2Vec2 &velocity = _body->GetLinearVelocity();
+		// Animation stuff
+		float frames = 8.0f;
+		if(fabsf(velocity.x) > 0.0f)
 		{
-			_animationTimer += timeStep*8.0f;
-			if(_animationTimer >= 8.0f)
-				_animationTimer -= 8.0f;
-			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*92, 0, 92, 124));
-		}*/
+			// WALK
+			frames = 8.0f;
+			_animationTimer += timeStep * frames;
+			if(_animationTimer >= frames)
+				_animationTimer -= frames;
+
+			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*64, 64 * 4, 64, 64));
+		} else {
+			// IDLE
+			frames = 14.0f;
+			_animationTimer += timeStep * frames;
+			if(_animationTimer >= frames)
+				_animationTimer -= frames;
+
+			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*64, 0, 64, 64));
+		}
 	}
 
 	void PlayerEntity::Draw(sf::RenderWindow *window)
