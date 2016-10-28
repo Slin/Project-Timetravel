@@ -14,6 +14,8 @@ set(SOURCE_FILES
         source/Entity.h
         source/World.cpp
         source/World.h
+	source/Background.h
+	source/Background.cpp
         source/ParticleEmitter.cpp
         source/ParticleEmitter.h
         source/TexturePool.cpp

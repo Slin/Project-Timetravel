@@ -4,6 +4,7 @@
 
 #include "World.h"
 #include "PlayerEntity.h"
+#include "Background.h"
 
 #if __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
@@ -58,6 +59,7 @@ namespace TT
 		Reset();
 		new PlayerEntity(0, sf::Vector2f(32.0f, -100.0f));
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 0.0f), sf::Vector2u(1000, 10));
+		new Background(0.1f, "assets/textures/level_test/Background.png");
 	}
 
 	void World::Reset()
@@ -110,6 +112,7 @@ namespace TT
 
 	void World::Update(float timeStep)
 	{
+		_view->move(timeStep * 50, 0.0f);
 		_window->setView(*_view);//?
 	}
 
