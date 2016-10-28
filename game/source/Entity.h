@@ -2,8 +2,8 @@
 // Created by Nils Daumann on 17.08.16.
 //
 
-#ifndef FANCYGOLDENLAMPS_ENTITY_H
-#define FANCYGOLDENLAMPS_ENTITY_H
+#ifndef TIMETRAVEL_ENTITY_H
+#define TIMETRAVEL_ENTITY_H
 
 #include "EntityManager.h"
 #include "World.h"
@@ -32,4 +32,4 @@ namespace TT
 	};
 }
 
-#endif //FANCYGOLDENLAMPS_ENTITY_H
+#endif //TIMETRAVEL_ENTITY_H
