@@ -7,7 +7,7 @@
 #include "Background.h"
 #include "KeyEntity.h"
 #include "Dialog.h"
-
+#include "Clouds.h"
 
 #if __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
@@ -61,7 +61,7 @@ namespace TT
 	{
 		Reset();
 		new Background(1.0f, "assets/textures/level_test/horizon.png");
-		new Background(0.8f, "assets/textures/level_test/clouds.png");
+		new Clouds(0.2f,0.8f, "assets/textures/level_test/clouds.png");
 		new Background(0.7f, "assets/textures/level_test/distant.png");
 		new Background(0.5f, "assets/textures/level_test/back.png");
 		new Background(0.0f, "assets/textures/level_test/walkable.png");

@@ -14,7 +14,7 @@ namespace TT {
 		offsetspeed = _offsetspeed;
 	}
 
-	void Clouds::Draw(sf::RenderWindow *window, float timeStep)
+	void Clouds::Draw(sf::RenderWindow *window)
 	{
 		if (!_object)
 		{
@@ -22,12 +22,17 @@ namespace TT {
 		}
 		sf::Vector2f center;
 		center = window->getView().getCenter();
-		_offset += _offsetspeed * timeStep;
+		
 		_object->setPosition(center.x * GetSpeed() + _offset, 0.0f);
 		window->draw(*_object);
 		
 	}
 
+	void Clouds::Update(float timeStep)
+	{
+		_offset += _offsetspeed * timeStep;
+
+	}
 
 
 

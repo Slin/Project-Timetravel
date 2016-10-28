@@ -1,7 +1,7 @@
 
-#ifndef TIMETRAVE_BACKGROUND_H
+#ifndef TIMETRAVEL_BACKGROUND_H
 #define TIMETRAVEL_BACKGROUND_H
-#endif
+
 
 #include "World.h"
 
@@ -14,7 +14,7 @@ namespace TT
 		Background();
 		Background(float speed, const std::string path);
 		~Background();
-		void Update(float timeStep);
+		virtual void Update(float timeStep);
 		virtual void Draw(sf::RenderWindow *window);
 		float GetSpeed() { return _speed; };
 	protected:
@@ -34,3 +34,4 @@ namespace TT
 
 
 }
+#endif
