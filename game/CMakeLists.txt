@@ -21,7 +21,7 @@ set(SOURCE_FILES
         source/SoundPool.cpp
         source/SoundPool.h
         source/PlayerEntity.cpp
-        source/PlayerEntity.h source/Math.h source/Math.cpp source/Dialog.h source/Dialog.cpp)
+        source/PlayerEntity.h source/Math.h source/Math.cpp source/Dialog.h source/Dialog.cpp source/KeyEntity.h source/KeyEntity.cpp source/Actor.cpp source/Actor.h)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 

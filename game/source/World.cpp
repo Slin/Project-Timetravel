@@ -4,6 +4,7 @@
 
 #include "World.h"
 #include "PlayerEntity.h"
+#include "KeyEntity.h"
 #include "Dialog.h"
 
 #if __APPLE__
@@ -58,6 +59,7 @@ namespace TT
 	{
 		Reset();
 		new PlayerEntity(0, sf::Vector2f(32.0f, -100.0f));
+		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 0.0f), sf::Vector2u(1000, 10));
 		Dialog::GetInstance();
 	}

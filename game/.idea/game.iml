@@ -9,12 +9,16 @@
       <sourceFolder url="file://$MODULE_DIR$/source/ParticleEmitter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/TexturePool.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/World.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/SoundPool.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/PlayerEntity.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Dialog.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Math.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Math.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/World.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/source/SoundPool.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/KeyEntity.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/Actor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/KeyEntity.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/source/Actor.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/Dialog.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/source/TexturePool.cpp" isTestSource="false" />

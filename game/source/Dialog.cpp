@@ -16,8 +16,9 @@ namespace TT {
 
     Dialog::Dialog() {
         _font.loadFromFile("assets/fonts/PixelFJVerdana12pt.ttf");
-        const_cast<sf::Texture&>(_font.getTexture(12)).setSmooth(false);
 
+        // disable smoothing
+        const_cast<sf::Texture&>(_font.getTexture(12)).setSmooth(false);
 
         // select the font
         _text.setFont(_font); // font is a sf::Font
