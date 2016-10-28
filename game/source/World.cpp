@@ -4,7 +4,12 @@
 
 #include "World.h"
 #include "PlayerEntity.h"
+<<<<<<< HEAD
 #include "Background.h"
+=======
+#include "KeyEntity.h"
+#include "Dialog.h"
+>>>>>>> 3e14f1409fdbf48eef9624acffee464a543f2358
 
 #if __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
@@ -58,8 +63,10 @@ namespace TT
 	{
 		Reset();
 		new PlayerEntity(0, sf::Vector2f(32.0f, -100.0f));
+		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 0.0f), sf::Vector2u(1000, 10));
-		new Background(0.1f, "assets/textures/level_test/Background.png");
+		new Background(0.1f, "assets/textures/level_test/walkable.png");
+		Dialog::GetInstance();
 	}
 
 	void World::Reset()
@@ -104,7 +111,6 @@ namespace TT
 
                 _window->clear(sf::Color(100, 100, 100, 255));
                 EntityManager::GetInstance()->Draw(_window);
-
                 _window->display();
             }
 		}
