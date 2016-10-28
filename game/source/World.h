@@ -32,6 +32,10 @@ namespace TT
 			return _window;
 		}
 
+        const bool IsPaused(){
+            return _paused;
+        }
+
 		const std::string &GetBundlePath() const
 		{
 			return _bundlePath;
@@ -82,8 +86,11 @@ namespace TT
 		sf::View *_view;
 		float _scaleFactor;
 		std::string _bundlePath;
+        bool _paused = false;
 
 		b2World *_physicsWorld;
+
+        void HandleEvents();
 	};
 }
 

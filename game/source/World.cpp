@@ -79,45 +79,32 @@ namespace TT
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
 
-		while(_window->isOpen())
-		{
-			sf::Event event;
-			while(_window->pollEvent(event))
-			{
-				if(event.type == sf::Event::Closed)
-				{
-					_window->close();
-				}
-			}
+		while(_window->isOpen()) {
+            HandleEvents();
 
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			{
-				_window->close();
-				break;
-			}
+            if (!_paused) {
+                deltaTime = clock.getElapsedTime();
+                time += deltaTime;
+                clock.restart();
+                int counter = 0;
+                while (time.asSeconds() > 1.0f / 60.0f && counter < 10) {
+                    _physicsWorld->Step(1.0f / 60.0f, 10, 5);
 
-			deltaTime = clock.getElapsedTime();
-			time += deltaTime;
-			clock.restart();
-			int counter = 0;
-			while(time.asSeconds() > 1.0f / 60.0f && counter < 10)
-			{
-				_physicsWorld->Step(1.0f / 60.0f, 10, 5);
+                    EntityManager::GetInstance()->Update(1.0f / 60.0f);
+                    Update(1.0f / 60.0f);
 
-				EntityManager::GetInstance()->Update(1.0f / 60.0f);
-				Update(1.0f / 60.0f);
+                    time -= sf::seconds(1.0f / 60.0f);
+                    counter += 1;
+                }
 
-				time -= sf::seconds(1.0f / 60.0f);
-				counter += 1;
-			}
+                if (counter >= 10)
+                    time = sf::Time::Zero;
 
-			if(counter >= 10)
-				time = sf::Time::Zero;
+                _window->clear(sf::Color(100, 100, 100, 255));
+                EntityManager::GetInstance()->Draw(_window);
 
-			_window->clear(sf::Color(100, 100, 100, 255));
-			EntityManager::GetInstance()->Draw(_window);
-
-			_window->display();
+                _window->display();
+            }
 		}
 	}
 
@@ -125,4 +112,44 @@ namespace TT
 	{
 		_window->setView(*_view);//?
 	}
+
+    void World::HandleEvents() {
+        sf::Event event;
+
+        // while there are pending events...
+        while (_window->pollEvent(event))
+        {
+            // check the type of the event...
+            switch (event.type)
+            {
+                // window closed
+                case sf::Event::Closed:
+                    _window->close();
+                    break;
+
+                    // window blurred
+                case sf::Event::LostFocus:
+                    _paused = true;
+                    break;
+
+                    // window focussed
+                case sf::Event::GainedFocus:
+                    _paused = false;
+                    break;
+
+                    // key pressed
+                case sf::Event::KeyPressed:
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                    {
+                        _window->close();
+                    }
+
+                    break;
+
+                    // we don't process other types of events
+                default:
+                    break;
+            }
+        }
+    }
 }
