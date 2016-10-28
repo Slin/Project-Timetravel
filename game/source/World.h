@@ -46,6 +46,11 @@ namespace TT
 			return _physicsWorld;
 		}
 
+		sf::View *GetView() const
+		{
+			return _view;
+		}
+
 		static World *GetInstance();
 
 		static sf::Sprite *CreateSprite(const std::string &file, bool smooth = true)

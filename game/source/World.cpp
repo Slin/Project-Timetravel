@@ -13,7 +13,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-#define FULLSCREEN
+//#define FULLSCREEN
 
 namespace TT
 {
@@ -45,14 +45,14 @@ namespace TT
 #endif
 
 #if defined(FULLSCREEN)
-		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Timetravel", sf::Style::Default);
+		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Timetravel", sf::Style::Fullscreen);
 #else
 		_window = new sf::RenderWindow(sf::VideoMode(1920, 1200), "Fancy Golden Lamps");
 #endif
 		_window->setFramerateLimit(60);
 
 		_view = new sf::View(sf::FloatRect(0.0f, -0.5*_window->getSize().y, _window->getSize().x, _window->getSize().y));
-		// _view->zoom(1200.0f/_window->getSize().y);
+//		_view->zoom(1200.0f/_window->getSize().y);
 		_window->setView(*_view);
 		_window->clear(sf::Color::Black);
 	}
@@ -60,10 +60,18 @@ namespace TT
 	void World::LoadLevel()
 	{
 		Reset();
-		new PlayerEntity(0, sf::Vector2f(32.0f, -100.0f));
+		new Background(1.0f, "assets/textures/level_test/horizon.png");
+		new Background(0.8f, "assets/textures/level_test/clouds.png");
+		new Background(0.7f, "assets/textures/level_test/distant.png");
+		new Background(0.5f, "assets/textures/level_test/back.png");
+		new Background(0.0f, "assets/textures/level_test/walkable.png");
+
+		new PlayerEntity(sf::Vector2f(32.0f, -100.0f));
 		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
+
+		new Background(-0.5f, "assets/textures/level_test/front.png");
+
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 0.0f), sf::Vector2u(1000, 10));
-		new Background(0.1f, "assets/textures/level_test/walkable.png");
 		Dialog::GetInstance();
 	}
 
@@ -74,7 +82,7 @@ namespace TT
 		if(_physicsWorld)
 			delete _physicsWorld;
 
-		b2Vec2 gravity(0.0f, 9.81f);
+		b2Vec2 gravity(0.0f, 0.0f);
 		_physicsWorld = new b2World(gravity);
 	}
 
@@ -107,7 +115,8 @@ namespace TT
                 if (counter >= 10)
                     time = sf::Time::Zero;
 
-                _window->clear(sf::Color(100, 100, 100, 255));
+	            _window->setView(*_view);
+                _window->clear(sf::Color(0, 0, 0, 255));
                 EntityManager::GetInstance()->Draw(_window);
                 _window->display();
             }
@@ -116,8 +125,7 @@ namespace TT
 
 	void World::Update(float timeStep)
 	{
-		_view->move(timeStep * 50, 0.0f);
-		_window->setView(*_view);//?
+
 	}
 
     void World::HandleEvents() {

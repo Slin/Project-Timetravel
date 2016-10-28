@@ -13,7 +13,7 @@ namespace TT
 	{
 	public:
 
-		PlayerEntity(int id, sf::Vector2f position);
+		PlayerEntity(sf::Vector2f position);
 		~PlayerEntity();
 
 		void Update(float timeStep);
@@ -27,10 +27,6 @@ namespace TT
 		b2Fixture *_boxFixture;
 
 		sf::Sound _sound;
-
-		sf::Vector2f _spawnPosition;
-
-		int _jumpTimer;
 
 		float _animationTimer;
 	};

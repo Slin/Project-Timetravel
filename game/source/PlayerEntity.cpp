@@ -8,43 +8,40 @@
 
 namespace TT
 {
-	PlayerEntity::PlayerEntity(int id, sf::Vector2f position) : _jumpTimer(100), _spawnPosition(position), _animationTimer(0.0f)
+	PlayerEntity::PlayerEntity(sf::Vector2f position) : _animationTimer(0.0f)
 	{
 		_object = nullptr;
 
-
-/*		_object = World::CreateSprite(((id==0)?"assets/textures/player.png":"assets/textures/level_test/Character.png"));
-		_object->setTextureRect(sf::IntRect(0, 0, 92, 124));
+		_object = World::CreateSprite("assets/textures/player.png", false);
+		_object->setTextureRect(sf::IntRect(0, 0, 64, 64));
 		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->move(position);
-
-		//_object->setColor(((id==0)?sf::Color::Green:sf::Color::Blue));
+		_object->scale(5.0f, 5.0f);
 
 		b2BodyDef bodyDef;
 		b2PolygonShape dynamicBox;
 		b2FixtureDef fixtureDef;
 
 		bodyDef.type = b2_dynamicBody;
+		bodyDef.linearDamping = 10.0f;
 		bodyDef.position.Set(_object->getPosition().x*WORLD_TO_BOX2D, _object->getPosition().y*WORLD_TO_BOX2D);
 		_body = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
 		dynamicBox.SetAsBox(_object->getLocalBounds().width*0.2f*WORLD_TO_BOX2D, _object->getLocalBounds().height*0.5f*WORLD_TO_BOX2D);
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 10.0f;
-		fixtureDef.filter.categoryBits = ((id==0)?0x0004:0x0008);
-		fixtureDef.filter.maskBits = 0x0001|0x0002|0x0004|0x0008;
 		fixtureDef.userData = (void*)this;
 		_boxFixture = _body->CreateFixture(&fixtureDef);
 		_body->SetFixedRotation(true);
 		_body->SetBullet(true);
 
-		_sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));*/
+		// _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));
 	}
 
 	PlayerEntity::~PlayerEntity()
 	{
-/*		delete _object;
-		World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);*/
+		delete _object;
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);
 	}
 
 	bool PlayerEntity::IsGrounded()
@@ -74,11 +71,11 @@ namespace TT
 		sf::Vector2f moveDirection;
 
 		moveDirection.x = sf::Keyboard::isKeyPressed(sf::Keyboard::D)-sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-		moveDirection.y = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-
+		moveDirection.y = sf::Keyboard::isKeyPressed(sf::Keyboard::S)-sf::Keyboard::isKeyPressed(sf::Keyboard::W);
 		moveDirection.x *= 0.07f;
+		moveDirection.y *= 0.07f;
 
-/*		if(fabsf(moveDirection.x) > 0.0f)
+		if(fabsf(moveDirection.x) > 0.0f)
 		{
 			_boxFixture->SetFriction(0.0f);
 
@@ -93,25 +90,13 @@ namespace TT
 			_boxFixture->SetFriction(5.0f);
 		}
 
-		bool isGrounded = IsGrounded();
-		if(moveDirection.y > 0.0f)
-		{
-			if(_jumpTimer > 1 && isGrounded)
-			{
-				_body->ApplyLinearImpulse(b2Vec2(0.0f, -1.0f), b2Vec2(_body->GetPosition().x, _body->GetPosition().y), true);
-				_sound.setPitch(0.75f+(rand()/(float)INT_MAX)*0.5f);
-				_sound.play();
-			}
-			_jumpTimer = 0;
-		}
-		else
-		{
-			_jumpTimer += 1;
-		}
-
 		if((moveDirection.x < 0.0f && _body->GetLinearVelocity().x > -2.0f) || (moveDirection.x > 0.0f && _body->GetLinearVelocity().x < 2.0f))
 		{
-			_body->ApplyLinearImpulse(b2Vec2(moveDirection.x*(isGrounded?1.0f:0.5f), 0.0f), b2Vec2(_body->GetPosition().x, _body->GetPosition().y), true);
+			_body->ApplyLinearImpulse(b2Vec2(moveDirection.x, 0.0f), b2Vec2(_body->GetPosition().x, _body->GetPosition().y), true);
+		}
+		if((moveDirection.y < 0.0f && _body->GetLinearVelocity().y > -2.0f) || (moveDirection.y > 0.0f && _body->GetLinearVelocity().y < 2.0f))
+		{
+			_body->ApplyLinearImpulse(b2Vec2(0.0f, moveDirection.y), b2Vec2(_body->GetPosition().x, _body->GetPosition().y), true);
 		}
 
 		if(_object && _body)
@@ -120,13 +105,29 @@ namespace TT
 			_object->setRotation(_body->GetAngle()*180.0f/3.14f);
 		}
 
-		if(fabsf(moveDirection.x) > 0.0f)
+		const b2Vec2 &velocity = _body->GetLinearVelocity();
+		// Animation stuff
+		float frames = 8.0f;
+		if(fabsf(velocity.x) > 0.0f)
 		{
-			_animationTimer += timeStep*8.0f;
-			if(_animationTimer >= 8.0f)
-				_animationTimer -= 8.0f;
-			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*92, 0, 92, 124));
-		}*/
+			// WALK
+			frames = 8.0f;
+			_animationTimer += timeStep * frames;
+			if(_animationTimer >= frames)
+				_animationTimer -= frames;
+
+			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*64, 64 * 4, 64, 64));
+		} else {
+			// IDLE
+			frames = 14.0f;
+			_animationTimer += timeStep * frames;
+			if(_animationTimer >= frames)
+				_animationTimer -= frames;
+
+			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*64, 0, 64, 64));
+		}
+
+		World::GetInstance()->GetView()->setCenter(_object->getPosition().x, 0.0f);
 	}
 
 	void PlayerEntity::Draw(sf::RenderWindow *window)
