@@ -4,12 +4,10 @@
 
 #include "World.h"
 #include "PlayerEntity.h"
-<<<<<<< HEAD
 #include "Background.h"
-=======
 #include "KeyEntity.h"
 #include "Dialog.h"
->>>>>>> 3e14f1409fdbf48eef9624acffee464a543f2358
+
 
 #if __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
