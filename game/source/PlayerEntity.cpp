@@ -12,12 +12,13 @@ namespace TT
 	{
 		_object = nullptr;
 
-/*		_object = World::CreateSprite(((id==0)?"assets/textures/player.png":"assets/textures/player2.png"));
-		_object->setTextureRect(sf::IntRect(0, 0, 92, 124));
+		_object = World::CreateSprite("assets/textures/player.png", false);
+		_object->setTextureRect(sf::IntRect(0, 0, 64, 64));
 		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->move(position);
+		_object->scale(5.0f, 5.0f);
 
-		//_object->setColor(((id==0)?sf::Color::Green:sf::Color::Blue));
+		// _object->setColor(((id==0)?sf::Color::Green:sf::Color::Blue));
 
 		b2BodyDef bodyDef;
 		b2PolygonShape dynamicBox;
@@ -30,20 +31,18 @@ namespace TT
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 10.0f;
-		fixtureDef.filter.categoryBits = ((id==0)?0x0004:0x0008);
-		fixtureDef.filter.maskBits = 0x0001|0x0002|0x0004|0x0008;
 		fixtureDef.userData = (void*)this;
 		_boxFixture = _body->CreateFixture(&fixtureDef);
 		_body->SetFixedRotation(true);
 		_body->SetBullet(true);
 
-		_sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));*/
+		// _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));
 	}
 
 	PlayerEntity::~PlayerEntity()
 	{
-/*		delete _object;
-		World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);*/
+		delete _object;
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);
 	}
 
 	bool PlayerEntity::IsGrounded()
@@ -74,10 +73,9 @@ namespace TT
 
 		moveDirection.x = sf::Keyboard::isKeyPressed(sf::Keyboard::D)-sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 		moveDirection.y = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-
 		moveDirection.x *= 0.07f;
 
-/*		if(fabsf(moveDirection.x) > 0.0f)
+		if(fabsf(moveDirection.x) > 0.0f)
 		{
 			_boxFixture->SetFriction(0.0f);
 
@@ -119,13 +117,27 @@ namespace TT
 			_object->setRotation(_body->GetAngle()*180.0f/3.14f);
 		}
 
-		if(fabsf(moveDirection.x) > 0.0f)
+		const b2Vec2 &velocity = _body->GetLinearVelocity();
+		// Animation stuff
+		float frames = 8.0f;
+		if(fabsf(velocity.x) > 0.0f)
 		{
-			_animationTimer += timeStep*8.0f;
-			if(_animationTimer >= 8.0f)
-				_animationTimer -= 8.0f;
-			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*92, 0, 92, 124));
-		}*/
+			// WALK
+			frames = 8.0f;
+			_animationTimer += timeStep * frames;
+			if(_animationTimer >= frames)
+				_animationTimer -= frames;
+
+			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*64, 64 * 4, 64, 64));
+		} else {
+			// IDLE
+			frames = 14.0f;
+			_animationTimer += timeStep * frames;
+			if(_animationTimer >= frames)
+				_animationTimer -= frames;
+
+			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*64, 0, 64, 64));
+		}
 	}
 
 	void PlayerEntity::Draw(sf::RenderWindow *window)
