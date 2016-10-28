@@ -2,8 +2,8 @@
 // Created by Nils Daumann on 17.08.16.
 //
 
-#ifndef FANCYGOLDENLAMPS_ENTITYMANAGER_H
-#define FANCYGOLDENLAMPS_ENTITYMANAGER_H
+#ifndef TIMETRAVEL_ENTITYMANAGER_H
+#define TIMETRAVEL_ENTITYMANAGER_H
 
 #include <SFML/Main.hpp>
 #include <list>
@@ -35,4 +35,4 @@ namespace TT
 }
 
 
-#endif //FANCYGOLDENLAMPS_ENTITYMANAGER_H
+#endif //TIMETRAVEL_ENTITYMANAGER_H

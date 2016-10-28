@@ -2,8 +2,8 @@
 // Created by Nils Daumann on 17.08.16.
 //
 
-#ifndef FANCYGOLDENLAMPS_WORLD_H
-#define FANCYGOLDENLAMPS_WORLD_H
+#ifndef TIMETRAVEL_WORLD_H
+#define TIMETRAVEL_WORLD_H
 
 
 #include <SFML/Main.hpp>
@@ -85,4 +85,4 @@ namespace TT
 }
 
 
-#endif //FANCYGOLDENLAMPS_WORLD_H
+#endif //TIMETRAVEL_WORLD_H

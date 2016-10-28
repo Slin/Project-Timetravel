@@ -2,8 +2,8 @@
 // Created by gclmini-06 on 06.11.2015.
 //
 
-#ifndef PROJECT_SACRIFICE_TEXTUREPOOL_H
-#define PROJECT_SACRIFICE_TEXTUREPOOL_H
+#ifndef TIMETRAVEL_TEXTUREPOOL_H
+#define TIMETRAVEL_TEXTUREPOOL_H
 
 #include <map>
 #include <SFML/Graphics.hpp>
@@ -29,4 +29,4 @@ namespace TT
 }
 
 
-#endif //PROJECT_SACRIFICE_TEXTUREPOOL_H
+#endif //TIMETRAVEL_TEXTUREPOOL_H

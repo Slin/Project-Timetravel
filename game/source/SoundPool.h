@@ -2,8 +2,8 @@
 // Created by gclmini-06 on 07.11.2015.
 //
 
-#ifndef PROJECT_SACRIFICE_SOUNDPOOL_H
-#define PROJECT_SACRIFICE_SOUNDPOOL_H
+#ifndef TIMETRAVEL_SOUNDPOOL_H
+#define TIMETRAVEL_SOUNDPOOL_H
 #include "World.h"
 #include <map>
 
@@ -27,4 +27,4 @@ namespace TT
 	};
 }
 
-#endif //PROJECT_SACRIFICE_SOUNDPOOL_H
+#endif //TIMETRAVEL_SOUNDPOOL_H

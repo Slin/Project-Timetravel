@@ -2,8 +2,8 @@
 // Created by Nils Daumann on 07.11.15.
 //
 
-#ifndef PROJECT_SACRIFICE_PARTICLEEMITTER_H
-#define PROJECT_SACRIFICE_PARTICLEEMITTER_H
+#ifndef TIMETRAVEL_PARTICLEEMITTER_H
+#define TIMETRAVEL_PARTICLEEMITTER_H
 
 #include "Entity.h"
 //#include "BloodParticle.h"
@@ -28,4 +28,4 @@ namespace TT
 	};
 }
 
-#endif //PROJECT_SACRIFICE_PARTICLEEMITTER_H
+#endif //TIMETRAVEL_PARTICLEEMITTER_H
