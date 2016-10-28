@@ -15,7 +15,7 @@ namespace TT
 		Background(float speed, const std::string path);
 		~Background();
 		void Update(float timeStep);
-		void Draw(sf::RenderWindow *window);
+		virtual void Draw(sf::RenderWindow *window);
 		float GetSpeed() { return _speed; };
 	protected:
 		sf::Sprite *_object;

@@ -2,6 +2,11 @@
 
 namespace TT {
 
+	Clouds::~Clouds()
+	{
+		Background::~Background();
+	}
+
 	Clouds::Clouds(float offsetspeed, float speed, const std::string path)
 	{
 		Background::Background(speed, path);
