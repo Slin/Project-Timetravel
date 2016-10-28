@@ -2,6 +2,10 @@
 
 namespace TT
 {
+	Background::Background()
+	{
+		_object = nullptr;
+	}
 	Background::Background(float speed, const std::string path)
 	{
 		_object = World::CreateSprite(path);
