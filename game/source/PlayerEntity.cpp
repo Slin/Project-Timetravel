@@ -12,12 +12,12 @@ namespace TT
 	{
 		_object = nullptr;
 
-/*		_object = World::CreateSprite(((id==0)?"assets/textures/player.png":"assets/textures/player2.png"));
+		_object = World::CreateSprite("assets/textures/player.png");
 		_object->setTextureRect(sf::IntRect(0, 0, 92, 124));
 		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->move(position);
 
-		//_object->setColor(((id==0)?sf::Color::Green:sf::Color::Blue));
+		// _object->setColor(((id==0)?sf::Color::Green:sf::Color::Blue));
 
 		b2BodyDef bodyDef;
 		b2PolygonShape dynamicBox;
@@ -30,20 +30,18 @@ namespace TT
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 10.0f;
-		fixtureDef.filter.categoryBits = ((id==0)?0x0004:0x0008);
-		fixtureDef.filter.maskBits = 0x0001|0x0002|0x0004|0x0008;
 		fixtureDef.userData = (void*)this;
 		_boxFixture = _body->CreateFixture(&fixtureDef);
 		_body->SetFixedRotation(true);
 		_body->SetBullet(true);
 
-		_sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));*/
+		// _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));
 	}
 
 	PlayerEntity::~PlayerEntity()
 	{
-/*		delete _object;
-		World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);*/
+		delete _object;
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);
 	}
 
 	bool PlayerEntity::IsGrounded()
@@ -74,6 +72,7 @@ namespace TT
 
 		moveDirection.x = sf::Keyboard::isKeyPressed(sf::Keyboard::D)-sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 		moveDirection.y = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+
 
 		moveDirection.x *= 0.07f;
 
@@ -111,7 +110,7 @@ namespace TT
 		if((moveDirection.x < 0.0f && _body->GetLinearVelocity().x > -2.0f) || (moveDirection.x > 0.0f && _body->GetLinearVelocity().x < 2.0f))
 		{
 			_body->ApplyLinearImpulse(b2Vec2(moveDirection.x*(isGrounded?1.0f:0.5f), 0.0f), b2Vec2(_body->GetPosition().x, _body->GetPosition().y), true);
-		}
+		} */
 
 		if(_object && _body)
 		{
@@ -119,7 +118,7 @@ namespace TT
 			_object->setRotation(_body->GetAngle()*180.0f/3.14f);
 		}
 
-		if(fabsf(moveDirection.x) > 0.0f)
+		/* if(fabsf(moveDirection.x) > 0.0f)
 		{
 			_animationTimer += timeStep*8.0f;
 			if(_animationTimer >= 8.0f)

@@ -56,7 +56,7 @@ namespace TT
 	void World::LoadLevel()
 	{
 		Reset();
-		new PlayerEntity(0, sf::Vector2f(-562.0f, 537.0f));
+		new PlayerEntity(0, sf::Vector2f(-562.0f, 100.0f));
 	}
 
 	void World::Reset()
