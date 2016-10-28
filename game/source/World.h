@@ -44,10 +44,13 @@ namespace TT
 
 		static World *GetInstance();
 
-		static sf::Sprite *CreateSprite(const std::string &file)
+		static sf::Sprite *CreateSprite(const std::string &file, bool smooth = true)
 		{
 			sf::Sprite *object = new sf::Sprite();
-			object->setTexture(*TexturePool::GetInstance()->GetTexture(file));
+			sf::Texture *pTexture = TexturePool::GetInstance()->GetTexture(file);
+			pTexture->setSmooth(smooth);
+			object->setTexture(*pTexture);
+			
 			object->setOrigin(object->getLocalBounds().width*0.5f, object->getLocalBounds().height*0.5f);
 
 			return object;

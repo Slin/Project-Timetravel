@@ -12,10 +12,11 @@ namespace TT
 	{
 		_object = nullptr;
 
-		_object = World::CreateSprite("assets/textures/player.png");
+		_object = World::CreateSprite("assets/textures/player.png", false);
 		_object->setTextureRect(sf::IntRect(0, 0, 64, 64));
 		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->move(position);
+		_object->scale(5.0f, 5.0f);
 
 		// _object->setColor(((id==0)?sf::Color::Green:sf::Color::Blue));
 

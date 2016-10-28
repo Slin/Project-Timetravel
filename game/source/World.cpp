@@ -47,8 +47,8 @@ namespace TT
 #endif
 		_window->setFramerateLimit(60);
 
-		_view = new sf::View(sf::FloatRect(-0.5*_window->getSize().x, -0.5*_window->getSize().y, _window->getSize().x, _window->getSize().y));
-		_view->zoom(1200.0f/_window->getSize().y);
+		_view = new sf::View(sf::FloatRect(0.0f, -0.5*_window->getSize().y, _window->getSize().x, _window->getSize().y));
+		// _view->zoom(1200.0f/_window->getSize().y);
 		_window->setView(*_view);
 		_window->clear(sf::Color::Black);
 	}
@@ -56,7 +56,8 @@ namespace TT
 	void World::LoadLevel()
 	{
 		Reset();
-		new PlayerEntity(0, sf::Vector2f(-562.0f, 100.0f));
+		new PlayerEntity(0, sf::Vector2f(32.0f, -100.0f));
+		CreateStaticBoxCollider(sf::Vector2f(0.0f, 0.0f), sf::Vector2u(1000, 10));
 	}
 
 	void World::Reset()
