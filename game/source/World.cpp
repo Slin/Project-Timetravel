@@ -4,6 +4,7 @@
 
 #include "World.h"
 #include "PlayerEntity.h"
+#include "Dialog.h"
 
 #if __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
@@ -58,6 +59,7 @@ namespace TT
 		Reset();
 		new PlayerEntity(0, sf::Vector2f(32.0f, -100.0f));
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 0.0f), sf::Vector2u(1000, 10));
+		Dialog::GetInstance();
 	}
 
 	void World::Reset()
@@ -102,7 +104,6 @@ namespace TT
 
                 _window->clear(sf::Color(100, 100, 100, 255));
                 EntityManager::GetInstance()->Draw(_window);
-
                 _window->display();
             }
 		}

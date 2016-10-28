@@ -1,9 +1,9 @@
 //
-// Created by Nils Daumann on 17.08.16.
+// Created by Matthias Bruns on 29/10/2016.
 //
 
-#ifndef TIMETRAVEL_ENTITY_H
-#define TIMETRAVEL_ENTITY_H
+#ifndef TIMETRAVEL_MATH_H
+#define TIMETRAVEL_MATH_H
 
 #include <SFML/System/Vector2.hpp>
 
@@ -44,4 +44,4 @@ namespace TT
     };
 }
 
-#endif //TIMETRAVEL_ENTITY_H
+#endif //TIMETRAVEL_MATH_H
