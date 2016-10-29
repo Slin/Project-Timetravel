@@ -12,7 +12,7 @@ namespace TT
 	class Altar : public Actor
 	{
 	public:
-		Altar(sf::Vector2f position);
+		Altar(int id, sf::Vector2f position);
 		~Altar();
 
 		void Update(float timestep);
@@ -21,6 +21,9 @@ namespace TT
 		void OnBlur(Entity *interactor);
 		void OnFocus(Entity *interactor);
 		void OnInteract(Entity *interactor);
+
+	private:
+		int _id;
 	};
 }
 

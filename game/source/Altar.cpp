@@ -7,8 +7,9 @@
 
 namespace TT
 {
-	Altar::Altar(sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true)
+	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id)
 	{
+		canInteract = true;
 	}
 
 	Altar::~Altar()
@@ -42,8 +43,9 @@ namespace TT
 	{
 		Actor::OnInteract(interactor);
 
-		// Add to player
-		World::KEYS[1] = true;
-		std::cout << "BAM!" << std::endl;
+		if(!World::GetInstance()->SelectPuzzlePiece(_id))
+		{
+			_spriteIndex = 0;
+		}
 	}
 }

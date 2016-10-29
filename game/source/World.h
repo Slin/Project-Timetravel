@@ -57,6 +57,8 @@ namespace TT
 			return _view;
 		}
 
+		bool SelectPuzzlePiece(int id);
+
 		static World *GetInstance();
 
 		static sf::Sprite *CreateSprite(const std::string &file, bool smooth = true)
@@ -108,6 +110,7 @@ namespace TT
 
 		int _currentLevel;
 		float _playerSpawnPosition;
+		int _puzzleState;
 
         void HandleEvents();
         void Render();

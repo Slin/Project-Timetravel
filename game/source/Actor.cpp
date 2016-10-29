@@ -7,7 +7,8 @@
 
 namespace TT
 {
-    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale, sf::Vector2f size) {
+    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale, sf::Vector2f size) : canInteract(false)
+    {
         _object = nullptr;
         _size = size;
 

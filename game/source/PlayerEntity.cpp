@@ -159,7 +159,9 @@ namespace TT
 		if (bodyUserData && bodyUserData != this) {
 			Actor* actor = static_cast<Actor *>(bodyUserData);
 			if(actor->canInteract) {
-				if(_interactionTarget != actor) {
+				if(actor != _interactionTarget) {
+					if(_interactionTarget)
+						_interactionTarget->OnBlur(_interactionTarget);
                     _interactionTarget = actor;
                     _interactionTarget->OnFocus(this);
 				}
