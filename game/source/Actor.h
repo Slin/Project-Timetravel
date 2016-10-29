@@ -7,15 +7,20 @@
 
 
 #include "Entity.h"
+#include "Box2D/Dynamics/Contacts/b2Contact.h"
 
 namespace TT {
-    class Actor : public Entity{
+    class Actor : public Entity {
+
     public:
         Actor(sf::Vector2f position, sf::String spritePath);
         ~Actor();
 
         virtual void Update(float timeStep);
         virtual void Draw(sf::RenderWindow *window);
+
+        void OnCollisionStart(b2Contact* contact);
+        void OnCollisionExit(b2Contact* contact);
 
     private:
         sf::Sprite *_object;

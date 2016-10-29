@@ -8,6 +8,7 @@
 #include "KeyEntity.h"
 #include "Dialog.h"
 #include "Clouds.h"
+#include "GUIManager.h"
 
 #include <iostream>
 
@@ -86,14 +87,17 @@ namespace TT
 		new Background(0.0f, "assets/textures/level_1_early/5.png"); //->5759
 
 		new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
-		//new KeyEntity(sf::Vector2f(100.0f, -100.0f));
 
 		new Background(-0.3f, "assets/textures/level_1_early/6.png");
 		new Background(-0.7f, "assets/textures/level_1_early/7.png");
 
+
+		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
+
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+
 	}
 
 	void World::Reset()
@@ -105,11 +109,13 @@ namespace TT
 
 		b2Vec2 gravity(0.0f, 9.81f);
 		_physicsWorld = new b2World(gravity);
+        _physicsWorld->SetContactListener(&_contactListener);
+
 	}
 
 	void World::Loop()
 	{
-		Dialog::GetInstance();;
+		Dialog::GetInstance();
 
 		LoadLevel1Early();
 
@@ -153,6 +159,7 @@ namespace TT
 	void World::UpdateLogic(float deltaTime) {
 		EntityManager::GetInstance()->Update(deltaTime);
 		Update(deltaTime);
+		GUIManager::GetInstance()->Update(deltaTime);
 	}
 
 	void World::Render() {
@@ -161,7 +168,7 @@ namespace TT
 		EntityManager::GetInstance()->Draw(_window);
 
 		_window->setView(sf::View(sf::FloatRect(0.0f, -0.5f * _window->getSize().y, _window->getSize().x, _window->getSize().y)));
-		Dialog::GetInstance()->Draw(_window);
+		GUIManager::GetInstance()->Draw(_window);
 
 		_window->display();
 	}

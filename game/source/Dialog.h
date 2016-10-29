@@ -5,17 +5,19 @@
 #ifndef TIMETRAVEL_DIALOG_H
 #define TIMETRAVEL_DIALOG_H
 
-#include "Entity.h"
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include "Widget.h"
 
 namespace TT
 {
-    class Dialog
+    class Dialog : public Widget
     {
     public:
         static Dialog *GetInstance();
 
         void Update(float timeStep);
-        void Draw(sf::RenderWindow *window);
+        void OnGUI(sf::RenderWindow *window);
 
         void SetText(const sf::String text);
 

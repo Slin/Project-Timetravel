@@ -16,6 +16,7 @@
 #include "Entity.h"
 #include "TexturePool.h"
 #include "SoundPool.h"
+#include "ContactListener.h"
 
 #define WORLD_TO_BOX2D 0.005f
 
@@ -87,7 +88,7 @@ namespace TT
 		void LoadLevel1Early();
 
 		static World *_instance;
-
+		ContactListener _contactListener;
 		sf::RenderWindow *_window;
 		sf::View *_view;
 		float _scaleFactor;

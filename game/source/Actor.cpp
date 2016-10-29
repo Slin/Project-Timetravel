@@ -3,6 +3,7 @@
 //
 
 #include "Actor.h"
+#include <iostream>
 
 namespace TT
 {
@@ -22,6 +23,7 @@ namespace TT
         bodyDef.type = b2_dynamicBody;
 	    //bodyDef.linearDamping = 10.0f;
         bodyDef.position.Set(_object->getPosition().x*WORLD_TO_BOX2D, _object->getPosition().y*WORLD_TO_BOX2D);
+        bodyDef.userData = (void*)this;
         _body = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
         dynamicBox.SetAsBox(_object->getLocalBounds().width*0.2f*WORLD_TO_BOX2D, _object->getLocalBounds().height*0.5f*WORLD_TO_BOX2D);
         fixtureDef.shape = &dynamicBox;
@@ -54,5 +56,13 @@ namespace TT
     {
         if(_object)
             window->draw(*_object);
+    }
+
+    void Actor::OnCollisionStart(b2Contact *contact) {
+        cout << "BeginContact";
+    }
+
+    void Actor::OnCollisionExit(b2Contact *contact) {
+        cout << "EndContact";
     }
 }

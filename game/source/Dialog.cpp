@@ -34,7 +34,7 @@ namespace TT {
 
     }
 
-    void Dialog::Draw(sf::RenderWindow *window) {
+    void Dialog::OnGUI(sf::RenderWindow *window) {
 
         _text.setPosition(18.0f, 0.5 * window->getSize().y - 18 * 2);
 
