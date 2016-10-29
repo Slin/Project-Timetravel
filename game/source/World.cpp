@@ -69,6 +69,10 @@ namespace TT
 		Reset();
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
 		Dialog::GetInstance()->SetText("Press ENTER to start");
+
+		if (!_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg")) {
+            cout << "WTF?" << endl;
+		}
     }
 
 	void World::LoadLevel1()
@@ -144,6 +148,10 @@ namespace TT
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
+
+		_bgm.setVolume(20.0f);
+        _bgm.setLoop(true);
+        _bgm.play();
 
 		while(_window->isOpen())
 		{

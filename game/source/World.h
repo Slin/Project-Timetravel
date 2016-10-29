@@ -101,6 +101,7 @@ namespace TT
 		std::string _bundlePath;
         bool _paused = false;
 		PlayerEntity *_player;
+        sf::Music _bgm;
 
 		b2World *_physicsWorld;
         std::list<b2Body*> _deadBodies;

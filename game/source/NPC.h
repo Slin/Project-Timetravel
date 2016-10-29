@@ -21,7 +21,10 @@ namespace TT
         void OnCollisionExit(b2Fixture* other) override;
 
     private:
+		static bool SOUNDS_LOADED;
+		static sf::Sound MUMBLES[];
 
+		void PlayRandomMumbleSound();
 	};
 }
 

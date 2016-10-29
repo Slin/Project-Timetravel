@@ -15,6 +15,7 @@ namespace TT {
     }
 
     Dialog::Dialog() {
+        _resetTimer = -1.0f;
         _font.loadFromFile("assets/fonts/PixelFJVerdana12pt.ttf");
 
         // disable smoothing
@@ -31,7 +32,13 @@ namespace TT {
     }
 
     void Dialog::Update(float timeStep) {
-
+        if(_resetTimer > 0.0f) {
+            _resetTimer -= timeStep;
+            if(_resetTimer <= 0.0f){
+                SetText("");
+                _resetTimer = -1.0f;
+            }
+        }
     }
 
     void Dialog::OnGUI(sf::RenderWindow *window) {
@@ -44,5 +51,9 @@ namespace TT {
     void Dialog::SetText(const sf::String text) {
         // set the string to display
         _text.setString(text);
+    }
+
+    void Dialog::SetResetTimer(float seconds) {
+        _resetTimer = seconds;
     }
 }

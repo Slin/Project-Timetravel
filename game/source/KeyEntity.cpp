@@ -7,6 +7,7 @@
 #include "World.h"
 
 #include <iostream>
+#include "Dialog.h"
 
 namespace TT
 {
@@ -38,6 +39,8 @@ namespace TT
                 // Add to player
                 World::KEYS[id] = true;
                 player->PlayPickupSound();
+                Dialog::GetInstance()->SetText("You've picked up a key!");
+                Dialog::GetInstance()->SetResetTimer(5.0f);
                 // Remove from the universe
                 EntityManager::GetInstance()->RemoveEntity(this);
             }

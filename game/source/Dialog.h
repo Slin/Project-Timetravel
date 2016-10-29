@@ -20,13 +20,14 @@ namespace TT
         void OnGUI(sf::RenderWindow *window);
 
         void SetText(const sf::String text);
-
+        void SetResetTimer(float seconds);
     private:
         sf::Font _font;
         sf::Text _text;
 
         Dialog();
         static Dialog *_instance;
+        float _resetTimer;
     };
 }
 
