@@ -16,6 +16,7 @@
 #endif
 
 //#define FULLSCREEN
+#define SIMULATIONSTEP (1.0f/240.0f)
 
 namespace TT
 {
@@ -127,32 +128,33 @@ namespace TT
                 time += deltaTime;
                 clock.restart();
                 int counter = 0;
-                while (time.asSeconds() > 1.0f / 120.0f && counter < 20)
+                while(time.asSeconds() >= SIMULATIONSTEP && counter < 10)
                 {
-                    Physics(1.0f / 120.0f);
-					UpdateLogic(1.0f / 120.0f);
+	                _physicsWorld->Step(SIMULATIONSTEP, 8, 3);
+	                EntityManager::GetInstance()->Update(SIMULATIONSTEP);
+	                Update(SIMULATIONSTEP);
 
-                    time -= sf::seconds(1.0f / 120.0f);
+                    time -= sf::seconds(SIMULATIONSTEP);
                     counter += 1;
                 }
 
-                if (counter >= 20)
+	            if(counter == 0)
+		            std::cout << time.asSeconds() << std::endl;
+
+                if (counter >= 10)
                 {
 	                time = sf::Time::Zero;
                 }
 
+	            //std::cout << time.asSeconds() << std::endl;
+
+	            float factor = time.asSeconds()/SIMULATIONSTEP;
+	            EntityManager::GetInstance()->Interpolate(factor);
+	            Interpolate(factor);
+
 	           	Render();
             }
 		}
-	}
-
-	void World::Physics(float fixedTime) {
-		_physicsWorld->Step(fixedTime, 8, 3);
-	}
-
-	void World::UpdateLogic(float deltaTime) {
-		EntityManager::GetInstance()->Update(deltaTime);
-		Update(deltaTime);
 	}
 
 	void World::Render() {
@@ -166,7 +168,7 @@ namespace TT
 		_window->display();
 	}
 
-	void World::Update(float timeStep)
+	void World::Interpolate(float factor)
 	{
 		if(_view->getCenter().x < 0.0f)
 		{
@@ -177,6 +179,11 @@ namespace TT
 		{
 			_view->setCenter(5759.0f-_window->getSize().x, _view->getCenter().y);
 		}
+	}
+
+	void World::Update(float timeStep)
+	{
+
 	}
 
     void World::HandleEvents() {

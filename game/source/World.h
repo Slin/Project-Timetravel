@@ -17,7 +17,7 @@
 #include "TexturePool.h"
 #include "SoundPool.h"
 
-#define WORLD_TO_BOX2D 0.005f
+#define WORLD_TO_BOX2D 0.01f
 
 namespace TT
 {
@@ -26,6 +26,7 @@ namespace TT
 	public:
 		void Loop();
 		void Update(float timeStep);
+		void Interpolate(float factor);
 
 		sf::RenderWindow *GetWindow() const
 		{
@@ -97,8 +98,6 @@ namespace TT
 		b2World *_physicsWorld;
 
         void HandleEvents();
-        void Physics(float fixedTime);
-        void UpdateLogic(float deltaTime);
         void Render();
 	};
 }
