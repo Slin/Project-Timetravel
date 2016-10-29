@@ -14,6 +14,7 @@ namespace TT
 		{
 			StartGlow();
 			Altar::_activeCounter = 3;
+			canInteract = false;
 		}
 		else
 		{
@@ -32,7 +33,7 @@ namespace TT
 	{
 		Actor::Update(timeStep);
 
-		if(Altar::_activeCounter == 0 && !World::KEYS[1])
+		if(Altar::_activeCounter == 0 && canInteract)
 		{
 			StopGlow();
 		}
@@ -69,15 +70,16 @@ namespace TT
 		{
 			Altar::_activeCounter += 1;
 			StartGlow();
+
+			if(_id == 2)
+			{
+				World::KEYS[1] = true;
+				canInteract = false;
+			}
 		}
 		else
 		{
 			Altar::_activeCounter = 0;
-		}
-
-		if(_id == 2)
-		{
-			World::KEYS[1] = true;
 		}
 	}
 

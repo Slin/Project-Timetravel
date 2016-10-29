@@ -26,7 +26,7 @@
 
 namespace TT
 {
-	bool World::KEYS[] = {false, false};
+	bool World::KEYS[2] = {false, false};
 	World *World::_instance = nullptr;
 
 	World *World::GetInstance()
@@ -188,7 +188,7 @@ namespace TT
 
 	void World::Loop()
 	{
-		LoadStartScreen();
+		LoadLevel2();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
