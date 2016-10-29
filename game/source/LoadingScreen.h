@@ -9,18 +9,25 @@ namespace TT
 	class LoadingScreen : public Widget
 	{
 	public:
+
+		static LoadingScreen *GetInstance();
+		~LoadingScreen();
 		LoadingScreen(float speed);
 		void Update(float timeStep);
 		void OnGUI(sf::RenderWindow *window);
 		void Draw(sf::RenderWindow *window);
-		void Fadein(float timeStep);
-		void Fadeout(float timeStep);
+		bool Fadein();
+		void Fadeout();
+		bool isLoading();
+		bool isFinished();
 	private:
 		sf::RectangleShape rectangle;
 		float _speed;
 		float _alpha;
 		bool fadingin;
 		bool fadingout;
+		bool isfinished;
+		static LoadingScreen *_instance;
 	};
 }
 
