@@ -15,6 +15,8 @@ namespace TT {
         void Update(float timeStep);
         void Draw(sf::RenderWindow *window);
 
+        virtual void OnCollisionStart(b2Fixture* other);
+        virtual void OnCollisionExit(b2Fixture* other);
 
     private:
     };

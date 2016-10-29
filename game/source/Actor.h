@@ -7,20 +7,20 @@
 
 
 #include "Entity.h"
-#include "Box2D/Dynamics/Contacts/b2Contact.h"
+#include "Box2D/Dynamics/b2Fixture.h"
 
 namespace TT {
     class Actor : public Entity {
 
     public:
-        Actor(sf::Vector2f position, sf::String spritePath);
+        Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType = b2_dynamicBody, bool sensor = false);
         ~Actor();
 
         virtual void Update(float timeStep);
         virtual void Draw(sf::RenderWindow *window);
 
-        void OnCollisionStart(b2Contact* contact);
-        void OnCollisionExit(b2Contact* contact);
+        virtual void OnCollisionStart(b2Fixture* other);
+        virtual void OnCollisionExit(b2Fixture* other);
 
     private:
         sf::Sprite *_object;

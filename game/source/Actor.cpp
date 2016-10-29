@@ -7,8 +7,7 @@
 
 namespace TT
 {
-    Actor::Actor(sf::Vector2f position, sf::String spritePath)
-    {
+    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor) {
         _object = nullptr;
 
         _object = World::CreateSprite(spritePath, false);
@@ -20,19 +19,25 @@ namespace TT
         b2PolygonShape dynamicBox;
         b2FixtureDef fixtureDef;
 
-        bodyDef.type = b2_dynamicBody;
-	    //bodyDef.linearDamping = 10.0f;
-        bodyDef.position.Set(_object->getPosition().x*WORLD_TO_BOX2D, _object->getPosition().y*WORLD_TO_BOX2D);
-        bodyDef.userData = (void*)this;
+        bodyDef.type = bodyType;
+        //bodyDef.linearDamping = 10.0f;
+        bodyDef.position.Set(_object->getPosition().x * WORLD_TO_BOX2D, _object->getPosition().y * WORLD_TO_BOX2D);
+        bodyDef.userData = (void *) this;
         _body = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
-        dynamicBox.SetAsBox(_object->getLocalBounds().width*0.2f*WORLD_TO_BOX2D, _object->getLocalBounds().height*0.5f*WORLD_TO_BOX2D);
+        dynamicBox.SetAsBox(_object->getLocalBounds().width * 0.2f * WORLD_TO_BOX2D,
+                            _object->getLocalBounds().height * 0.5f * WORLD_TO_BOX2D);
         fixtureDef.shape = &dynamicBox;
-        fixtureDef.density = 1.0f;
-        fixtureDef.friction = 10.0f;
+
+        if (bodyType == b2_dynamicBody) {
+            fixtureDef.density = 1.0f;
+            fixtureDef.friction = 10.0f;
+        }
+
         fixtureDef.userData = (void*)this;
+        fixtureDef.isSensor = sensor;
+
         _boxFixture = _body->CreateFixture(&fixtureDef);
         _body->SetFixedRotation(true);
-        _body->SetBullet(true);
 
         // _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));
     }
@@ -58,11 +63,11 @@ namespace TT
             window->draw(*_object);
     }
 
-    void Actor::OnCollisionStart(b2Contact *contact) {
+    void Actor::OnCollisionStart(b2Fixture *other) {
         cout << "BeginContact";
     }
 
-    void Actor::OnCollisionExit(b2Contact *contact) {
+    void Actor::OnCollisionExit(b2Fixture *other) {
         cout << "EndContact";
     }
 }

@@ -25,6 +25,9 @@ namespace TT
 	class World
 	{
 	public:
+        static bool key_01 = false;
+
+
 		void Loop();
 		void Update(float timeStep);
 

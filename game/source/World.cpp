@@ -92,7 +92,7 @@ namespace TT
 		new Background(-0.7f, "assets/textures/level_1_early/7.png");
 
 
-		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
+		new KeyEntity(sf::Vector2f(400.0f, 300.0f));
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
