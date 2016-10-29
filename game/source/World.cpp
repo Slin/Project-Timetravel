@@ -18,7 +18,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-//#define FULLSCREEN
+#define FULLSCREEN
 #define SIMULATIONSTEP (1.0f/120.0f)
 
 namespace TT
@@ -64,7 +64,7 @@ namespace TT
 		_window->setView(*_view);
 	}
 
-	void World::LoadLevel1Grey()
+	void World::LoadLevel1()
 	{
 		_currentLevel = 1;
 
@@ -75,19 +75,17 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
 
-
-		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
-
-		new Background(-0.3f, "assets/textures/level_1/2.png"); //->5759+(5759-1920)*0.5
-		new Background(-0.7f, "assets/textures/level_1/1.png"); //->5759
-
 
 		ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
 		emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
 
 		new NPC(sf::Vector2f(2350.0f, 278.5f));
+
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
+
+		new Background(-0.3f, "assets/textures/level_1/2.png"); //->5759+(5759-1920)*0.5
+		new Background(-0.7f, "assets/textures/level_1/1.png"); //->5759
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
@@ -95,7 +93,7 @@ namespace TT
 
 	}
 
-	void World::LoadLevel2Early()
+	void World::LoadLevel2()
 	{
 		_currentLevel = 2;
 
@@ -135,7 +133,7 @@ namespace TT
 	{
 		Dialog::GetInstance();
 
-		LoadLevel1Grey();
+		LoadLevel1();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
@@ -221,7 +219,7 @@ namespace TT
 				if(_player->_position.x > 5650.0f-windowWidth*0.5f)
 				{
 					_playerSpawnPosition = -windowWidth*0.5f+200.0f;
-					LoadLevel2Early();
+					LoadLevel2();
 				}
 			}
 			if(_currentLevel == 2)
@@ -229,7 +227,7 @@ namespace TT
 				if(_player->_position.x < -windowWidth*0.5f+100.0f)
 				{
 					_playerSpawnPosition = 5600-windowWidth*0.5;
-					LoadLevel1Grey();
+					LoadLevel1();
 				}
 			}
 		}
