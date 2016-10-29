@@ -66,7 +66,8 @@ namespace TT
     }
 
     void NPC::PlayRandomMumbleSound() {
-        if (!MUMBLES[0].getStatus() == sf::SoundSource::Playing) {}
-        MUMBLES[0].play();
+        if (MUMBLES[0].getStatus() != sf::SoundSource::Playing) {
+            MUMBLES[0].play();
+        }
     }
 }

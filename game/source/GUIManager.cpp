@@ -24,9 +24,9 @@ namespace TT
 
     void GUIManager::RemoveAllWidgets()
     {
-        for(Widget *eidgets : _widgets)
+        for(Widget *widget : _widgets)
         {
-            delete eidgets;
+            delete widget;
         }
         _widgets.clear();
         _widgetsToRemove.clear();
@@ -42,42 +42,43 @@ namespace TT
         }
     }
 
-    void GUIManager::RemoveWidget(TT::Widget *widgets)
+    void GUIManager::RemoveWidget(Widget *widget)
     {
-        if(widgets)
+        if(widget)
         {
-            _widgetsToRemove.push_front(widgets);
+            _widgetsToRemove.push_front(widget);
         }
     }
 
-    void GUIManager::AddWidget(TT::Widget *widgets)
+    void GUIManager::AddWidget(Widget *widget)
     {
-        if(widgets)
+        if(widget)
         {
-            _widgetsToAdd.push_back(widgets);
+            _widgetsToAdd.push_back(widget);
         }
     }
 
     void GUIManager::Update(float timeStep)
     {
         //add queued entities
-        for(Widget *widgets:_widgetsToAdd)
+        for(Widget *widget:_widgetsToAdd)
         {
-            _widgets.push_back(widgets);
+            _widgets.push_back(widget);
         }
         _widgetsToAdd.clear();
 
-        //update entities
-        for(Widget *widgets:_widgets)
-        {
-            widgets->Update(timeStep);
-        }
-
         //remove queued entities
-        for(Widget *widgets:_widgetsToRemove)
+        for(Widget *widget:_widgetsToRemove)
         {
-            _widgets.remove(widgets);
+            _widgets.remove(widget);
+            delete widget;
         }
         _widgetsToRemove.clear();
+
+        //update entities
+        for(Widget *widget:_widgets)
+        {
+            widget->Update(timeStep);
+        }
     }
 }

@@ -16,8 +16,6 @@ namespace TT {
 		return _instance;
 	}
 
-
-
 	LoadingScreen::~LoadingScreen()
 	{
 		_instance = NULL;

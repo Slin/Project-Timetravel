@@ -16,7 +16,6 @@ namespace TT {
             }
             virtual ~Widget()
             {
-                GUIManager::GetInstance()->RemoveWidget(this);
             }
 
             virtual void Update(float timeStep) = 0;

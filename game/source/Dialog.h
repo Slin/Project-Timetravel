@@ -14,6 +14,8 @@ namespace TT
     class Dialog : public Widget
     {
     public:
+        ~Dialog();
+
         static Dialog *GetInstance();
 
         void Update(float timeStep);

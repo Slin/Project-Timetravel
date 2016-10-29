@@ -68,12 +68,14 @@ namespace TT
 	void World::LoadStartScreen() {
 		_currentLevel = 0;
 		Reset();
+
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
-		Dialog::GetInstance()->SetText("Press ENTER to start");
 
 		if (!_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg")) {
             cout << "WTF?" << endl;
 		}
+
+        Dialog::GetInstance()->SetText("Press ENTER to start");
     }
 
 	void World::LoadLevel1()
@@ -100,7 +102,7 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-		LoadingScreen::GetInstance()->Fadeout();
+		// LoadingScreen::GetInstance()->Fadeout();
 	}
 
 	void World::LoadLevel2()
@@ -128,12 +130,12 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-		LoadingScreen::GetInstance()->Fadeout();
+		// LoadingScreen::GetInstance()->Fadeout();
 	}
 
 	void World::Reset()
 	{
-		Dialog::GetInstance()->SetText("");
+        GUIManager::GetInstance()->RemoveAllWidgets();
 		EntityManager::GetInstance()->RemoveAllEntities();
 		_player = nullptr;
 
@@ -143,13 +145,10 @@ namespace TT
 		b2Vec2 gravity(0.0f, 9.81f);
 		_physicsWorld = new b2World(gravity);
         _physicsWorld->SetContactListener(&_contactListener);
-		GUIManager::GetInstance()->RemoveAllWidgets();
 	}
 
 	void World::Loop()
 	{
-		Dialog::GetInstance();
-
         LoadStartScreen();
 
 		sf::Clock clock;

@@ -8,8 +8,9 @@ namespace TT {
     Dialog *Dialog::_instance = NULL;
 
     Dialog *Dialog::GetInstance() {
-        if (!_instance)
+        if (!_instance) {
             _instance = new Dialog();
+        }
 
         return _instance;
     }
@@ -25,10 +26,14 @@ namespace TT {
         _text.setFont(_font); // font is a sf::Font
 
         // set the string to display
-        _text.setString("");
+        _text.setString("TEST");
 
         // set the character size
         _text.setCharacterSize(18); // in pixels, not points!
+    }
+
+    Dialog::~Dialog() {
+        _instance = NULL;
     }
 
     void Dialog::Update(float timeStep) {
@@ -43,7 +48,7 @@ namespace TT {
 
     void Dialog::OnGUI(sf::RenderWindow *window) {
 
-        _text.setPosition(18.0f, 0.5 * window->getSize().y - 18 * 5);
+        _text.setPosition(18.0f, 0.5f * window->getSize().y - 96.0f);
 
         window->draw(_text);
     }

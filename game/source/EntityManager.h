@@ -10,29 +10,34 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 using namespace std;
-namespace TT
-{
-	class Entity;
-	class EntityManager
-	{
-	private:
-		EntityManager();
-		static EntityManager *_instance;
+namespace TT {
+    class Entity;
 
-		list<Entity*> _entities;
-		list<Entity*> _entitiesToAdd;
-		list<Entity*> _entitiesToRemove;
+    class EntityManager {
+    private:
+        EntityManager();
 
-	public:
-		void AddEntity(Entity *entity);
-		void RemoveEntity(Entity *entity);
-		void Update(float timeStep);
-		void Interpolate(float factor);
-		void Draw(sf::RenderWindow *windows);
-		void RemoveAllEntities();
+        static EntityManager *_instance;
 
-		static EntityManager *GetInstance();
-	};
+        list<Entity *> _entities;
+        list<Entity *> _entitiesToAdd;
+        list<Entity *> _entitiesToRemove;
+
+    public:
+        void AddEntity(Entity *entity);
+
+        void RemoveEntity(Entity *entity);
+
+        void Update(float timeStep);
+
+        void Interpolate(float factor);
+
+        void Draw(sf::RenderWindow *windows);
+
+        void RemoveAllEntities();
+
+        static EntityManager *GetInstance();
+    };
 }
 
 

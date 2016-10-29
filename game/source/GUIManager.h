@@ -12,24 +12,30 @@ using namespace std;
 
 namespace TT {
     class Widget;
+
     class GUIManager {
-        private:
-            GUIManager();
-            static GUIManager *_instance;
+    private:
+        GUIManager();
 
-            list<Widget*> _widgets;
-            list<Widget*> _widgetsToAdd;
-            list<Widget*> _widgetsToRemove;
+        static GUIManager *_instance;
 
-        public:
-            void AddWidget(Widget *entity);
-            void RemoveWidget(Widget *entity);
-            void Update(float timeStep);
-            void Draw(sf::RenderWindow *windows);
-            void RemoveAllWidgets();
+        list<Widget *> _widgets;
+        list<Widget *> _widgetsToAdd;
+        list<Widget *> _widgetsToRemove;
 
-            static GUIManager *GetInstance();
-        };
+    public:
+        void AddWidget(Widget *widget);
+
+        void RemoveWidget(Widget *widget);
+
+        void Update(float timeStep);
+
+        void Draw(sf::RenderWindow *windows);
+
+        void RemoveAllWidgets();
+
+        static GUIManager *GetInstance();
+    };
 }
 
 
