@@ -27,7 +27,9 @@ namespace TT
 		void TriggerInteraction();
 
 		void PlayPickupSound();
-
+		void PlayWalkingForest();
+		void StopPlayingWalking();
+		int level;
 	private:
 		sf::Sprite *_object;
 		b2Body *_body;
@@ -36,8 +38,10 @@ namespace TT
 		float _animationTimer;
 		void FindInteractionObjects();
         Actor* _interactionTarget;
-
+		int sound_counter;
 		sf::Sound _pickupSound;
+		sf::Sound _walkingSoundforest;
+		sf::Sound WalkingInCave[7];
 	};
 }
 

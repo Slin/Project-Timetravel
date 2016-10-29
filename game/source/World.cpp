@@ -139,7 +139,6 @@ namespace TT
 		new NPC(sf::Vector2f(2350.0f, 278.5f));
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
-
 		new Background(-0.3f, "assets/textures/level_1/2.png"); //->5759+(5759-1920)*0.5
 		new Background(-0.7f, "assets/textures/level_1/1.png"); //->5759
 
@@ -147,6 +146,7 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		LoadingScreen::GetInstance()->Fadeout();
+		_player->level = _currentLevel;
 	}
 
 	void World::LoadLevel2()
@@ -175,6 +175,7 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		LoadingScreen::GetInstance()->Fadeout();
+		_player->level = _currentLevel;
 	}
 
 	void World::LoadLevel3()
@@ -198,6 +199,7 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		LoadingScreen::GetInstance()->Fadeout();
+		_player->level = _currentLevel;
 	}
 
 	void World::Reset()

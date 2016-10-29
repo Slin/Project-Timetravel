@@ -88,7 +88,7 @@ namespace TT
         }
     }
 
-    void NPC::PlayMumbleSound(uint id) {
+    void NPC::PlayMumbleSound(unsigned int id) {
         if (MUMBLES[id].getStatus() != sf::SoundSource::Playing) {
             MUMBLES[id].play();
         }
