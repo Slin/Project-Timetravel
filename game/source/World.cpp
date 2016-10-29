@@ -74,9 +74,7 @@ namespace TT
 		new Background(0.7f, "assets/textures/level_1/5.png");
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
-
-		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
-
+		
 		ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
 		emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
 
