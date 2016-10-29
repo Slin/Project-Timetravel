@@ -81,7 +81,7 @@ namespace TT
 		Reset();
 		new Background(1.0f, "assets/textures/level_1_early/1.png"); //->1920
 		new Background(0.8f, "assets/textures/level_1_early/2.png"); //->5759-(5759-1920)*0.8
-//		new Clouds(20.0f, 0.8f, "assets/textures/level_1_early/2.png");
+		new Clouds(20.0f, 0.8f, "assets/textures/level_1_early/2.png");
 		new Background(0.7f, "assets/textures/level_1_early/3.png");
 		new Background(0.5f, "assets/textures/level_1_early/4.png"); //->5759+(5759-1920)*0.5
 		new Background(0.0f, "assets/textures/level_1_early/5.png"); //->5759

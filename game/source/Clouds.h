@@ -18,7 +18,7 @@ namespace TT
 	private:
 		float _offset;
 		float _offsetspeed;
-
+		
 	};
 
 
