@@ -89,8 +89,8 @@ namespace TT
 		World();
 
 		void Reset();
-		void LoadLevel1Grey();
-		void LoadLevel2Early();
+		void LoadLevel1();
+		void LoadLevel2();
 
 		static World *_instance;
 		ContactListener _contactListener;
