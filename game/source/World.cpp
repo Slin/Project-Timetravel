@@ -94,7 +94,7 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_1_early/4.png"); //->5759+(5759-1920)*0.5
 		new Background(0.0f, "assets/textures/level_1_early/5.png"); //->5759
 
-		new NPC(sf::Vector2f(200.0f, 300.0f));
+		new NPC(sf::Vector2f(2350.0f, 278.5f));
 		_player = new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
 
 		new Background(-0.3f, "assets/textures/level_1_early/6.png");
@@ -250,6 +250,11 @@ namespace TT
                     {
                         _window->close();
                     }
+
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+					{
+						cout << "PLAYER POSITION:" << _player->_position.x << " " << _player->_position.y << endl;
+					}
 
                     break;
 
