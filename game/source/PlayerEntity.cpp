@@ -83,11 +83,10 @@ namespace TT
 
 		_body->ApplyLinearImpulse(b2Vec2((moveDirection.x*3.0f-_body->GetLinearVelocity().x)*_body->GetMass(), 0.0f), _body->GetWorldCenter(), true);
 
-
 		if(_object && _body)
 		{
-			_object->setPosition(_body->GetPosition().x/WORLD_TO_BOX2D, _body->GetPosition().y/WORLD_TO_BOX2D);
-			_object->setRotation(_body->GetAngle()*180.0f/3.14f);
+			_previousPosition = _position;
+			_position = sf::Vector2f(_body->GetPosition().x/WORLD_TO_BOX2D, _body->GetPosition().y/WORLD_TO_BOX2D);
 		}
 
 		const b2Vec2 &velocity = _body->GetLinearVelocity();
@@ -111,13 +110,22 @@ namespace TT
 
 			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*64, 0, 64, 64));
 		}
+	}
 
-		World::GetInstance()->GetView()->setCenter(_object->getPosition().x, 0.0f);
+	void PlayerEntity::Interpolate(float factor)
+	{
+		Entity::Interpolate(factor);
+		World::GetInstance()->GetView()->setCenter(_position.x, 0.0f);
 	}
 
 	void PlayerEntity::Draw(sf::RenderWindow *window)
 	{
 		if(_object)
+		{
+			_object->setPosition(_position);
+			_object->setRotation(_body->GetAngle()*180.0f/3.14f);
+
 			window->draw(*_object);
+		}
 	}
 }

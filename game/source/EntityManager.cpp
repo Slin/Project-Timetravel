@@ -33,6 +33,14 @@ namespace TT
 		_entitiesToAdd.clear();
 	}
 
+	void EntityManager::Interpolate(float factor)
+	{
+		for(Entity *entity:_entities)
+		{
+			entity->Interpolate(factor);
+		}
+	}
+
 	void EntityManager::Draw(sf::RenderWindow *window)
 	{
 		//draw entities

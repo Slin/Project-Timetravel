@@ -17,6 +17,7 @@ namespace TT
 		~PlayerEntity();
 
 		void Update(float timeStep);
+		void Interpolate(float factor);
 		void Draw(sf::RenderWindow *window);
 
 		bool IsGrounded();

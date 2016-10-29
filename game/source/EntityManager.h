@@ -27,6 +27,7 @@ namespace TT
 		void AddEntity(Entity *entity);
 		void RemoveEntity(Entity *entity);
 		void Update(float timeStep);
+		void Interpolate(float factor);
 		void Draw(sf::RenderWindow *windows);
 		void RemoveAllEntities();
 

@@ -30,6 +30,14 @@ namespace TT
 		{
 
 		}
+
+		virtual void Interpolate(float factor)
+		{
+			_position = _position*factor + _previousPosition*(1.0f-factor);
+		}
+
+		sf::Vector2f _position;
+		sf::Vector2f _previousPosition;
 	};
 }
 
