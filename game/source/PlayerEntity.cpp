@@ -23,13 +23,13 @@ namespace TT
 		b2FixtureDef fixtureDef;
 
 		bodyDef.type = b2_dynamicBody;
-		bodyDef.linearDamping = 10.0f;
+		bodyDef.linearDamping = 0.0f;
 		bodyDef.position.Set(_object->getPosition().x*WORLD_TO_BOX2D, _object->getPosition().y*WORLD_TO_BOX2D);
 		_body = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
-		dynamicBox.SetAsBox(_object->getLocalBounds().width*0.2f*WORLD_TO_BOX2D, _object->getLocalBounds().height*0.5f*WORLD_TO_BOX2D);
+		dynamicBox.SetAsBox(_object->getGlobalBounds().width*0.2f*WORLD_TO_BOX2D, (_object->getGlobalBounds().height*0.5f-30.0f)*WORLD_TO_BOX2D);
 		fixtureDef.shape = &dynamicBox;
-		fixtureDef.density = 1.0f;
-		fixtureDef.friction = 10.0f;
+		fixtureDef.density = 0.02f;
+		fixtureDef.friction = 0.0f;
 		fixtureDef.userData = (void*)this;
 		_boxFixture = _body->CreateFixture(&fixtureDef);
 		_body->SetFixedRotation(true);
@@ -71,33 +71,18 @@ namespace TT
 		sf::Vector2f moveDirection;
 
 		moveDirection.x = sf::Keyboard::isKeyPressed(sf::Keyboard::D)-sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-		moveDirection.y = sf::Keyboard::isKeyPressed(sf::Keyboard::S)-sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-		moveDirection.x *= 0.07f;
-		moveDirection.y *= 0.07f;
 
 		if(fabsf(moveDirection.x) > 0.0f)
 		{
-			_boxFixture->SetFriction(0.0f);
-
 			sf::Vector2f scale = _object->getScale();
 			if(scale.x*moveDirection.x < 0.0f)
 			{
 				_object->setScale(-scale.x, scale.y);
 			}
 		}
-		else
-		{
-			_boxFixture->SetFriction(5.0f);
-		}
 
-		if((moveDirection.x < 0.0f && _body->GetLinearVelocity().x > -2.0f) || (moveDirection.x > 0.0f && _body->GetLinearVelocity().x < 2.0f))
-		{
-			_body->ApplyLinearImpulse(b2Vec2(moveDirection.x, 0.0f), b2Vec2(_body->GetPosition().x, _body->GetPosition().y), true);
-		}
-		if((moveDirection.y < 0.0f && _body->GetLinearVelocity().y > -2.0f) || (moveDirection.y > 0.0f && _body->GetLinearVelocity().y < 2.0f))
-		{
-			_body->ApplyLinearImpulse(b2Vec2(0.0f, moveDirection.y), b2Vec2(_body->GetPosition().x, _body->GetPosition().y), true);
-		}
+		_body->ApplyLinearImpulse(b2Vec2((moveDirection.x*3.0f-_body->GetLinearVelocity().x)*_body->GetMass(), 0.0f), _body->GetWorldCenter(), true);
+
 
 		if(_object && _body)
 		{
@@ -108,7 +93,7 @@ namespace TT
 		const b2Vec2 &velocity = _body->GetLinearVelocity();
 		// Animation stuff
 		float frames = 8.0f;
-		if(fabsf(velocity.x) > 0.0f)
+		if(fabsf(velocity.x) > 0.5f)
 		{
 			// WALK
 			frames = 8.0f;

@@ -9,7 +9,7 @@ namespace TT
 	Background::Background(float speed, const std::string path)
 	{
 		_object = World::CreateSprite(path);
-		_object->setOrigin(0.0f, _object->getLocalBounds().height*0.5f);
+		_object->setOrigin(0.5f*World::GetInstance()->GetWindow()->getSize().x, _object->getLocalBounds().height*0.5f);
 		_speed = speed;
 	}
 

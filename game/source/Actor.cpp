@@ -4,7 +4,8 @@
 
 #include "Actor.h"
 
-namespace TT {
+namespace TT
+{
     Actor::Actor(sf::Vector2f position, sf::String spritePath)
     {
         _object = nullptr;
@@ -19,6 +20,7 @@ namespace TT {
         b2FixtureDef fixtureDef;
 
         bodyDef.type = b2_dynamicBody;
+	    //bodyDef.linearDamping = 10.0f;
         bodyDef.position.Set(_object->getPosition().x*WORLD_TO_BOX2D, _object->getPosition().y*WORLD_TO_BOX2D);
         _body = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
         dynamicBox.SetAsBox(_object->getLocalBounds().width*0.2f*WORLD_TO_BOX2D, _object->getLocalBounds().height*0.5f*WORLD_TO_BOX2D);

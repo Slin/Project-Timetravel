@@ -9,7 +9,7 @@
 
 namespace TT
 {
-    class Dialog : public Entity
+    class Dialog
     {
     public:
         static Dialog *GetInstance();
