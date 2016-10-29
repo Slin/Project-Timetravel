@@ -75,8 +75,47 @@ namespace TT
             cout << "WTF?" << endl;
 		}
 
-        Dialog::GetInstance()->SetText("Press ENTER to start");
+		Dialog::GetInstance()->SetText("Press ENTER to start");
     }
+
+	bool World::SelectPuzzlePiece(int id)
+	{
+		if(_currentLevel == 2)
+		{
+			if(_puzzleState == 0)
+			{
+				if (id == 0)
+					_puzzleState = 1;
+				else
+					_puzzleState = 0;
+			}
+			else if(_puzzleState == 1)
+			{
+				if (id == 2)
+					_puzzleState = 2;
+				else
+					_puzzleState = 0;
+			}
+			else if(_puzzleState == 2)
+			{
+				if (id == 1)
+					_puzzleState = 3;
+				else
+					_puzzleState = 0;
+			}
+
+			if(_puzzleState == 3)
+			{
+				World::KEYS[1] = true;
+				std::cout << "FUCK YEAH!" << std::endl;
+			}
+
+			if(_puzzleState == 0)
+				std::cout << "ERROR!" << std::endl;
+
+			return (_puzzleState > 0);
+		}
+	}
 
 	void World::LoadLevel1()
 	{
@@ -120,9 +159,9 @@ namespace TT
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
-		new Altar(sf::Vector2f(2285, 278));
-		new Altar(sf::Vector2f(2452, 278));
-		new Altar(sf::Vector2f(2623, 278));
+		new Altar(0, sf::Vector2f(2285, 278));
+		new Altar(1, sf::Vector2f(2452, 278));
+		new Altar(2, sf::Vector2f(2623, 278));
 
 		new Background(-0.3f, "assets/textures/level_2/2.png"); //->5759+(5759-1920)*0.5
 		new Background(-0.7f, "assets/textures/level_2/1.png"); //->5759
@@ -135,6 +174,7 @@ namespace TT
 
 	void World::Reset()
 	{
+		_puzzleState = NULL;
         GUIManager::GetInstance()->RemoveAllWidgets();
 		EntityManager::GetInstance()->RemoveAllEntities();
 		_player = nullptr;
@@ -149,7 +189,7 @@ namespace TT
 
 	void World::Loop()
 	{
-        LoadStartScreen();
+        LoadLevel2();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
