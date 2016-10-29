@@ -58,9 +58,10 @@ namespace TT
 		_window = new sf::RenderWindow(sf::VideoMode(1920, 1200), "Timetravel");
 #endif
 		_window->setFramerateLimit(60);
+		_window->setVerticalSyncEnabled(true);
 
-		_view = new sf::View(sf::FloatRect(0.0f, -0.5*_window->getSize().y, _window->getSize().x, _window->getSize().y));
-//		_view->zoom(1200.0f/_window->getSize().y);
+		float aspectRatio = static_cast<float>(_window->getSize().y)/static_cast<float>(_window->getSize().x);
+		_view = new sf::View(sf::FloatRect(0.0f, -0.5*1920, 1920, 1920.0f*aspectRatio));
 		_window->setView(*_view);
 	}
 
@@ -107,8 +108,8 @@ namespace TT
 		new KeyEntity(sf::Vector2f(400.0f, 300.0f));
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
-		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 
 	}
 
@@ -128,8 +129,8 @@ namespace TT
 		new Background(-0.5f, "assets/textures/level_test/front.png");
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
-		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 	}
 
 	void World::Reset()
@@ -207,9 +208,9 @@ namespace TT
 			_view->setCenter(0.0f, _view->getCenter().y);
 		}
 
-		if(_view->getCenter().x > (5759.0f-_window->getSize().x))
+		if(_view->getCenter().x > (5759.0f-_view->getSize().x))
 		{
-			_view->setCenter(5759.0f-_window->getSize().x, _view->getCenter().y);
+			_view->setCenter(5759.0f-_view->getSize().x, _view->getCenter().y);
 		}
 	}
 
@@ -219,7 +220,7 @@ namespace TT
 
 		if(_player)
 		{
-			float windowWidth = _window->getSize().x;
+			float windowWidth = _view->getSize().x;
 			if(_currentLevel == 1)
 			{
 				if(_player->_position.x > 5650.0f-windowWidth*0.5f)
