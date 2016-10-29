@@ -64,46 +64,30 @@ namespace TT
 		_window->setView(*_view);
 	}
 
-	void World::LoadLevelTest()
+	void World::LoadLevel1Grey()
 	{
-		_currentLevel = 0;
+		_currentLevel = 1;
 
 		Reset();
-		new Background(1.0f, "assets/textures/level_test/horizon.png");
-		new Clouds(20.0f, 0.8f, "assets/textures/level_test/clouds.png");
-		new Background(0.7f, "assets/textures/level_test/distant.png");
-		new Background(0.5f, "assets/textures/level_test/back.png");
-		new Background(0.0f, "assets/textures/level_test/walkable.png");
+		new Background(1.0f, "assets/textures/level_1/6.png"); //->1920
+		//new Clouds(20.0f, 0.8f, "assets/textures/level_1_early/2.png");
+		new Background(0.7f, "assets/textures/level_1/5.png");
+		new Background(0.5f, "assets/textures/level_1/4.png");
+		new Background(0.0f, "assets/textures/level_1/3.png");
 
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
 
-		new Background(-0.5f, "assets/textures/level_test/front.png");
+		new Background(-0.3f, "assets/textures/level_1/2.png"); //->5759+(5759-1920)*0.5
+		new Background(-0.7f, "assets/textures/level_1/1.png"); //->5759
 
-		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
-	}
-
-	void World::LoadLevel1Early()
-	{
-		_currentLevel = 1;
-
-		Reset();
-		new Background(1.0f, "assets/textures/level_1_early/1.png"); //->1920
-		//new Background(0.8f, "assets/textures/level_1_early/2.png"); //->5759-(5759-1920)*0.8
-		new Clouds(20.0f, 0.8f, "assets/textures/level_1_early/2.png");
-		new Background(0.7f, "assets/textures/level_1_early/3.png");
-		new Background(0.5f, "assets/textures/level_1_early/4.png"); //->5759+(5759-1920)*0.5
-		new Background(0.0f, "assets/textures/level_1_early/5.png"); //->5759
 
 		ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
 		emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
 
 		new NPC(sf::Vector2f(2350.0f, 278.5f));
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
-
-		new Background(-0.3f, "assets/textures/level_1_early/6.png");
-		new Background(-0.7f, "assets/textures/level_1_early/7.png");
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
@@ -116,19 +100,22 @@ namespace TT
 		_currentLevel = 2;
 
 		Reset();
-		new Background(1.0f, "assets/textures/level_test/horizon.png");
-		new Clouds(20.0f, 0.8f, "assets/textures/level_test/clouds.png");
-		new Background(0.7f, "assets/textures/level_test/distant.png");
-		new Background(0.5f, "assets/textures/level_test/back.png");
-		new Background(0.0f, "assets/textures/level_test/walkable.png");
+
+		new Background(1.0f, "assets/textures/level_2/6.png"); //->1920
+		//new Background(0.8f, "assets/textures/level_1_early/2.png"); //->5759-(5759-1920)*0.8
+		//new Clouds(20.0f, 0.8f, "assets/textures/level_1_early/2.png");
+		new Background(0.7f, "assets/textures/level_2/5.png");
+		new Background(0.5f, "assets/textures/level_2/4.png");
+		new Background(0.0f, "assets/textures/level_2/3.png");
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
-		new Background(-0.5f, "assets/textures/level_test/front.png");
+		new Background(-0.3f, "assets/textures/level_2/2.png"); //->5759+(5759-1920)*0.5
+		new Background(-0.7f, "assets/textures/level_2/1.png"); //->5759
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 	}
 
 	void World::Reset()
@@ -148,7 +135,7 @@ namespace TT
 	{
 		Dialog::GetInstance();
 
-		LoadLevel1Early();
+		LoadLevel1Grey();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
@@ -206,9 +193,19 @@ namespace TT
 			_view->setCenter(0.0f, _view->getCenter().y);
 		}
 
-		if(_view->getCenter().x > (5759.0f-_view->getSize().x))
+		if(_currentLevel == 1)
 		{
-			_view->setCenter(5759.0f-_view->getSize().x, _view->getCenter().y);
+			if(_view->getCenter().x > (5759.0f-_view->getSize().x))
+			{
+				_view->setCenter(5759.0f-_view->getSize().x, _view->getCenter().y);
+			}
+		}
+		if(_currentLevel == 2)
+		{
+			if(_view->getCenter().x > (3840.0f-_view->getSize().x))
+			{
+				_view->setCenter(3840.0f-_view->getSize().x, _view->getCenter().y);
+			}
 		}
 	}
 
@@ -232,7 +229,7 @@ namespace TT
 				if(_player->_position.x < -windowWidth*0.5f+100.0f)
 				{
 					_playerSpawnPosition = 5600-windowWidth*0.5;
-					LoadLevel1Early();
+					LoadLevel1Grey();
 				}
 			}
 		}

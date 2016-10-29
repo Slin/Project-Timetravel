@@ -89,8 +89,7 @@ namespace TT
 		World();
 
 		void Reset();
-		void LoadLevelTest();
-		void LoadLevel1Early();
+		void LoadLevel1Grey();
 		void LoadLevel2Early();
 
 		static World *_instance;
