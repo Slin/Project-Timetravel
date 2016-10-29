@@ -210,7 +210,6 @@ namespace TT {
 			{
                 _walkingSoundCave[sound_counter % 7].play();
                 sound_counter++;
-				cout << _animationTimer << "\n";
             }
         }
     }
