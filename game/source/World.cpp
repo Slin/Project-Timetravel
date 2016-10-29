@@ -129,10 +129,8 @@ namespace TT
                 int counter = 0;
                 while (time.asSeconds() > 1.0f / 120.0f && counter < 20)
                 {
-                    _physicsWorld->Step(1.0f / 120.0f, 8, 3);
-
-                    EntityManager::GetInstance()->Update(1.0f / 120.0f);
-                    Update(1.0f / 60.0f);
+                    Physics(1.0f / 120.0f);
+					UpdateLogic(1.0f / 120.0f);
 
                     time -= sf::seconds(1.0f / 120.0f);
                     counter += 1;
@@ -147,12 +145,25 @@ namespace TT
                 _window->clear(sf::Color::Black);
                 EntityManager::GetInstance()->Draw(_window);
 
-	            _window->setView(sf::View(sf::FloatRect(0.0f, -0.5*_window->getSize().y, _window->getSize().x, _window->getSize().y)));
+	            _window->setView(sf::View(sf::FloatRect(0.0f, -0.5f * _window->getSize().y, _window->getSize().x, _window->getSize().y)));
 	            Dialog::GetInstance()->Draw(_window);
 
                 _window->display();
             }
 		}
+	}
+
+	void World::Physics(float fixedTime) {
+		_physicsWorld->Step(fixedTime, 8, 3);
+	}
+
+	void World::UpdateLogic(float deltaTime) {
+		EntityManager::GetInstance()->Update(deltaTime);
+		Update(deltaTime);
+	}
+
+	void World::Render() {
+
 	}
 
 	void World::Update(float timeStep)

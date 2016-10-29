@@ -33,7 +33,7 @@ set(SOURCE_FILES
         source/Background.h
         source/Background.cpp
         source/Clouds.cpp
-        source/Clouds.h)
+        source/Clouds.h source/Widget.cpp source/Widget.h source/GUIManager.cpp source/GUIManager.h)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 

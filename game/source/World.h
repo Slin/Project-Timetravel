@@ -97,6 +97,9 @@ namespace TT
 		b2World *_physicsWorld;
 
         void HandleEvents();
+        void Physics(float fixedTime);
+        void UpdateLogic(float deltaTime);
+        void Render();
 	};
 }
 
