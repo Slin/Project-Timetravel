@@ -4,6 +4,7 @@
 
 #include "World.h"
 #include "PlayerEntity.h"
+#include "NPC.h"
 #include "Background.h"
 #include "KeyEntity.h"
 #include "Dialog.h"
@@ -88,6 +89,7 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_1_early/4.png"); //->5759+(5759-1920)*0.5
 		new Background(0.0f, "assets/textures/level_1_early/5.png"); //->5759
 
+		new NPC(sf::Vector2f(200.0f, 300.0f));
 		new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
 
 		new Background(-0.3f, "assets/textures/level_1_early/6.png");
@@ -190,7 +192,7 @@ namespace TT
 
 	void World::Update(float timeStep)
 	{
-
+		GUIManager::GetInstance()->Update(timeStep);
 	}
 
     void World::HandleEvents() {

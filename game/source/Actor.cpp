@@ -7,13 +7,14 @@
 
 namespace TT
 {
-    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor) {
+    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale) {
         _object = nullptr;
 
         _object = World::CreateSprite(spritePath, false);
         _object->setTextureRect(sf::IntRect(0, 0, 64, 64));
         _object->setOrigin(_object->getLocalBounds().width * 0.5f, _object->getLocalBounds().height * 0.5f);
         _object->move(position);
+        _object->scale(scale);
 
         b2BodyDef bodyDef;
         b2PolygonShape dynamicBox;

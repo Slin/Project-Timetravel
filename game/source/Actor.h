@@ -13,7 +13,7 @@ namespace TT {
     class Actor : public Entity {
 
     public:
-        Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType = b2_dynamicBody, bool sensor = false);
+        Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType = b2_dynamicBody, bool sensor = false, sf::Vector2f scale = sf::Vector2f(1.0f, 1.0f));
         ~Actor();
 
         virtual void Update(float timeStep);
