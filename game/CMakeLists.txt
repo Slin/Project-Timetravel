@@ -36,7 +36,7 @@ set(SOURCE_FILES
         source/Clouds.h
         source/LoadingScreen.cpp
         source/LoadingScreen.h
-        source/Widget.h source/GUIManager.cpp source/GUIManager.h source/ContactListener.cpp source/ContactListener.h source/ContactListener.cpp source/NPC.cpp source/NPC.h source/Altar.cpp source/Altar.h source/ActorEmitter.cpp source/ActorEmitter.h)
+        source/Widget.h source/GUIManager.cpp source/GUIManager.h source/ContactListener.cpp source/ContactListener.h source/ContactListener.cpp source/NPC.cpp source/NPC.h source/Altar.cpp source/Altar.h source/ActorEmitter.cpp source/ActorEmitter.h source/PulsatingLight.cpp source/PulsatingLight.h)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 

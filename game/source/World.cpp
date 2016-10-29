@@ -13,6 +13,7 @@
 #include "GUIManager.h"
 #include "LoadingScreen.h"
 #include "Altar.h"
+#include "PulsatingLight.h"
 #include <iostream>
 
 #if __APPLE__
@@ -92,6 +93,9 @@ namespace TT
 		new Background(0.7f, "assets/textures/level_1/5.png");
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
+
+		new PulsatingLight("assets/textures/level_1/cavelight.png", sf::Vector2f(5254 - 0.5*_view->getSize().x, 140), 2.0f, 0.25f);
+		new PulsatingLight("assets/textures/level_1/keylight.png", sf::Vector2f(2413 - 0.5*_view->getSize().x, 184), 5.0f, 0.2f);
 
 		if(!World::KEYS[0])
 		{
