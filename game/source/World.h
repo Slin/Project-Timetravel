@@ -87,14 +87,15 @@ namespace TT
 			return body;
 		}
 
-	private:
-		World();
-
-		void Reset();
 		void LoadStartScreen();
 		void LoadLevel1();
 		void LoadLevel2();
 		void LoadLevel3();
+
+	private:
+		World();
+
+		void Reset();
 
 		static World *_instance;
 		ContactListener _contactListener;

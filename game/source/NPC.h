@@ -20,6 +20,10 @@ namespace TT
         void OnCollisionStart(b2Fixture* other) override;
         void OnCollisionExit(b2Fixture* other) override;
 
+        void OnBlur(Entity* interactor) override ;
+        void OnFocus(Entity* interactor) override ;
+        void OnInteract(Entity* interactor) override ;
+
     private:
 		static bool SOUNDS_LOADED;
 		static sf::Sound MUMBLES[];

@@ -47,7 +47,7 @@ namespace TT
                     Dialog::GetInstance()->SetText("Correct! You've found the password. You can now enter the dungeon.");
                     Dialog::GetInstance()->SetResetTimer(3.2f);
                     PlayMumbleSound(4);
-
+                    canInteract = true;
                 } else {
                     // Write dialog
 
@@ -92,5 +92,18 @@ namespace TT
         if (MUMBLES[id].getStatus() != sf::SoundSource::Playing) {
             MUMBLES[id].play();
         }
+    }
+
+    void NPC::OnBlur(Entity *interactor) {
+        Actor::OnBlur(interactor);
+    }
+
+    void NPC::OnFocus(Entity *interactor) {
+        Actor::OnFocus(interactor);
+    }
+
+    void NPC::OnInteract(Entity *interactor) {
+        Actor::OnInteract(interactor);
+        World::GetInstance()->GetInstance()->LoadLevel3();
     }
 }

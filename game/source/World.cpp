@@ -63,6 +63,10 @@ namespace TT
 		float aspectRatio = static_cast<float>(_window->getSize().y)/static_cast<float>(_window->getSize().x);
 		_view = new sf::View(sf::FloatRect(0.0f, -0.5*1920.0f*aspectRatio, 1920, 1920.0f*aspectRatio));
 		_window->setView(*_view);
+
+		if (!_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg")) {
+			cout << "WTF?" << endl;
+		}
 	}
 
 	void World::LoadStartScreen() {
@@ -70,10 +74,6 @@ namespace TT
 		Reset();
 
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
-
-		if (!_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg")) {
-            cout << "WTF?" << endl;
-		}
 
 		Dialog::GetInstance()->SetText("Press ENTER to start");
     }
@@ -115,6 +115,7 @@ namespace TT
 
 			return (_puzzleState > 0);
 		}
+		return false;
 	}
 
 	void World::LoadLevel1()
@@ -198,7 +199,7 @@ namespace TT
 
 	void World::Reset()
 	{
-		_puzzleState = NULL;
+		_puzzleState = 0;
         GUIManager::GetInstance()->RemoveAllWidgets();
 		EntityManager::GetInstance()->RemoveAllEntities();
 		_player = nullptr;
@@ -213,13 +214,13 @@ namespace TT
 
 	void World::Loop()
 	{
-        LoadLevel3();
+		LoadStartScreen();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
 
-		_bgm.setVolume(20.0f);
+		_bgm.setVolume(15.0f);
         _bgm.setLoop(true);
         _bgm.play();
 
