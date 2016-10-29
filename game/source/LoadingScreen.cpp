@@ -5,16 +5,34 @@
 
 
 namespace TT {
+
+	LoadingScreen *LoadingScreen::_instance = NULL;
+
+	LoadingScreen *LoadingScreen::GetInstance() {
+		if (!_instance)
+			_instance = new LoadingScreen(500.0f);
+
+		return _instance;
+	}
+
+
+
+	LoadingScreen::~LoadingScreen()
+	{
+		_instance = NULL;
+	}
+
 	LoadingScreen::LoadingScreen(float speed)
 	{
 		_speed = speed;
 		sf::Vector2f size(((float)World::GetInstance()->GetWindow()->getSize().x), ((float)World::GetInstance()->GetWindow()->getSize().y));
 		rectangle.setSize(size);
 		rectangle.setOrigin((float)0.5*size.x, 0.5*size.y);
-		rectangle.setFillColor(sf::Color(0, 0, 0, 0));
-		_alpha = 0;
-		fadingin = true;
+		rectangle.setFillColor(sf::Color(0, 0, 0, 255));
+		_alpha = 255;
+		fadingin = false;
 		fadingout = false;
+		isfinished = false;
 	}
 
 	void LoadingScreen::OnGUI(sf::RenderWindow *window)
@@ -24,16 +42,27 @@ namespace TT {
 
 	void LoadingScreen::Update(float timeStep)
 	{
-		if (_alpha < 255 && fadingin)
+		if (_alpha <= 255.0 && fadingin)
 		{
 			_alpha += _speed *timeStep;
-			rectangle.setFillColor(sf::Color(0, 0, 0, 0 + _alpha));
+			rectangle.setFillColor(sf::Color(0, 0, 0, _alpha));
 		}
-		if (_alpha > 0 && fadingout)
+		if (_alpha >= 0.0 && fadingout)
 		{
 			_alpha -= _speed *timeStep;
-			rectangle.setFillColor(sf::Color(0, 0, 0, 0 + _alpha));
+			rectangle.setFillColor(sf::Color(0, 0, 0, _alpha));
 		}
+		if (_alpha < 0.0 && fadingout)
+		{
+			fadingout = false;
+			rectangle.setFillColor(sf::Color(0, 0, 0, 0));
+		}
+		if (_alpha > 255.0 && fadingin)
+		{
+			fadingin = false;
+			isfinished = true;
+		}
+
 	}
 
 	void LoadingScreen::Draw(sf::RenderWindow *window)
@@ -42,13 +71,35 @@ namespace TT {
 		window->draw(rectangle);
 	}
 
-	void LoadingScreen::Fadein(float timeStep)
+	bool LoadingScreen::Fadein()
 	{
-		fadingin = true;
+		if (fadingin == false && isfinished == false)
+		{
+			isfinished = false;
+			_alpha = 0;
+			rectangle.setFillColor(sf::Color(0, 0, 0, 0));
+			fadingin = true;
+		}
+		return isfinished;
 	}
 
-	void LoadingScreen::Fadeout(float timeStep)
+	void LoadingScreen::Fadeout()
 	{
+		_alpha = 255;
+		rectangle.setFillColor(sf::Color(0, 0, 0, 255));
 		fadingout = true;
 	}
+
+	bool LoadingScreen::isLoading()
+	{
+		return (fadingin || fadingout);
+	}
+
+	bool LoadingScreen::isFinished()
+	{
+		return isfinished;
+
+	}
+
+	
 }

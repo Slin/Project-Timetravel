@@ -11,7 +11,7 @@
 #include "Clouds.h"
 #include "ActorEmitter.h"
 #include "GUIManager.h"
-
+#include "LoadingScreen.h"
 #include <iostream>
 
 #if __APPLE__
@@ -99,7 +99,7 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-
+		LoadingScreen::GetInstance()->Fadeout();
 	}
 
 	void World::LoadLevel2()
@@ -123,6 +123,7 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		LoadingScreen::GetInstance()->Fadeout();
 	}
 
 	void World::Reset()
@@ -137,6 +138,7 @@ namespace TT
 		b2Vec2 gravity(0.0f, 9.81f);
 		_physicsWorld = new b2World(gravity);
         _physicsWorld->SetContactListener(&_contactListener);
+		GUIManager::GetInstance()->RemoveAllWidgets();
 	}
 
 	void World::Loop()
@@ -233,7 +235,11 @@ namespace TT
 				if(_player->_position.x > 5650.0f-windowWidth*0.5f)
 				{
 					_playerSpawnPosition = -windowWidth*0.5f+200.0f;
-					LoadLevel2();
+					LoadingScreen::GetInstance()->Fadein();
+					if (LoadingScreen::GetInstance()->Fadein())
+					{
+						LoadLevel2();
+					}
 				}
 			}
 			if(_currentLevel == 2)
@@ -241,7 +247,11 @@ namespace TT
 				if(_player->_position.x < -windowWidth*0.5f+100.0f)
 				{
 					_playerSpawnPosition = 5600-windowWidth*0.5;
-					LoadLevel1();
+					LoadingScreen::GetInstance()->Fadein();
+					if (LoadingScreen::GetInstance()->Fadein())
+					{
+						LoadLevel1();
+					}
 				}
 			}
 		}
