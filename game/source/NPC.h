@@ -26,7 +26,7 @@ namespace TT
 
     private:
 		static bool SOUNDS_LOADED;
-		static sf::Sound MUMBLES[];
+		sf::Sound MUMBLES[4];
 
 		void PlayMumbleSound(unsigned int id);
 
