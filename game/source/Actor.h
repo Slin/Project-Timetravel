@@ -22,6 +22,8 @@ namespace TT {
         virtual void OnCollisionStart(b2Fixture* other);
         virtual void OnCollisionExit(b2Fixture* other);
 
+        bool canInteract = false;
+
     private:
         sf::Sprite *_object;
         b2Body *_body;

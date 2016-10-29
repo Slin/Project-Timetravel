@@ -9,7 +9,7 @@
 
 namespace TT
 {
-	class PlayerEntity : public Entity
+	class PlayerEntity : public Entity, public b2QueryCallback
 	{
 	public:
 
@@ -22,6 +22,8 @@ namespace TT
 
 		bool IsGrounded();
 
+		bool ReportFixture(b2Fixture* fixture);
+
 	private:
 		sf::Sprite *_object;
 		b2Body *_body;
@@ -30,6 +32,7 @@ namespace TT
 		sf::Sound _sound;
 
 		float _animationTimer;
+		void FindInteractionObjects();
 	};
 }
 

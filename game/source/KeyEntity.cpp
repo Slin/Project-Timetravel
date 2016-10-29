@@ -37,8 +37,5 @@ namespace TT
                 EntityManager::GetInstance()->RemoveEntity(this);
             }
         }
-
-
-
     }
 }

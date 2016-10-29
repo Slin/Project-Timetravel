@@ -3,6 +3,7 @@
 //
 
 #include "PlayerEntity.h"
+#include "Actor.h"
 
 #include <iostream>
 
@@ -110,6 +111,8 @@ namespace TT
 
 			_object->setTextureRect(sf::IntRect(((int)_animationTimer)*64, 0, 64, 64));
 		}
+
+		FindInteractionObjects();
 	}
 
 	void PlayerEntity::Interpolate(float factor)
@@ -128,4 +131,22 @@ namespace TT
 			window->draw(*_object);
 		}
 	}
+
+	void PlayerEntity::FindInteractionObjects() {
+		b2AABB aabb;
+		aabb.lowerBound = b2Vec2((_object->getPosition().x - _object->getGlobalBounds().width) * WORLD_TO_BOX2D, ((_object->getPosition().y -_object->getGlobalBounds().height) * WORLD_TO_BOX2D));
+		aabb.upperBound = b2Vec2((_object->getPosition().x + _object->getGlobalBounds().width) * WORLD_TO_BOX2D, ((_object->getPosition().y +_object->getGlobalBounds().height) * WORLD_TO_BOX2D));
+		World::GetInstance()->GetPhysicsWorld()->QueryAABB( this, aabb );
+	}
+
+	bool PlayerEntity::ReportFixture(b2Fixture *fixture) {
+		void *bodyUserData = fixture->GetBody()->GetUserData();
+		if (bodyUserData && bodyUserData != this) {
+			Actor* actor = static_cast<Actor *>(bodyUserData);
+			if(actor->canInteract) {
+				cout << "PlayerEntity::ReportFixture" << endl;
+			}
+		}
+		return false;
+	};
 }
