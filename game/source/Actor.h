@@ -40,9 +40,9 @@ namespace TT {
         int _animationFrames = 0;
         float _animationTimer = 0.0f;
         float _animationSpeed = 1.0f;
+        sf::Sprite *_object;
 
     private:
-        sf::Sprite *_object;
         b2Body *_body;
         b2Fixture *_boxFixture;
         sf::Vector2f _spawnPosition;

@@ -25,6 +25,9 @@ namespace TT {
             string text;
             float duration = 2.0f;
             int loadLevel = -1;
+            bool spawnCharacter;
+            sf::Vector2f spawnCharacterPosition;
+            string spawnCharacterSprite;
         };
 
     private:

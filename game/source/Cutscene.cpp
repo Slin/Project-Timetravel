@@ -4,6 +4,7 @@
 
 #include "Cutscene.h"
 #include "Dialog.h"
+#include "FakeCharacter.h"
 
 namespace TT {
 
@@ -22,6 +23,9 @@ namespace TT {
         Step step;
         step.duration = 3.0f;
         step.text = "I remember him stepping out of the portal that opened in our home, the enemy I thought defeated.";
+        step.spawnCharacter = true;
+        step.spawnCharacterPosition = sf::Vector2f(550.0f, 275.0f);
+        step.spawnCharacterSprite = "assets/textures/characters/player_startscene.png";
         _steps_0[0] = step;
         step.duration = 3.0f;
         step.text = "I remember him slinging his spells at us, telling me I had created my own doom.";
@@ -79,6 +83,12 @@ namespace TT {
             if (step.loadLevel >= 0) {
                 World::GetInstance()->LoadLevel(step.loadLevel);
             }
+
+            if(step.spawnCharacter) {
+                FakeCharacter *character = new FakeCharacter(step.spawnCharacterPosition, step.spawnCharacterSprite);
+                character->StartFadeIn(true);
+            }
+
             _nextStepTimer = step.duration;
             _currentStep++;
         }

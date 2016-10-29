@@ -14,7 +14,6 @@
 #include "LoadingScreen.h"
 #include "Cutscene.h"
 #include "Altar.h"
-#include "FakeCharacter.h"
 #include <iostream>
 
 #if __APPLE__
@@ -82,7 +81,6 @@ namespace TT {
         Reset();
 
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
-        new FakeCharacter(sf::Vector2f(550.0f, 275.0f), "assets/textures/characters/player_startscene.png");
 
         Dialog::GetInstance()->SetText("Press ENTER to start");
 
