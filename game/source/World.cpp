@@ -107,11 +107,7 @@ namespace TT
 			if(_puzzleState == 3)
 			{
 				World::KEYS[1] = true;
-				std::cout << "FUCK YEAH!" << std::endl;
 			}
-
-			if(_puzzleState == 0)
-				std::cout << "ERROR!" << std::endl;
 
 			return (_puzzleState > 0);
 		}
@@ -290,6 +286,13 @@ namespace TT
 				_view->setCenter(3840.0f-_view->getSize().x, _view->getCenter().y);
 			}
 		}
+		if(_currentLevel == 3)
+		{
+			if(_view->getCenter().x > (3840.0f-_view->getSize().x))
+			{
+				_view->setCenter(3840.0f-_view->getSize().x, _view->getCenter().y);
+			}
+		}
 	}
 
 	void World::Update(float timeStep)
@@ -316,6 +319,18 @@ namespace TT
 				if(_player->_position.x < -windowWidth*0.5f+100.0f)
 				{
 					_playerSpawnPosition = 5600-windowWidth*0.5;
+					LoadingScreen::GetInstance()->Fadein();
+					if (LoadingScreen::GetInstance()->Fadein())
+					{
+						LoadLevel1();
+					}
+				}
+			}
+			if(_currentLevel == 3)
+			{
+				if(_player->_position.x < -windowWidth*0.5f+100.0f)
+				{
+					_playerSpawnPosition = 2460;
 					LoadingScreen::GetInstance()->Fadein();
 					if (LoadingScreen::GetInstance()->Fadein())
 					{
