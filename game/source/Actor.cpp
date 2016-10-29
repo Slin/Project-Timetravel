@@ -5,10 +5,9 @@
 #include "Actor.h"
 #include <iostream>
 
-namespace TT
-{
-    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale, sf::Vector2f size) : canInteract(false)
-    {
+namespace TT {
+    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale,
+                 sf::Vector2f size) : canInteract(false) {
         _object = nullptr;
         _size = size;
 
@@ -36,7 +35,7 @@ namespace TT
             fixtureDef.friction = 10.0f;
         }
 
-        fixtureDef.userData = (void*)this;
+        fixtureDef.userData = (void *) this;
         fixtureDef.isSensor = sensor;
 
         _boxFixture = _body->CreateFixture(&fixtureDef);
@@ -55,23 +54,30 @@ namespace TT
         }
     }
 
-    void Actor::Update(float timeStep)
-    {
-
-        if(_object && _body)
-        {
+    void Actor::Update(float timeStep) {
+        if (_object && _body) {
             _previousPosition = _object->getPosition();
-            _object->setPosition(_body->GetPosition().x/WORLD_TO_BOX2D, _body->GetPosition().y/WORLD_TO_BOX2D);
-            _object->setRotation(_body->GetAngle()*180.0f/3.14f);
+            _object->setPosition(_body->GetPosition().x / WORLD_TO_BOX2D, _body->GetPosition().y / WORLD_TO_BOX2D);
+            _object->setRotation(_body->GetAngle() * 180.0f / 3.14f);
             _position = _object->getPosition();
         }
         _object->setTextureRect(sf::IntRect(_size.x * _spriteIndex, 0, _size.x, _size.y));
+
+        Animate(timeStep);
     }
 
-    void Actor::Draw(sf::RenderWindow *window)
-    {
-        if(!hidden && _object)
+    void Actor::Draw(sf::RenderWindow *window) {
+        if (!hidden && _object)
             window->draw(*_object);
+    }
+
+    void Actor::Animate(float timeStep) {
+        _animationTimer += timeStep * 2.0f * _animationSpeed;
+
+        if (_animationTimer >= _animationFrames)
+            _animationTimer = 0.0f;
+
+        _spriteIndex = (int) _animationTimer;
     }
 
     void Actor::OnCollisionStart(b2Fixture *other) {

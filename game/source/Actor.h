@@ -21,6 +21,7 @@ namespace TT {
 
         virtual void Update(float timeStep);
         virtual void Draw(sf::RenderWindow *window);
+        virtual void Animate(float timeStep);
 
         virtual void OnCollisionStart(b2Fixture* other);
         virtual void OnCollisionExit(b2Fixture* other);
@@ -36,6 +37,9 @@ namespace TT {
     protected:
         int _spriteIndex = 0;
         sf::Vector2f _size;
+        int _animationFrames = 0;
+        float _animationTimer = 0.0f;
+        float _animationSpeed = 1.0f;
 
     private:
         sf::Sprite *_object;

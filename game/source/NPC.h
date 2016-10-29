@@ -31,6 +31,7 @@ namespace TT
 		void PlayMumbleSound(uint id);
 
         int talkCounter = 0;
+		int idleAnimationFrames = 14;
 	};
 }
 
