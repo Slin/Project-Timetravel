@@ -37,7 +37,7 @@ namespace TT
 		return _instance;
 	}
 
-	World::World() : _physicsWorld(nullptr), _player(nullptr), _playerSpawnPosition(0.0f)
+	World::World() : _physicsWorld(nullptr), _player(nullptr), _playerSpawnPosition(0.0f), _wantsToLoadLevel(-1)
 	{
 #if __APPLE__ && !(TARGET_OS_IPHONE) && NDEBUG
 		CFBundleRef bundle = CFBundleGetMainBundle();
@@ -64,9 +64,7 @@ namespace TT
 		_view = new sf::View(sf::FloatRect(0.0f, -0.5*1920.0f*aspectRatio, 1920, 1920.0f*aspectRatio));
 		_window->setView(*_view);
 
-		if (!_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg")) {
-			cout << "WTF?" << endl;
-		}
+		_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg");
 	}
 
 	void World::LoadStartScreen() {
@@ -76,6 +74,8 @@ namespace TT
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
 
 		Dialog::GetInstance()->SetText("Press ENTER to start");
+
+		LoadingScreen::GetInstance()->Fadeout();
     }
 
 	bool World::SelectPuzzlePiece(int id)
@@ -114,6 +114,11 @@ namespace TT
 		return false;
 	}
 
+	void World::LoadLevel(int level)
+	{
+		_wantsToLoadLevel = level;
+	}
+
 	void World::LoadLevel1()
 	{
 		_currentLevel = 1;
@@ -141,7 +146,7 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-		// LoadingScreen::GetInstance()->Fadeout();
+		LoadingScreen::GetInstance()->Fadeout();
 	}
 
 	void World::LoadLevel2()
@@ -169,11 +174,13 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-		// LoadingScreen::GetInstance()->Fadeout();
+		LoadingScreen::GetInstance()->Fadeout();
 	}
 
 	void World::LoadLevel3()
 	{
+		float windowWidth = _view->getSize().x;
+		_playerSpawnPosition = -windowWidth*0.5f+200.0f;
 		_currentLevel = 3;
 
 		Reset();
@@ -190,7 +197,7 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
-		// LoadingScreen::GetInstance()->Fadeout();
+		LoadingScreen::GetInstance()->Fadeout();
 	}
 
 	void World::Reset()
@@ -298,19 +305,44 @@ namespace TT
 	void World::Update(float timeStep)
 	{
 		GUIManager::GetInstance()->Update(timeStep);
+		float windowWidth = _view->getSize().x;
+
+		if(_wantsToLoadLevel > -1)
+		{
+			_playerSpawnPosition = -windowWidth*0.5f+200.0f;
+			if(LoadingScreen::GetInstance()->Fadein())
+			{
+				if(_wantsToLoadLevel == 0)
+					LoadStartScreen();
+				if(_wantsToLoadLevel == 1)
+					LoadLevel1();
+				if(_wantsToLoadLevel == 2)
+					LoadLevel2();
+				if(_wantsToLoadLevel == 3)
+					LoadLevel3();
+
+				_wantsToLoadLevel = -1;
+			}
+		}
 
 		if(_player)
 		{
-			float windowWidth = _view->getSize().x;
 			if(_currentLevel == 1)
 			{
 				if(_player->_position.x > 5650.0f-windowWidth*0.5f)
 				{
-					_playerSpawnPosition = -windowWidth*0.5f+200.0f;
-					LoadingScreen::GetInstance()->Fadein();
-					if (LoadingScreen::GetInstance()->Fadein())
+					if(World::KEYS[0])
 					{
-						LoadLevel2();
+						_playerSpawnPosition = -windowWidth*0.5f+200.0f;
+						if(LoadingScreen::GetInstance()->Fadein())
+						{
+							LoadLevel2();
+						}
+					}
+					else
+					{
+						Dialog::GetInstance()->SetText("The gate is locked.");
+						Dialog::GetInstance()->SetResetTimer(3.0f);
 					}
 				}
 			}
@@ -319,7 +351,6 @@ namespace TT
 				if(_player->_position.x < -windowWidth*0.5f+100.0f)
 				{
 					_playerSpawnPosition = 5600-windowWidth*0.5;
-					LoadingScreen::GetInstance()->Fadein();
 					if (LoadingScreen::GetInstance()->Fadein())
 					{
 						LoadLevel1();
@@ -331,7 +362,6 @@ namespace TT
 				if(_player->_position.x < -windowWidth*0.5f+100.0f)
 				{
 					_playerSpawnPosition = 2460;
-					LoadingScreen::GetInstance()->Fadein();
 					if (LoadingScreen::GetInstance()->Fadein())
 					{
 						LoadLevel1();
@@ -374,8 +404,9 @@ namespace TT
                     }
 					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 					{
-						if(_currentLevel == 0){
-							LoadLevel1();
+						if(_currentLevel == 0)
+						{
+							LoadLevel(1);
 						}
 					}
 

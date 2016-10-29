@@ -104,6 +104,6 @@ namespace TT
 
     void NPC::OnInteract(Entity *interactor) {
         Actor::OnInteract(interactor);
-        World::GetInstance()->GetInstance()->LoadLevel3();
+        World::GetInstance()->GetInstance()->LoadLevel(3);
     }
 }

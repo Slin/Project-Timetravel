@@ -46,7 +46,6 @@ namespace TT
     }
 
     Actor::~Actor() {
-        cout << "Actor::~Actor" << endl;
         if (_object) {
             delete _object;
         }
@@ -57,7 +56,6 @@ namespace TT
 
     void Actor::Update(float timeStep)
     {
-
         if(_object && _body)
         {
             _previousPosition = _object->getPosition();
