@@ -141,14 +141,7 @@ namespace TT
 	                time = sf::Time::Zero;
                 }
 
-	            _window->setView(*_view);
-                _window->clear(sf::Color::Black);
-                EntityManager::GetInstance()->Draw(_window);
-
-	            _window->setView(sf::View(sf::FloatRect(0.0f, -0.5f * _window->getSize().y, _window->getSize().x, _window->getSize().y)));
-	            Dialog::GetInstance()->Draw(_window);
-
-                _window->display();
+	           	Render();
             }
 		}
 	}
@@ -163,7 +156,14 @@ namespace TT
 	}
 
 	void World::Render() {
+		_window->setView(*_view);
+		_window->clear(sf::Color::Black);
+		EntityManager::GetInstance()->Draw(_window);
 
+		_window->setView(sf::View(sf::FloatRect(0.0f, -0.5f * _window->getSize().y, _window->getSize().x, _window->getSize().y)));
+		Dialog::GetInstance()->Draw(_window);
+
+		_window->display();
 	}
 
 	void World::Update(float timeStep)
