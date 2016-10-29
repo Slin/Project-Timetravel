@@ -1,6 +1,6 @@
 #include "LoadingScreen.h"
 #include "World.h"
-#include "SFML\Graphics\Color.hpp"
+#include "SFML/Graphics/Color.hpp"
 #include <iostream>
 
 
@@ -8,7 +8,8 @@ namespace TT {
 
 	LoadingScreen *LoadingScreen::_instance = NULL;
 
-	LoadingScreen *LoadingScreen::GetInstance() {
+	LoadingScreen *LoadingScreen::GetInstance()
+	{
 		if (!_instance)
 			_instance = new LoadingScreen(500.0f);
 

@@ -12,13 +12,14 @@
 #include "ActorEmitter.h"
 #include "GUIManager.h"
 #include "LoadingScreen.h"
+#include "Altar.h"
 #include <iostream>
 
 #if __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-// #define FULLSCREEN
+//#define FULLSCREEN
 #define SIMULATIONSTEP (1.0f/120.0f)
 
 namespace TT
@@ -116,6 +117,10 @@ namespace TT
 		new Background(0.0f, "assets/textures/level_2/3.png");
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
+
+		new Altar(sf::Vector2f(2285, 278));
+		new Altar(sf::Vector2f(2452, 278));
+		new Altar(sf::Vector2f(2623, 278));
 
 		new Background(-0.3f, "assets/textures/level_2/2.png"); //->5759+(5759-1920)*0.5
 		new Background(-0.7f, "assets/textures/level_2/1.png"); //->5759
