@@ -106,14 +106,14 @@ namespace TT {
         // Animation stuff
         float frames = 8.0f;
         if (fabsf(velocity.x) > 0.5f) {
-            PlayWalkingSounds();
+            
 
             // WALK
             frames = 8.0f;
             _animationTimer += timeStep * 8.5f;
             if (_animationTimer >= frames)
                 _animationTimer -= frames;
-
+			PlayWalkingSounds();
             _object->setTextureRect(sf::IntRect(((int) _animationTimer) * 64, 64 * 4, 64, 64));
         } else {
             // IDLE
@@ -204,12 +204,10 @@ namespace TT {
         }
 
         if (level == 2) {
-            if ((_animationTimer > 0.95 && _animationTimer < 1.02) ||
-                (_animationTimer > 4.95 && _animationTimer < 5.02)) {
-                for (int i = 0; i < 7; i++) {
-                    if (_walkingSoundCave[i].getStatus() == sf::Sound::Status::Playing)
-                        _walkingSoundCave[i].stop();
-                }
+			
+            if ((_animationTimer > 1.03 && _animationTimer < 1.13) ||
+                (_animationTimer > 5.00 && _animationTimer < 5.13) ) 
+			{
                 _walkingSoundCave[sound_counter % 7].play();
                 sound_counter++;
             }
