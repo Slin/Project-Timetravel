@@ -21,7 +21,7 @@
 
 #endif
 
-//#define FULLSCREEN
+// #define FULLSCREEN
 #define SIMULATIONSTEP (1.0f/120.0f)
 
 namespace TT {
@@ -70,7 +70,7 @@ namespace TT {
     void World::LoadStartScreen() {
         _currentLevel = 0;
         _fx.openFromFile("assets/sounds/startscreen/bgm.ogg");
-        _fx.setVolume(15.0f);
+        _fx.setVolume(50.0f);
         _fx.setLoop(true);
         _fx.play();
 
@@ -237,8 +237,7 @@ namespace TT {
         _window->clear(sf::Color::Black);
         EntityManager::GetInstance()->Draw(_window);
 
-        _window->setView(sf::View(
-                sf::FloatRect(0.0f, -0.5f * _window->getSize().y, _window->getSize().x, _window->getSize().y)));
+        _window->setView(sf::View(sf::FloatRect(0.0f, -0.5f * _window->getSize().y, _window->getSize().x, _window->getSize().y)));
         GUIManager::GetInstance()->Draw(_window);
 
         _window->display();

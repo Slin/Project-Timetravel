@@ -30,6 +30,7 @@ namespace TT
         Dialog();
         static Dialog *_instance;
         float _resetTimer;
+        float _scale = 1.0f;
     };
 }
 

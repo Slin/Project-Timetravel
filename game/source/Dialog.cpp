@@ -27,9 +27,6 @@ namespace TT {
 
         // set the string to display
         _text.setString("TEST");
-
-        // set the character size
-        _text.setCharacterSize(24); // in pixels, not points!
     }
 
     Dialog::~Dialog() {
@@ -37,6 +34,9 @@ namespace TT {
     }
 
     void Dialog::Update(float timeStep) {
+        unsigned  int fontSize = (unsigned int)(18.0f * _scale);
+        _text.setCharacterSize(fontSize < 14 ? 14 : fontSize);
+
         if(_resetTimer > 0.0f) {
             _resetTimer -= timeStep;
             if(_resetTimer <= 0.0f){
@@ -47,7 +47,8 @@ namespace TT {
     }
 
     void Dialog::OnGUI(sf::RenderWindow *window) {
-        _text.setPosition(18.0f, 0.5f * window->getSize().y - 128.0f);
+        _scale = window->getSize().y / 1080.0f;
+        _text.setPosition(18.0f, 410.0f * window->getSize().y / 1080.0f);
 
         window->draw(_text);
     }
