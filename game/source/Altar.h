@@ -24,8 +24,12 @@ namespace TT
 
 	private:
 		void StartGlow();
+		void StopGlow();
+
+		static int _activeCounter;
 
 		int _id;
+		sf::Sprite *_glow;
 	};
 }
 

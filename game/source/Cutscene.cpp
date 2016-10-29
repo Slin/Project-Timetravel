@@ -21,25 +21,25 @@ namespace TT {
         _id = id;
 
         Step step;
-        step.duration = 3.0f;
+        step.duration = 6.0f;
         step.text = "I remember him stepping out of the portal that opened in our home, the enemy I thought defeated.";
         step.spawnCharacter = true;
         step.spawnCharacterPosition = sf::Vector2f(550.0f, 275.0f);
         step.spawnCharacterSprite = "assets/textures/characters/player_startscene.png";
         _steps_0[0] = step;
-        step.duration = 3.0f;
+        step.duration = 5.0f;
         step.text = "I remember him slinging his spells at us, telling me I had created my own doom.";
         _steps_0[1] = step;
-        step.duration = 3.0f;
+        step.duration = 5.0f;
         step.text = "I remember you slumping down, me cradling you, while you died in my arms, Corra, my love, my life.";
         _steps_0[2] = step;
-        step.duration = 3.0f;
+        step.duration = 5.0f;
         step.text = "The power of time he claimed to have conquered before he fled, laughing at my misery...";
         _steps_0[3] = step;
-        step.duration = 2.0f;
+        step.duration = 3.0f;
         step.text = "I will take it from him. I will take his power and save you!";
         _steps_0[4] = step;
-        step.duration = 1.0f;
+        step.duration = 3.0f;
         step.text = "";
         step.loadLevel = 1;
         _steps_0[5] = step;
@@ -84,7 +84,7 @@ namespace TT {
                 World::GetInstance()->LoadLevel(step.loadLevel);
             }
 
-            if(step.spawnCharacter) {
+            if (step.spawnCharacter) {
                 FakeCharacter *character = new FakeCharacter(step.spawnCharacterPosition, step.spawnCharacterSprite);
                 character->StartFadeIn(true);
             }

@@ -6,24 +6,44 @@
 
 namespace TT
 {
-	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id)
+	int Altar::_activeCounter = 0;
+
+	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id), _glow(nullptr)
 	{
-		canInteract = true;
+		if(World::KEYS[1])
+		{
+			StartGlow();
+			Altar::_activeCounter = 3;
+		}
+		else
+		{
+			canInteract = true;
+		}
+
+		hidden = true;
 	}
 
 	Altar::~Altar()
 	{
-
+		delete _glow;
 	}
 
 	void Altar::Update(float timeStep)
 	{
 		Actor::Update(timeStep);
+
+		if(Altar::_activeCounter == 0 && !World::KEYS[1])
+		{
+			StopGlow();
+		}
 	}
 
 	void Altar::Draw(sf::RenderWindow *window)
 	{
 		Actor::Draw(window);
+
+		if(_glow)
+			window->draw(*_glow);
 	}
 
 	void Altar::OnBlur(Entity *interactor)
@@ -42,14 +62,46 @@ namespace TT
 	{
 		Actor::OnInteract(interactor);
 
-		if(!World::GetInstance()->SelectPuzzlePiece(_id))
+		if(World::KEYS[1])
+			return;
+
+		if(_id == Altar::_activeCounter)
 		{
-			_spriteIndex = 0;
+			Altar::_activeCounter += 1;
+			StartGlow();
+		}
+		else
+		{
+			Altar::_activeCounter = 0;
+		}
+
+		if(_id == 2)
+		{
+			World::KEYS[1] = true;
 		}
 	}
 
 	void Altar::StartGlow()
 	{
+		if(_glow)
+			return;
 
+		if(_id == 0)
+			_glow = World::CreateSprite("assets/textures/level_2/glow1.png");
+		if(_id == 2)
+			_glow = World::CreateSprite("assets/textures/level_2/glow2.png");
+		if(_id == 1)
+			_glow = World::CreateSprite("assets/textures/level_2/glow3.png");
+
+		_glow->setPosition(2450, 110);
+	}
+
+	void Altar::StopGlow()
+	{
+		if(!_glow)
+			return;
+
+		delete _glow;
+		_glow = nullptr;
 	}
 }

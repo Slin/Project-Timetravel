@@ -24,9 +24,6 @@ namespace TT {
 	LoadingScreen::LoadingScreen(float speed)
 	{
 		_speed = speed;
-		sf::Vector2f size(((float)World::GetInstance()->GetWindow()->getSize().x), ((float)World::GetInstance()->GetWindow()->getSize().y));
-		rectangle.setSize(size);
-		rectangle.setOrigin((float)0.5*size.x, 0.5*size.y);
 		rectangle.setFillColor(sf::Color(0, 0, 0, 255));
 		_alpha = 255;
 		fadingin = false;
@@ -36,6 +33,10 @@ namespace TT {
 
 	void LoadingScreen::OnGUI(sf::RenderWindow *window)
 	{
+		sf::Vector2f size(((float)World::GetInstance()->GetWindow()->getSize().x), ((float)World::GetInstance()->GetWindow()->getSize().y));
+		rectangle.setSize(size);
+		rectangle.setOrigin((float)0.5*size.x, 0.5*size.y);
+
 		Draw(window);
 	}
 
