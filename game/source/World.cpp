@@ -18,7 +18,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-#define FULLSCREEN
+// #define FULLSCREEN
 #define SIMULATIONSTEP (1.0f/120.0f)
 
 namespace TT
@@ -60,9 +60,16 @@ namespace TT
 		_window->setVerticalSyncEnabled(true);
 
 		float aspectRatio = static_cast<float>(_window->getSize().y)/static_cast<float>(_window->getSize().x);
-		_view = new sf::View(sf::FloatRect(0.0f, -0.5*1920, 1920, 1920.0f*aspectRatio));
+		_view = new sf::View(sf::FloatRect(0.0f, -0.5*1920.0f*aspectRatio, 1920, 1920.0f*aspectRatio));
 		_window->setView(*_view);
 	}
+
+	void World::LoadStartScreen() {
+		_currentLevel = 0;
+		Reset();
+        new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
+		Dialog::GetInstance()->SetText("Press ENTER to start");
+    }
 
 	void World::LoadLevel1()
 	{
@@ -74,7 +81,7 @@ namespace TT
 		new Background(0.7f, "assets/textures/level_1/5.png");
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
-		
+
 		ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
 		emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
 
@@ -116,6 +123,7 @@ namespace TT
 
 	void World::Reset()
 	{
+		Dialog::GetInstance()->SetText("");
 		EntityManager::GetInstance()->RemoveAllEntities();
 		_player = nullptr;
 
@@ -131,7 +139,7 @@ namespace TT
 	{
 		Dialog::GetInstance();
 
-		LoadLevel1();
+        LoadStartScreen();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
@@ -262,6 +270,12 @@ namespace TT
                     {
                         _window->close();
                     }
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+					{
+						if(_currentLevel == 0){
+							LoadLevel1();
+						}
+					}
 
 					if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 					{

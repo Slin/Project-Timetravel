@@ -89,6 +89,7 @@ namespace TT
 		World();
 
 		void Reset();
+		void LoadStartScreen();
 		void LoadLevel1();
 		void LoadLevel2();
 

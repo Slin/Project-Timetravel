@@ -24,7 +24,7 @@ namespace TT {
         _text.setFont(_font); // font is a sf::Font
 
         // set the string to display
-        _text.setString("Hello world");
+        _text.setString("");
 
         // set the character size
         _text.setCharacterSize(18); // in pixels, not points!
