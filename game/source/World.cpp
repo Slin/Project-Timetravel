@@ -132,7 +132,7 @@ namespace TT
                     _physicsWorld->Step(1.0f / 120.0f, 8, 3);
 
                     EntityManager::GetInstance()->Update(1.0f / 120.0f);
-                    Update(1.0f / 60.0f);
+                    Update(1.0f / 120.0f);
 
                     time -= sf::seconds(1.0f / 120.0f);
                     counter += 1;

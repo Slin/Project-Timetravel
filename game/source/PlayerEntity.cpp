@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+#include <iostream>
+
 namespace TT
 {
 	PlayerEntity::PlayerEntity(sf::Vector2f position) : _animationTimer(0.0f)
@@ -91,6 +93,7 @@ namespace TT
 		}
 
 		const b2Vec2 &velocity = _body->GetLinearVelocity();
+
 		// Animation stuff
 		float frames = 8.0f;
 		if(fabsf(velocity.x) > 0.5f)
