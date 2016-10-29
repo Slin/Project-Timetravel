@@ -80,7 +80,7 @@ namespace TT
 
 	bool World::SelectPuzzlePiece(int id)
 	{
-		if(_currentLevel == 2)
+		if(_currentLevel == 2 && !World::KEYS[1])
 		{
 			if(_puzzleState == 0)
 			{
@@ -128,8 +128,11 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
 
-		ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
-		emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
+		if(!World::KEYS[0])
+		{
+			ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
+			emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
+		}
 
 		new NPC(sf::Vector2f(2350.0f, 278.5f));
 
@@ -172,6 +175,27 @@ namespace TT
 		// LoadingScreen::GetInstance()->Fadeout();
 	}
 
+	void World::LoadLevel3()
+	{
+		_currentLevel = 3;
+
+		Reset();
+
+		new Background(0.7f, "assets/textures/level_3/5.png");
+		new Background(0.5f, "assets/textures/level_3/4.png");
+		new Background(0.0f, "assets/textures/level_3/3.png");
+
+		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
+
+		new Background(-0.3f, "assets/textures/level_3/2.png");
+		new Background(-0.7f, "assets/textures/level_3/1.png");
+
+		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
+		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		// LoadingScreen::GetInstance()->Fadeout();
+	}
+
 	void World::Reset()
 	{
 		_puzzleState = NULL;
@@ -189,7 +213,7 @@ namespace TT
 
 	void World::Loop()
 	{
-        LoadLevel2();
+        LoadLevel3();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
