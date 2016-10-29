@@ -11,7 +11,7 @@ namespace TT
 
 	SoundPool::SoundPool()
 	{
-		LoadSound("assets/sounds/explosion.ogg");
+		// LoadSound("assets/sounds/explosion.ogg");
 	}
 
 

@@ -14,6 +14,7 @@ namespace TT {
         int id = 0;
 
         KeyEntity(sf::Vector2f position);
+        ~KeyEntity();
 
         void Update(float timeStep) override;
         void Draw(sf::RenderWindow *window) override;
@@ -21,6 +22,8 @@ namespace TT {
         void OnCollisionStart(b2Fixture* other) override;
 
     private:
+
+        sf::Sound _sound;
     };
 }
 

@@ -26,16 +26,18 @@ namespace TT
 
 		void TriggerInteraction();
 
+		void PlayPickupSound();
+
 	private:
 		sf::Sprite *_object;
 		b2Body *_body;
 		b2Fixture *_boxFixture;
 
-		sf::Sound _sound;
-
 		float _animationTimer;
 		void FindInteractionObjects();
         Actor* _interactionTarget;
+
+		sf::Sound _pickupSound;
 	};
 }
 

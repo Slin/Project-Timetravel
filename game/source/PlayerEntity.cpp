@@ -39,6 +39,7 @@ namespace TT
 		_body->SetBullet(true);
 
 		// _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));
+		_pickupSound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/pickup.ogg"));
 	}
 
 	PlayerEntity::~PlayerEntity()
@@ -173,5 +174,9 @@ namespace TT
 		if(_interactionTarget) {
             _interactionTarget->OnInteract(this);
 		}
+	}
+
+	void PlayerEntity::PlayPickupSound() {
+		_pickupSound.play();
 	};
 }
