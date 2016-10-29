@@ -22,11 +22,11 @@
 
 namespace TT
 {
+	class PlayerEntity;
 	class World
 	{
 	public:
         static bool KEY_01;
-
 
 		void Loop();
 		void Update(float timeStep);
@@ -99,8 +99,11 @@ namespace TT
 		float _scaleFactor;
 		std::string _bundlePath;
         bool _paused = false;
+		PlayerEntity *_player;
 
 		b2World *_physicsWorld;
+
+		int _currentLevel;
 
         void HandleEvents();
         void Render();

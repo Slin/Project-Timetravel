@@ -81,7 +81,7 @@ namespace TT
 			}
 		}
 
-		_body->ApplyLinearImpulse(b2Vec2((moveDirection.x*3.0f-_body->GetLinearVelocity().x)*_body->GetMass(), 0.0f), _body->GetWorldCenter(), true);
+		_body->ApplyLinearImpulse(b2Vec2((moveDirection.x*5.0f-_body->GetLinearVelocity().x)*_body->GetMass(), 0.0f), _body->GetWorldCenter(), true);
 
 		if(_object && _body)
 		{
