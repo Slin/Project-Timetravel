@@ -90,6 +90,7 @@ namespace TT
 		void Reset();
 		void LoadLevelTest();
 		void LoadLevel1Early();
+		void LoadLevel2Early();
 
 		static World *_instance;
 		ContactListener _contactListener;

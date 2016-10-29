@@ -17,7 +17,7 @@
 #endif
 
 //#define FULLSCREEN
-#define SIMULATIONSTEP (1.0f/240.0f)
+#define SIMULATIONSTEP (1.0f/120.0f)
 
 namespace TT
 {
@@ -102,6 +102,24 @@ namespace TT
 
 	}
 
+	void World::LoadLevel2Early()
+	{
+		Reset();
+		new Background(1.0f, "assets/textures/level_test/horizon.png");
+		new Clouds(20.0f, 0.8f, "assets/textures/level_test/clouds.png");
+		new Background(0.7f, "assets/textures/level_test/distant.png");
+		new Background(0.5f, "assets/textures/level_test/back.png");
+		new Background(0.0f, "assets/textures/level_test/walkable.png");
+
+		new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
+
+		new Background(-0.5f, "assets/textures/level_test/front.png");
+
+		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
+		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+	}
+
 	void World::Reset()
 	{
 		EntityManager::GetInstance()->RemoveAllEntities();
@@ -131,9 +149,8 @@ namespace TT
 
             if(!_paused)
             {
-                deltaTime = clock.getElapsedTime();
+                deltaTime = clock.restart();
                 time += deltaTime;
-                clock.restart();
                 int counter = 0;
                 while(time.asSeconds() >= SIMULATIONSTEP && counter < 10)
                 {
