@@ -7,11 +7,9 @@ namespace TT {
 		Background::~Background();
 	}
 
-	Clouds::Clouds(float offsetspeed, float speed, const std::string path)
+	Clouds::Clouds(float offsetspeed, float speed, const std::string path) : Background(speed, path), _offset(0.0f), _offsetspeed(offsetspeed)
 	{
-		Background::Background(speed, path);
-		_offset = 0.0f;
-		offsetspeed = _offsetspeed;
+
 	}
 
 	void Clouds::Draw(sf::RenderWindow *window)
@@ -20,21 +18,16 @@ namespace TT {
 		{
 			return;
 		}
+
 		sf::Vector2f center;
 		center = window->getView().getCenter();
 		
 		_object->setPosition(center.x * GetSpeed() + _offset, 0.0f);
 		window->draw(*_object);
-		
 	}
 
 	void Clouds::Update(float timeStep)
 	{
 		_offset += _offsetspeed * timeStep;
-
 	}
-
-
-
-
 }

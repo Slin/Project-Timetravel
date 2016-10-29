@@ -54,19 +54,18 @@ namespace TT
 		_view = new sf::View(sf::FloatRect(0.0f, -0.5*_window->getSize().y, _window->getSize().x, _window->getSize().y));
 //		_view->zoom(1200.0f/_window->getSize().y);
 		_window->setView(*_view);
-		_window->clear(sf::Color::Black);
 	}
 
 	void World::LoadLevel()
 	{
 		Reset();
 		new Background(1.0f, "assets/textures/level_test/horizon.png");
-		new Clouds(0.2f,0.8f, "assets/textures/level_test/clouds.png");
+		new Clouds(20.0f, 0.8f, "assets/textures/level_test/clouds.png");
 		new Background(0.7f, "assets/textures/level_test/distant.png");
 		new Background(0.5f, "assets/textures/level_test/back.png");
 		new Background(0.0f, "assets/textures/level_test/walkable.png");
 
-		new PlayerEntity(sf::Vector2f(32.0f, -100.0f));
+		new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
 		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
 
 		new Background(-0.5f, "assets/textures/level_test/front.png");
@@ -116,7 +115,7 @@ namespace TT
                     time = sf::Time::Zero;
 
 	            _window->setView(*_view);
-                _window->clear(sf::Color(0, 0, 0, 255));
+                _window->clear(sf::Color::Black);
                 EntityManager::GetInstance()->Draw(_window);
                 _window->display();
             }

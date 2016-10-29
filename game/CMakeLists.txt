@@ -14,8 +14,6 @@ set(SOURCE_FILES
         source/Entity.h
         source/World.cpp
         source/World.h
-	source/Background.h
-	source/Background.cpp
         source/ParticleEmitter.cpp
         source/ParticleEmitter.h
         source/TexturePool.cpp
@@ -23,7 +21,19 @@ set(SOURCE_FILES
         source/SoundPool.cpp
         source/SoundPool.h
         source/PlayerEntity.cpp
-        source/PlayerEntity.h source/Math.h source/Math.cpp source/Dialog.h source/Dialog.cpp source/KeyEntity.h source/KeyEntity.cpp source/Actor.cpp source/Actor.h)
+        source/PlayerEntity.h
+        source/Math.h
+        source/Math.cpp
+        source/Dialog.h
+        source/Dialog.cpp
+        source/KeyEntity.h
+        source/KeyEntity.cpp
+        source/Actor.cpp
+        source/Actor.h
+        source/Background.h
+        source/Background.cpp
+        source/Clouds.cpp
+        source/Clouds.h)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 
