@@ -44,6 +44,10 @@ namespace TT
                 if(World::KEYS[1]){
                     // Allow to enter the next screne
                     PlayMumbleSound(4);
+                    Dialog::GetInstance()->SetText("Correct! You've found the password. You can now enter the dungeon.");
+                    Dialog::GetInstance()->SetResetTimer(3.2f);
+                    PlayMumbleSound(4);
+
                 } else {
                     // Write dialog
 
