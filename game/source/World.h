@@ -25,7 +25,7 @@ namespace TT
 	class World
 	{
 	public:
-        static bool key_01 = false;
+        static bool KEY_01;
 
 
 		void Loop();

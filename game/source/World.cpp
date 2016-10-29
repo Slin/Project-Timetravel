@@ -20,6 +20,7 @@
 
 namespace TT
 {
+	bool World::KEY_01 = false;
 	World *World::_instance = nullptr;
 
 	World *World::GetInstance()

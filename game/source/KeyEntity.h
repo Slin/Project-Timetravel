@@ -6,17 +6,17 @@
 #define TIMETRAVEL_KEY_H
 
 #include "Actor.h"
+#include "Box2D/Dynamics/b2Fixture.h"
 
 namespace TT {
     class KeyEntity : public Actor {
     public:
         KeyEntity(sf::Vector2f position);
 
-        void Update(float timeStep);
-        void Draw(sf::RenderWindow *window);
+        void Update(float timeStep) override;
+        void Draw(sf::RenderWindow *window) override;
 
-        virtual void OnCollisionStart(b2Fixture* other);
-        virtual void OnCollisionExit(b2Fixture* other);
+        void OnCollisionStart(b2Fixture* other) override;
 
     private:
     };
