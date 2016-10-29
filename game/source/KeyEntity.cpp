@@ -31,7 +31,7 @@ namespace TT
             PlayerEntity* player = static_cast<PlayerEntity *>( bodyUserData);
             if(player) {
                 // Add to player
-                World::KEY_01 = true;
+                World::KEYS[id] = true;
 
                 // Remove from the universe
                 EntityManager::GetInstance()->RemoveEntity(this);

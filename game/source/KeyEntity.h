@@ -11,6 +11,8 @@
 namespace TT {
     class KeyEntity : public Actor {
     public:
+        int id = 0;
+
         KeyEntity(sf::Vector2f position);
 
         void Update(float timeStep) override;

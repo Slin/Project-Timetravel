@@ -27,7 +27,7 @@ namespace TT
             PlayerEntity* player = static_cast<PlayerEntity *>( bodyUserData);
             if(player) {
                 // Check for the password
-                if(World::PASSWORD_01){
+                if(World::KEYS[1]){
                     // Allow to enter the next screne
                 } else {
                     // Write dialog

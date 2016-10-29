@@ -44,11 +44,14 @@ namespace TT
         // _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));
     }
 
-    Actor::~Actor()
-    {
+    Actor::~Actor() {
         cout << "Actor::~Actor" << endl;
-        World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);
-        delete _object;
+        if (_object) {
+            delete _object;
+        }
+        if (_body) {
+            World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);
+        }
     }
 
     void Actor::Update(float timeStep)
@@ -66,7 +69,7 @@ namespace TT
 
     void Actor::Draw(sf::RenderWindow *window)
     {
-        if(_object)
+        if(!hidden && _object)
             window->draw(*_object);
     }
 

@@ -23,8 +23,7 @@
 
 namespace TT
 {
-	bool World::KEY_01 = false;
-	bool World::PASSWORD_01 = false;
+	bool World::KEYS[] = {false, false};
 	World *World::_instance = nullptr;
 
 	World *World::GetInstance()
@@ -97,15 +96,14 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_1_early/4.png"); //->5759+(5759-1920)*0.5
 		new Background(0.0f, "assets/textures/level_1_early/5.png"); //->5759
 
-		new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
+		ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
+		emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
+
 		new NPC(sf::Vector2f(2350.0f, 278.5f));
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
 		new Background(-0.3f, "assets/textures/level_1_early/6.png");
 		new Background(-0.7f, "assets/textures/level_1_early/7.png");
-
-
-		new KeyEntity(sf::Vector2f(400.0f, 300.0f));
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));

@@ -140,9 +140,9 @@ namespace TT
         // Check distance to interactionTarget
         if(_interactionTarget) {
             float distance = Math::distance(_interactionTarget->_position, _position) * WORLD_TO_BOX2D;
-            if (distance > radius * 2.0f) {
-                _interactionTarget->OnBlur(this);
-                _interactionTarget = nullptr;
+            if (!_interactionTarget->canInteract || distance > radius * 2.0f) {
+				_interactionTarget->OnBlur(this);
+				_interactionTarget = nullptr;
             }
         }
 

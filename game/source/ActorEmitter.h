@@ -11,6 +11,10 @@ namespace TT {
     class ActorEmitter: public Actor {
 
     public:
+        int keyId = 0;
+        bool emitOnce = true;
+        sf::Vector2f emitterOffset;
+
         ActorEmitter(sf::Vector2f position);
 
         virtual void OnBlur(Entity* interactor);

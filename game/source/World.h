@@ -27,8 +27,7 @@ namespace TT
 	class World
 	{
 	public:
-        static bool KEY_01;
-		static bool PASSWORD_01;
+        static bool KEYS[2];
 
 		void Loop();
 		void Update(float timeStep);

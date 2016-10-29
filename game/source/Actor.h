@@ -14,6 +14,7 @@ namespace TT {
 
     public:
         bool canInteract = false;
+        bool hidden = false;
 
         Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType = b2_dynamicBody, bool sensor = false, sf::Vector2f scale = sf::Vector2f(1.0f, 1.0f), sf::Vector2f size = sf::Vector2f(64.0f, 64.0f));
         ~Actor();
@@ -27,6 +28,10 @@ namespace TT {
         virtual void OnBlur(Entity* interactor);
         virtual void OnFocus(Entity* interactor);
         virtual void OnInteract(Entity* interactor);
+
+        b2Body* GetBody(){
+            return _body;
+        }
 
     protected:
         int _spriteIndex = 0;
