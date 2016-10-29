@@ -162,15 +162,10 @@ namespace TT
                     counter += 1;
                 }
 
-	            if(counter == 0)
-		            std::cout << time.asSeconds() << std::endl;
-
                 if (counter >= 10)
                 {
 	                time = sf::Time::Zero;
                 }
-
-	            //std::cout << time.asSeconds() << std::endl;
 
 	            float factor = time.asSeconds()/SIMULATIONSTEP;
 	            EntityManager::GetInstance()->Interpolate(factor);
