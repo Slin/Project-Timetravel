@@ -2,7 +2,7 @@
 #ifndef TIMETRAVEL_LOADINGSCREEN_H
 #define TIMETRAVEL_LOADINGSCREEN_H
 #include "Widget.h"
-#include "SFML\Graphics\RectangleShape.hpp"
+#include "SFML/Graphics/RectangleShape.hpp"
 
 namespace TT
 {
