@@ -12,7 +12,9 @@
 #include "ActorEmitter.h"
 #include "GUIManager.h"
 #include "LoadingScreen.h"
+#include "Cutscene.h"
 #include "Altar.h"
+#include "FakeCharacter.h"
 #include <iostream>
 
 #if __APPLE__
@@ -68,6 +70,9 @@ namespace TT {
     }
 
     void World::LoadStartScreen() {
+        KEYS[0] = false;
+        KEYS[1] = false;
+
         _currentLevel = 0;
         _fx.openFromFile("assets/sounds/startscreen/bgm.ogg");
         _fx.setVolume(50.0f);
@@ -77,6 +82,7 @@ namespace TT {
         Reset();
 
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
+        new FakeCharacter(sf::Vector2f(550.0f, 275.0f), "assets/textures/characters/player_startscene.png");
 
         Dialog::GetInstance()->SetText("Press ENTER to start");
 
@@ -210,6 +216,7 @@ namespace TT {
                 deltaTime = clock.restart();
                 time += deltaTime;
                 int counter = 0;
+
                 while (time.asSeconds() >= SIMULATIONSTEP && counter < 10) {
                     _physicsWorld->Step(SIMULATIONSTEP, 8, 3);
                     EntityManager::GetInstance()->Update(SIMULATIONSTEP);
@@ -237,7 +244,8 @@ namespace TT {
         _window->clear(sf::Color::Black);
         EntityManager::GetInstance()->Draw(_window);
 
-        _window->setView(sf::View(sf::FloatRect(0.0f, -0.5f * _window->getSize().y, _window->getSize().x, _window->getSize().y)));
+        _window->setView(sf::View(
+                sf::FloatRect(0.0f, -0.5f * _window->getSize().y, _window->getSize().x, _window->getSize().y)));
         GUIManager::GetInstance()->Draw(_window);
 
         _window->display();
@@ -354,9 +362,10 @@ namespace TT {
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                         _window->close();
                     }
+
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
                         if (_currentLevel == 0) {
-                            LoadLevel(1);
+                            Cutscene::GetInstance()->StartCutscene(0);
                         }
                     }
 

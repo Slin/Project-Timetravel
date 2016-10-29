@@ -11,7 +11,7 @@
 
 namespace TT
 {
-    KeyEntity::KeyEntity(sf::Vector2f position) : Actor(position, "assets/textures/key.png", b2_kinematicBody, true) {
+    KeyEntity::KeyEntity(sf::Vector2f position) : Actor(position, "assets/textures/key.png", b2_kinematicBody, true, sf::Vector2f(2.0f, 2.0f)) {
         _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/key_pickup.ogg"));
         _sound.play();
     }
