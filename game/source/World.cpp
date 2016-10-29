@@ -9,6 +9,7 @@
 #include "KeyEntity.h"
 #include "Dialog.h"
 #include "Clouds.h"
+#include "ActorEmitter.h"
 #include "GUIManager.h"
 
 #include <iostream>
@@ -36,7 +37,7 @@ namespace TT
 		return _instance;
 	}
 
-	World::World() : _physicsWorld(nullptr), _player(nullptr)
+	World::World() : _physicsWorld(nullptr), _player(nullptr), _playerSpawnPosition(0.0f)
 	{
 #if __APPLE__ && !(TARGET_OS_IPHONE) && NDEBUG
 		CFBundleRef bundle = CFBundleGetMainBundle();
@@ -74,7 +75,8 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_test/back.png");
 		new Background(0.0f, "assets/textures/level_test/walkable.png");
 
-		_player = new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
+
+		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
 
 		new Background(-0.5f, "assets/textures/level_test/front.png");
@@ -94,8 +96,9 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_1_early/4.png"); //->5759+(5759-1920)*0.5
 		new Background(0.0f, "assets/textures/level_1_early/5.png"); //->5759
 
+		new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
 		new NPC(sf::Vector2f(2350.0f, 278.5f));
-		_player = new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
+		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
 		new Background(-0.3f, "assets/textures/level_1_early/6.png");
 		new Background(-0.7f, "assets/textures/level_1_early/7.png");
@@ -120,7 +123,7 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_test/back.png");
 		new Background(0.0f, "assets/textures/level_test/walkable.png");
 
-		_player = new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
+		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
 		new Background(-0.5f, "assets/textures/level_test/front.png");
 
@@ -185,7 +188,8 @@ namespace TT
 		}
 	}
 
-	void World::Render() {
+	void World::Render()
+	{
 		_window->setView(*_view);
 		_window->clear(sf::Color::Black);
 		EntityManager::GetInstance()->Draw(_window);
@@ -213,14 +217,30 @@ namespace TT
 	{
 		GUIManager::GetInstance()->Update(timeStep);
 
-		if(_currentLevel == 1)
+		if(_player)
 		{
-			if(_player && _player->_position.x > 5650-_window->getSize().x*0.5)
-				LoadLevel2Early();
+			float windowWidth = _window->getSize().x;
+			if(_currentLevel == 1)
+			{
+				if(_player->_position.x > 5650.0f-windowWidth*0.5f)
+				{
+					_playerSpawnPosition = -windowWidth*0.5f+200.0f;
+					LoadLevel2Early();
+				}
+			}
+			if(_currentLevel == 2)
+			{
+				if(_player->_position.x < -windowWidth*0.5f+100.0f)
+				{
+					_playerSpawnPosition = 5600-windowWidth*0.5;
+					LoadLevel1Early();
+				}
+			}
 		}
 	}
 
-    void World::HandleEvents() {
+    void World::HandleEvents()
+    {
         sf::Event event;
 
         // while there are pending events...

@@ -12,6 +12,9 @@ namespace TT
     class Math
     {
     public:
+        /// Returns the difference between the two vectors.
+        static sf::Vector2f sub(sf::Vector2f a, sf::Vector2f b);
+
         /// Returns the dot product between the two vectors.
         static float dot(sf::Vector2f a, sf::Vector2f b);
 
@@ -20,6 +23,9 @@ namespace TT
 
         /// Returns the length of the vector.
         static float length(sf::Vector2f a);
+
+        /// Returns the distance of two vectors.
+        static float distance(sf::Vector2f a, sf::Vector2f b);
 
         /// Returns the square of the length of the vector. Useful when you just want to compare two vectors to see which is longest, as this avoids computing square roots
         static float squaredLength(sf::Vector2f a);

@@ -6,12 +6,14 @@
 #include "Actor.h"
 
 #include <iostream>
+#include "Math.h"
 
 namespace TT
 {
 	PlayerEntity::PlayerEntity(sf::Vector2f position) : _animationTimer(0.0f)
 	{
 		_object = nullptr;
+        _interactionTarget = nullptr;
 
 		_object = World::CreateSprite("assets/textures/player.png", false);
 		_object->setTextureRect(sf::IntRect(0, 0, 64, 64));
@@ -133,35 +135,43 @@ namespace TT
 	}
 
 	void PlayerEntity::FindInteractionObjects() {
+        float radius = 100.0f * WORLD_TO_BOX2D;
+
+        // Check distance to interactionTarget
+        if(_interactionTarget) {
+            float distance = Math::distance(_interactionTarget->_position, _position) * WORLD_TO_BOX2D;
+            if (distance > radius * 2.0f) {
+                _interactionTarget->OnBlur(this);
+                _interactionTarget = nullptr;
+            }
+        }
+
 		b2AABB aabb;
-		aabb.lowerBound = b2Vec2((_object->getPosition().x - _object->getGlobalBounds().width) * WORLD_TO_BOX2D, ((_object->getPosition().y -_object->getGlobalBounds().height) * WORLD_TO_BOX2D));
-		aabb.upperBound = b2Vec2((_object->getPosition().x + _object->getGlobalBounds().width) * WORLD_TO_BOX2D, ((_object->getPosition().y +_object->getGlobalBounds().height) * WORLD_TO_BOX2D));
+        aabb.lowerBound = _body->GetWorldCenter() - b2Vec2( radius, radius );
+        aabb.upperBound = _body->GetWorldCenter() + b2Vec2( radius, radius );
+
 		World::GetInstance()->GetPhysicsWorld()->QueryAABB( this, aabb );
 	}
 
 	bool PlayerEntity::ReportFixture(b2Fixture *fixture) {
-		void *bodyUserData = fixture->GetBody()->GetUserData();
+		void *bodyUserData = fixture->GetUserData();
 		if (bodyUserData && bodyUserData != this) {
 			Actor* actor = static_cast<Actor *>(bodyUserData);
 			if(actor->canInteract) {
-				if (interactionTarget != NULL && interactionTarget != actor) {
-					// Lose Focus
-					interactionTarget->OnBlur(this);
-				}
-				if(interactionTarget != actor) {
-					interactionTarget = actor;
-					interactionTarget->OnFocus(this);
+				if(_interactionTarget != actor) {
+                    _interactionTarget = actor;
+                    _interactionTarget->OnFocus(this);
 				}
 
-				cout << "PlayerEntity::ReportFixture" << endl;
+                return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	void PlayerEntity::TriggerInteraction() {
-		if(interactionTarget) {
-			interactionTarget->OnInteract(this);
+		if(_interactionTarget) {
+            _interactionTarget->OnInteract(this);
 		}
 	};
 }

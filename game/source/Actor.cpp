@@ -7,11 +7,12 @@
 
 namespace TT
 {
-    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale) {
+    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale, sf::Vector2f size) {
         _object = nullptr;
+        _size = size;
 
         _object = World::CreateSprite(spritePath, false);
-        _object->setTextureRect(sf::IntRect(0, 0, 64, 64));
+        _object->setTextureRect(sf::IntRect(_size.x * _spriteIndex, 0, _size.x, _size.y));
         _object->setOrigin(_object->getLocalBounds().width * 0.5f, _object->getLocalBounds().height * 0.5f);
         _object->move(position);
         _object->scale(scale);
@@ -52,11 +53,15 @@ namespace TT
 
     void Actor::Update(float timeStep)
     {
+
         if(_object && _body)
         {
+            _previousPosition = _object->getPosition();
             _object->setPosition(_body->GetPosition().x/WORLD_TO_BOX2D, _body->GetPosition().y/WORLD_TO_BOX2D);
             _object->setRotation(_body->GetAngle()*180.0f/3.14f);
+            _position = _object->getPosition();
         }
+        _object->setTextureRect(sf::IntRect(_size.x * _spriteIndex, 0, _size.x, _size.y));
     }
 
     void Actor::Draw(sf::RenderWindow *window)

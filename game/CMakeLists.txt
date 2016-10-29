@@ -33,7 +33,7 @@ set(SOURCE_FILES
         source/Background.h
         source/Background.cpp
         source/Clouds.cpp
-        source/Clouds.h source/Widget.cpp source/Widget.h source/GUIManager.cpp source/GUIManager.h source/ContactListener.cpp source/ContactListener.h source/ContactListener.cpp source/NPC.cpp source/NPC.h)
+        source/Clouds.h source/Widget.cpp source/Widget.h source/GUIManager.cpp source/GUIManager.h source/ContactListener.cpp source/ContactListener.h source/ContactListener.cpp source/NPC.cpp source/NPC.h source/Altar.cpp source/Altar.h source/ActorEmitter.cpp source/ActorEmitter.h)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 

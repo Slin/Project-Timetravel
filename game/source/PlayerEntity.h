@@ -35,7 +35,7 @@ namespace TT
 
 		float _animationTimer;
 		void FindInteractionObjects();
-		Actor* interactionTarget;
+        Actor* _interactionTarget;
 	};
 }
 

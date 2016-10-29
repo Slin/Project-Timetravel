@@ -13,7 +13,6 @@ namespace TT {
     public:
         KeyEntity(sf::Vector2f position);
 
-
         void Update(float timeStep) override;
         void Draw(sf::RenderWindow *window) override;
 

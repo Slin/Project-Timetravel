@@ -107,6 +107,7 @@ namespace TT
         std::list<b2Body*> _deadBodies;
 
 		int _currentLevel;
+		float _playerSpawnPosition;
 
         void HandleEvents();
         void Render();
