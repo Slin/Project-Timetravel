@@ -109,6 +109,7 @@ namespace TT
 		int _wantsToLoadLevel;
 		PlayerEntity *_player;
         sf::Music _bgm;
+		sf::Music _fx;
 
 		b2World *_physicsWorld;
         std::list<b2Body*> _deadBodies;

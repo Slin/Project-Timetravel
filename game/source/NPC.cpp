@@ -30,6 +30,10 @@ namespace TT
 
     void NPC::Update(float timeStep) {
         Actor::Update(timeStep);
+        _playerIgnoreTimer -= timeStep;
+        if(_playerIgnoreTimer < 0.0f) {
+            _playerIgnoreTimer = 0.0f;
+        }
     }
 
     void NPC::Draw(sf::RenderWindow *window) {
@@ -39,40 +43,48 @@ namespace TT
     void NPC::OnCollisionStart(b2Fixture *other) {
         Actor::OnCollisionStart(other);
 
-        void *bodyUserData = other->GetUserData();
-        if (bodyUserData) {
-            PlayerEntity* player = static_cast<PlayerEntity *>( bodyUserData);
-            if(player) {
-                // Check for the password
-                if(World::KEYS[1]){
-                    // Allow to enter the next screne
-                    PlayMumbleSound(4);
-                    Dialog::GetInstance()->SetText("Correct! You've found the password. You can now enter the dungeon.");
-                    Dialog::GetInstance()->SetResetTimer(3.2f);
-                    PlayMumbleSound(4);
-                    canInteract = true;
-                } else {
-                    // Write dialog
 
-                    if(_talkCounter > 2) {
-                        _talkCounter = 2;
-                    }
+        if(_playerIgnoreTimer <= 0.0f) {
+            void *bodyUserData = other->GetUserData();
+            if (bodyUserData) {
+                PlayerEntity *player = static_cast<PlayerEntity *>( bodyUserData);
+                if (player) {
+                    // Check for the password
+                    if (World::KEYS[1]) {
+                        // Allow to enter the next screne
+                        PlayMumbleSound(4);
+                        Dialog::GetInstance()->SetText(
+                                "Correct! You've found the password. You can now enter the dungeon.");
+                        Dialog::GetInstance()->SetResetTimer(3.2f);
+                        PlayMumbleSound(4);
+                        canInteract = true;
+                    } else {
+                        // Write dialog
 
-                    switch (_talkCounter) {
-                        case 0:
-                            Dialog::GetInstance()->SetText("Hello stranger! What is the password? You don't know it? Then you cannot enter...");
-                            Dialog::GetInstance()->SetResetTimer(3.2f);
-                            break;
-                        case 1:
-                            Dialog::GetInstance()->SetText("You have still no key. Why are you bothering me? Leave me alone!");
-                            Dialog::GetInstance()->SetResetTimer(3.2f);
-                            break;
-                        case 2:
-                            Dialog::GetInstance()->SetText("You need to go to the cave in the East from here. Do that stupid riddle and come back with the password.");
-                            Dialog::GetInstance()->SetResetTimer(6.0f);
-                            break;
+                        if (_talkCounter > 2) {
+                            _talkCounter = 2;
+                        }
+
+                        switch (_talkCounter) {
+                            case 0:
+                                _playerIgnoreTimer = 3.2f;
+                                Dialog::GetInstance()->SetText(
+                                        "Hello stranger! What is the password? You don't know it? Then you cannot enter...");
+                                break;
+                            case 1:
+                                _playerIgnoreTimer = 3.2f;
+                                Dialog::GetInstance()->SetText(
+                                        "You have still no key. Why are you bothering me? Leave me alone!");
+                                break;
+                            case 2:
+                                _playerIgnoreTimer = 6.0f;
+                                Dialog::GetInstance()->SetText(
+                                        "You need to go to the cave in the East from here.\nDo that stupid riddle and come back with the password.");
+                                break;
+                        }
+                        Dialog::GetInstance()->SetResetTimer(_playerIgnoreTimer);
+                        PlayMumbleSound(_talkCounter++);
                     }
-                    PlayMumbleSound(_talkCounter++);
                 }
             }
         }
@@ -80,7 +92,6 @@ namespace TT
 
     void NPC::OnCollisionExit(b2Fixture *other) {
         Actor::OnCollisionExit(other);
-
         void *bodyUserData = other->GetUserData();
         if (bodyUserData) {
             PlayerEntity *player = static_cast<PlayerEntity *>( bodyUserData);

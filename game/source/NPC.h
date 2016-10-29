@@ -32,6 +32,7 @@ namespace TT
 
         int _talkCounter = 0;
 		int _idleAnimationFrames = 14;
+		float _playerIgnoreTimer = 0.0f;
 	};
 }
 

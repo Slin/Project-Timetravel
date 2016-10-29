@@ -29,7 +29,7 @@ namespace TT {
         _text.setString("TEST");
 
         // set the character size
-        _text.setCharacterSize(18); // in pixels, not points!
+        _text.setCharacterSize(24); // in pixels, not points!
     }
 
     Dialog::~Dialog() {
@@ -47,8 +47,7 @@ namespace TT {
     }
 
     void Dialog::OnGUI(sf::RenderWindow *window) {
-
-        _text.setPosition(18.0f, 0.5f * window->getSize().y - 96.0f);
+        _text.setPosition(18.0f, 0.5f * window->getSize().y - 128.0f);
 
         window->draw(_text);
     }
