@@ -43,10 +43,29 @@ namespace TT
                 // Check for the password
                 if(World::KEYS[1]){
                     // Allow to enter the next screne
+                    PlayMumbleSound(4);
                 } else {
                     // Write dialog
-                    Dialog::GetInstance()->SetText("Hello stranger! What is the password? You don't know it? Then you cannot enter...");
-                    PlayRandomMumbleSound();
+
+                    if(talkCounter > 2) {
+                        talkCounter = 2;
+                    }
+
+                    switch (talkCounter) {
+                        case 0:
+                            Dialog::GetInstance()->SetText("Hello stranger! What is the password? You don't know it? Then you cannot enter...");
+                            Dialog::GetInstance()->SetResetTimer(3.2f);
+                            break;
+                        case 1:
+                            Dialog::GetInstance()->SetText("You have still no key. Why are you bothering me? Leave me alone!");
+                            Dialog::GetInstance()->SetResetTimer(3.2f);
+                            break;
+                        case 2:
+                            Dialog::GetInstance()->SetText("You need to go to the cave in the East from here. Do that stupid riddle and come back with the password.");
+                            Dialog::GetInstance()->SetResetTimer(6.0f);
+                            break;
+                    }
+                    PlayMumbleSound(talkCounter++);
                 }
             }
         }
@@ -65,9 +84,9 @@ namespace TT
         }
     }
 
-    void NPC::PlayRandomMumbleSound() {
-        if (MUMBLES[0].getStatus() != sf::SoundSource::Playing) {
-            MUMBLES[0].play();
+    void NPC::PlayMumbleSound(uint id) {
+        if (MUMBLES[id].getStatus() != sf::SoundSource::Playing) {
+            MUMBLES[id].play();
         }
     }
 }

@@ -24,7 +24,9 @@ namespace TT
 		static bool SOUNDS_LOADED;
 		static sf::Sound MUMBLES[];
 
-		void PlayRandomMumbleSound();
+		void PlayMumbleSound(uint id);
+
+        int talkCounter = 0;
 	};
 }
 
