@@ -18,7 +18,7 @@
 #endif
 
 //#define FULLSCREEN
-#define SIMULATIONSTEP (1.0f/240.0f)
+#define SIMULATIONSTEP (1.0f/120.0f)
 
 namespace TT
 {
@@ -35,7 +35,7 @@ namespace TT
 		return _instance;
 	}
 
-	World::World() : _physicsWorld(nullptr)
+	World::World() : _physicsWorld(nullptr), _player(nullptr)
 	{
 #if __APPLE__ && !(TARGET_OS_IPHONE) && NDEBUG
 		CFBundleRef bundle = CFBundleGetMainBundle();
@@ -64,6 +64,8 @@ namespace TT
 
 	void World::LoadLevelTest()
 	{
+		_currentLevel = 0;
+
 		Reset();
 		new Background(1.0f, "assets/textures/level_test/horizon.png");
 		new Clouds(20.0f, 0.8f, "assets/textures/level_test/clouds.png");
@@ -71,7 +73,7 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_test/back.png");
 		new Background(0.0f, "assets/textures/level_test/walkable.png");
 
-		new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
+		_player = new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
 		new KeyEntity(sf::Vector2f(100.0f, -100.0f));
 
 		new Background(-0.5f, "assets/textures/level_test/front.png");
@@ -81,6 +83,8 @@ namespace TT
 
 	void World::LoadLevel1Early()
 	{
+		_currentLevel = 1;
+
 		Reset();
 		new Background(1.0f, "assets/textures/level_1_early/1.png"); //->1920
 		//new Background(0.8f, "assets/textures/level_1_early/2.png"); //->5759-(5759-1920)*0.8
@@ -90,7 +94,7 @@ namespace TT
 		new Background(0.0f, "assets/textures/level_1_early/5.png"); //->5759
 
 		new NPC(sf::Vector2f(200.0f, 300.0f));
-		new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
+		_player = new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
 
 		new Background(-0.3f, "assets/textures/level_1_early/6.png");
 		new Background(-0.7f, "assets/textures/level_1_early/7.png");
@@ -104,9 +108,30 @@ namespace TT
 
 	}
 
+	void World::LoadLevel2Early()
+	{
+		_currentLevel = 2;
+
+		Reset();
+		new Background(1.0f, "assets/textures/level_test/horizon.png");
+		new Clouds(20.0f, 0.8f, "assets/textures/level_test/clouds.png");
+		new Background(0.7f, "assets/textures/level_test/distant.png");
+		new Background(0.5f, "assets/textures/level_test/back.png");
+		new Background(0.0f, "assets/textures/level_test/walkable.png");
+
+		_player = new PlayerEntity(sf::Vector2f(0.0f, -100.0f));
+
+		new Background(-0.5f, "assets/textures/level_test/front.png");
+
+		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
+		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_window->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+	}
+
 	void World::Reset()
 	{
 		EntityManager::GetInstance()->RemoveAllEntities();
+		_player = nullptr;
 
 		if(_physicsWorld)
 			delete _physicsWorld;
@@ -114,7 +139,6 @@ namespace TT
 		b2Vec2 gravity(0.0f, 9.81f);
 		_physicsWorld = new b2World(gravity);
         _physicsWorld->SetContactListener(&_contactListener);
-
 	}
 
 	void World::Loop()
@@ -133,9 +157,8 @@ namespace TT
 
             if(!_paused)
             {
-                deltaTime = clock.getElapsedTime();
+                deltaTime = clock.restart();
                 time += deltaTime;
-                clock.restart();
                 int counter = 0;
                 while(time.asSeconds() >= SIMULATIONSTEP && counter < 10)
                 {
@@ -147,15 +170,10 @@ namespace TT
                     counter += 1;
                 }
 
-	            if(counter == 0)
-		            std::cout << time.asSeconds() << std::endl;
-
                 if (counter >= 10)
                 {
 	                time = sf::Time::Zero;
                 }
-
-	            //std::cout << time.asSeconds() << std::endl;
 
 	            float factor = time.asSeconds()/SIMULATIONSTEP;
 	            EntityManager::GetInstance()->Interpolate(factor);
@@ -193,6 +211,12 @@ namespace TT
 	void World::Update(float timeStep)
 	{
 		GUIManager::GetInstance()->Update(timeStep);
+
+		if(_currentLevel == 1)
+		{
+			if(_player && _player->_position.x > 5650-_window->getSize().x*0.5)
+				LoadLevel2Early();
+		}
 	}
 
     void World::HandleEvents() {
