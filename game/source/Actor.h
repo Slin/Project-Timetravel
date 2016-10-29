@@ -13,6 +13,8 @@ namespace TT {
     class Actor : public Entity {
 
     public:
+        bool canInteract = false;
+
         Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType = b2_dynamicBody, bool sensor = false, sf::Vector2f scale = sf::Vector2f(1.0f, 1.0f));
         ~Actor();
 
@@ -22,7 +24,9 @@ namespace TT {
         virtual void OnCollisionStart(b2Fixture* other);
         virtual void OnCollisionExit(b2Fixture* other);
 
-        bool canInteract = false;
+        virtual void OnBlur(Entity* interactor);
+        virtual void OnFocus(Entity* interactor);
+        virtual void OnInteract(Entity* interactor);
 
     private:
         sf::Sprite *_object;

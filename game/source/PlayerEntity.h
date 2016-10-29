@@ -24,6 +24,8 @@ namespace TT
 
 		bool ReportFixture(b2Fixture* fixture);
 
+		void TriggerInteraction();
+
 	private:
 		sf::Sprite *_object;
 		b2Body *_body;
@@ -33,6 +35,7 @@ namespace TT
 
 		float _animationTimer;
 		void FindInteractionObjects();
+		Actor* interactionTarget;
 	};
 }
 

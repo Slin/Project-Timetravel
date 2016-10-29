@@ -72,4 +72,16 @@ namespace TT
     void Actor::OnCollisionExit(b2Fixture *other) {
 
     }
+
+    void Actor::OnBlur(Entity *interactor) {
+
+    }
+
+    void Actor::OnFocus(Entity *interactor) {
+
+    }
+
+    void Actor::OnInteract(Entity *interactor) {
+
+    }
 }

@@ -144,9 +144,24 @@ namespace TT
 		if (bodyUserData && bodyUserData != this) {
 			Actor* actor = static_cast<Actor *>(bodyUserData);
 			if(actor->canInteract) {
+				if (interactionTarget != NULL && interactionTarget != actor) {
+					// Lose Focus
+					interactionTarget->OnBlur(this);
+				}
+				if(interactionTarget != actor) {
+					interactionTarget = actor;
+					interactionTarget->OnFocus(this);
+				}
+
 				cout << "PlayerEntity::ReportFixture" << endl;
 			}
 		}
 		return false;
+	}
+
+	void PlayerEntity::TriggerInteraction() {
+		if(interactionTarget) {
+			interactionTarget->OnInteract(this);
+		}
 	};
 }

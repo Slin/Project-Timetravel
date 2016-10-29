@@ -256,6 +256,13 @@ namespace TT
 						cout << "PLAYER POSITION:" << _player->_position.x << " " << _player->_position.y << endl;
 					}
 
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+					{
+						if(_player) {
+							_player->TriggerInteraction();
+						}
+					}
+
                     break;
 
                     // we don't process other types of events
