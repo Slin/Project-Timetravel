@@ -45,8 +45,9 @@ namespace TT
 
     Actor::~Actor()
     {
-        delete _object;
+        cout << "Actor::~Actor" << endl;
         World::GetInstance()->GetPhysicsWorld()->DestroyBody(_body);
+        delete _object;
     }
 
     void Actor::Update(float timeStep)
@@ -65,10 +66,10 @@ namespace TT
     }
 
     void Actor::OnCollisionStart(b2Fixture *other) {
-        cout << "BeginContact";
+
     }
 
     void Actor::OnCollisionExit(b2Fixture *other) {
-        cout << "EndContact";
+
     }
 }

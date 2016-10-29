@@ -17,6 +17,7 @@
 #include "TexturePool.h"
 #include "SoundPool.h"
 #include "ContactListener.h"
+#include <list>
 
 #define WORLD_TO_BOX2D 0.01f
 
@@ -27,6 +28,7 @@ namespace TT
 	{
 	public:
         static bool KEY_01;
+		static bool PASSWORD_01;
 
 		void Loop();
 		void Update(float timeStep);
@@ -102,6 +104,7 @@ namespace TT
 		PlayerEntity *_player;
 
 		b2World *_physicsWorld;
+        std::list<b2Body*> _deadBodies;
 
 		int _currentLevel;
 

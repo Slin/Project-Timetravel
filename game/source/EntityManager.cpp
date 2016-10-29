@@ -80,17 +80,18 @@ namespace TT
 		}
 		_entitiesToAdd.clear();
 
+		//remove queued entities
+		for(Entity *entity:_entitiesToRemove)
+		{
+			_entities.remove(entity);
+			delete entity;
+		}
+		_entitiesToRemove.clear();
+
 		//update entities
 		for(Entity *entity:_entities)
 		{
 			entity->Update(timeStep);
 		}
-
-		//remove queued entities
-		for(Entity *entity:_entitiesToRemove)
-		{
-			_entities.remove(entity);
-		}
-		_entitiesToRemove.clear();
 	}
 }

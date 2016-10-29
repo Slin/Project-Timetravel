@@ -21,7 +21,7 @@ namespace TT
 		}
 		virtual ~Entity()
 		{
-			EntityManager::GetInstance()->RemoveEntity(this);
+
 		}
 
 		virtual void Update(float timeStep) = 0;

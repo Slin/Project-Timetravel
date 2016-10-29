@@ -26,8 +26,13 @@ namespace TT
         if (bodyUserData) {
             PlayerEntity* player = static_cast<PlayerEntity *>( bodyUserData);
             if(player) {
-                // Write dialog
-                Dialog::GetInstance()->SetText("TEST 123");
+                // Check for the password
+                if(World::PASSWORD_01){
+                    // Allow to enter the next screne
+                } else {
+                    // Write dialog
+                    Dialog::GetInstance()->SetText("Hello stranger! What is the password? You don't know it? Then you cannot enter...");
+                }
             }
         }
     }

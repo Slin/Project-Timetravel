@@ -23,6 +23,7 @@
 namespace TT
 {
 	bool World::KEY_01 = false;
+	bool World::PASSWORD_01 = false;
 	World *World::_instance = nullptr;
 
 	World *World::GetInstance()
