@@ -87,13 +87,15 @@ namespace TT
 			return body;
 		}
 
+		void LoadLevel(int level);
+
+	private:
+		World();
+
 		void LoadStartScreen();
 		void LoadLevel1();
 		void LoadLevel2();
 		void LoadLevel3();
-
-	private:
-		World();
 
 		void Reset();
 
@@ -104,6 +106,7 @@ namespace TT
 		float _scaleFactor;
 		std::string _bundlePath;
         bool _paused = false;
+		int _wantsToLoadLevel;
 		PlayerEntity *_player;
         sf::Music _bgm;
 

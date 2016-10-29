@@ -28,10 +28,10 @@ namespace TT
 		static bool SOUNDS_LOADED;
 		static sf::Sound MUMBLES[];
 
-		void PlayMumbleSound(uint id);
+		void PlayMumbleSound(unsigned int id);
 
-        int talkCounter = 0;
-		int idleAnimationFrames = 14;
+        int _talkCounter = 0;
+		int _idleAnimationFrames = 14;
 	};
 }
 

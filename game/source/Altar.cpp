@@ -3,7 +3,6 @@
 //
 
 #include "Altar.h"
-#include <iostream>
 
 namespace TT
 {
@@ -47,5 +46,10 @@ namespace TT
 		{
 			_spriteIndex = 0;
 		}
+	}
+
+	void Altar::StartGlow()
+	{
+
 	}
 }

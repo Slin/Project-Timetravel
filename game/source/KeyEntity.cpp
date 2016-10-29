@@ -30,8 +30,6 @@ namespace TT
     void KeyEntity::OnCollisionStart(b2Fixture *other) {
         Actor::OnCollisionStart(other);
 
-        cout << "KeyEntity:OnCollisionStart" << endl;
-
         void *bodyUserData = other->GetUserData();
         if (bodyUserData) {
             PlayerEntity* player = static_cast<PlayerEntity *>( bodyUserData);

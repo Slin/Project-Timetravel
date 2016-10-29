@@ -24,7 +24,7 @@ namespace TT
             SOUNDS_LOADED = true;
         }
 
-        _animationFrames = idleAnimationFrames;
+        _animationFrames = _idleAnimationFrames;
         _animationSpeed = 1.0f;
     }
 
@@ -54,11 +54,11 @@ namespace TT
                 } else {
                     // Write dialog
 
-                    if(talkCounter > 2) {
-                        talkCounter = 2;
+                    if(_talkCounter > 2) {
+                        _talkCounter = 2;
                     }
 
-                    switch (talkCounter) {
+                    switch (_talkCounter) {
                         case 0:
                             Dialog::GetInstance()->SetText("Hello stranger! What is the password? You don't know it? Then you cannot enter...");
                             Dialog::GetInstance()->SetResetTimer(3.2f);
@@ -72,7 +72,7 @@ namespace TT
                             Dialog::GetInstance()->SetResetTimer(6.0f);
                             break;
                     }
-                    PlayMumbleSound(talkCounter++);
+                    PlayMumbleSound(_talkCounter++);
                 }
             }
         }
@@ -86,12 +86,12 @@ namespace TT
             PlayerEntity *player = static_cast<PlayerEntity *>( bodyUserData);
             if (player) {
                 // Write dialog
-                Dialog::GetInstance()->SetText("");
+                // Dialog::GetInstance()->SetText("");
             }
         }
     }
 
-    void NPC::PlayMumbleSound(uint id) {
+    void NPC::PlayMumbleSound(unsigned int id) {
         if (MUMBLES[id].getStatus() != sf::SoundSource::Playing) {
             MUMBLES[id].play();
         }
@@ -107,6 +107,6 @@ namespace TT
 
     void NPC::OnInteract(Entity *interactor) {
         Actor::OnInteract(interactor);
-        World::GetInstance()->GetInstance()->LoadLevel3();
+        World::GetInstance()->GetInstance()->LoadLevel(3);
     }
 }

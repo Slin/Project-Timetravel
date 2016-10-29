@@ -13,6 +13,7 @@ namespace TT {
         _object = nullptr;
         _interactionTarget = nullptr;
 
+        level = 1;
         _object = World::CreateSprite("assets/textures/characters/player.png", false);
         _object->setTextureRect(sf::IntRect(0, 0, 64, 64));
         _object->setOrigin(_object->getLocalBounds().width * 0.5f, _object->getLocalBounds().height * 0.5f);
@@ -37,8 +38,18 @@ namespace TT {
         _body->SetFixedRotation(true);
         _body->SetBullet(true);
 
+
         // _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));
         _pickupSound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/pickup.ogg"));
+        _walkingSoundForest.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/walking.ogg"));
+        _walkingSoundCave[0].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep1.ogg"));
+        _walkingSoundCave[1].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep2.ogg"));
+        _walkingSoundCave[2].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep3.ogg"));
+        _walkingSoundCave[3].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep4.ogg"));
+        _walkingSoundCave[4].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep5.ogg"));
+        _walkingSoundCave[5].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep6.ogg"));
+        _walkingSoundCave[6].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep7.ogg"));
+        sound_counter = 0;
     }
 
     PlayerEntity::~PlayerEntity() {
@@ -95,17 +106,20 @@ namespace TT {
         // Animation stuff
         float frames = 8.0f;
         if (fabsf(velocity.x) > 0.5f) {
+            PlayWalkingSounds();
+
             // WALK
             frames = 8.0f;
-            _animationTimer += timeStep * 8.0f;
+            _animationTimer += timeStep * 8.5f;
             if (_animationTimer >= frames)
                 _animationTimer -= frames;
 
             _object->setTextureRect(sf::IntRect(((int) _animationTimer) * 64, 64 * 4, 64, 64));
         } else {
             // IDLE
+            StopPlayingWalking();
             frames = 14.0f;
-            _animationTimer += timeStep * 3.0f;
+            _animationTimer += timeStep * 5.0f;
             if (_animationTimer >= frames)
                 _animationTimer -= frames;
 
@@ -175,4 +189,34 @@ namespace TT {
     void PlayerEntity::PlayPickupSound() {
         _pickupSound.play();
     };
+
+    void PlayerEntity::PlayWalkingSounds() {
+        if (level == 1) {
+            if (_animationTimer > 0.95 && _animationTimer < 1.02 &&
+                (_walkingSoundForest.getStatus() == sf::Sound::Status::Stopped))
+                _walkingSoundForest.play();
+            if (_animationTimer > 3.95 && _animationTimer < 4.02 &&
+                (_walkingSoundForest.getStatus() == sf::Sound::Status::Stopped))
+                _walkingSoundForest.play();
+            if (_animationTimer > 6.95 && _animationTimer < 7.02 &&
+                (_walkingSoundForest.getStatus() == sf::Sound::Status::Stopped))
+                _walkingSoundForest.play();
+        }
+
+        if (level == 2) {
+            if ((_animationTimer > 0.95 && _animationTimer < 1.02) ||
+                (_animationTimer > 4.95 && _animationTimer < 5.02)) {
+                for (int i = 0; i < 7; i++) {
+                    if (_walkingSoundCave[i].getStatus() == sf::Sound::Status::Playing)
+                        _walkingSoundCave[i].stop();
+                }
+                _walkingSoundCave[sound_counter % 7].play();
+                sound_counter++;
+            }
+        }
+    }
+
+    void PlayerEntity::StopPlayingWalking() {
+        _walkingSoundForest.stop();
+    }
 }

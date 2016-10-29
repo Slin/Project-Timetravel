@@ -23,6 +23,8 @@ namespace TT
 		void OnInteract(Entity *interactor);
 
 	private:
+		void StartGlow();
+
 		int _id;
 	};
 }
