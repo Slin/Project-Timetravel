@@ -7,7 +7,7 @@
 namespace TT
 {
 
-	SoundPool *SoundPool::_instance = 0;
+	SoundPool *SoundPool::_instance = nullptr;
 
 	SoundPool::SoundPool()
 	{

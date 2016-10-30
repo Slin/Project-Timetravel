@@ -38,7 +38,7 @@ set(SOURCE_FILES
         source/LoadingScreen.h
         source/ShroomDustParticle.cpp
         source/ShroomDustParticle.h
-        source/Widget.h source/GUIManager.cpp source/GUIManager.h source/ContactListener.cpp source/ContactListener.h source/ContactListener.cpp source/NPC.cpp source/NPC.h source/Altar.cpp source/Altar.h source/ActorEmitter.cpp source/ActorEmitter.h source/PulsatingLight.cpp source/PulsatingLight.h source/Cutscene.cpp source/Cutscene.h source/FakeCharacter.cpp source/FakeCharacter.h source/Bookshelf.cpp source/Bookshelf.h)
+        source/Widget.h source/GUIManager.cpp source/GUIManager.h source/ContactListener.cpp source/ContactListener.h source/ContactListener.cpp source/NPC.cpp source/NPC.h source/Altar.cpp source/Altar.h source/ActorEmitter.cpp source/ActorEmitter.h source/PulsatingLight.cpp source/PulsatingLight.h source/Cutscene.cpp source/Cutscene.h source/FakeCharacter.cpp source/FakeCharacter.h source/Bookshelf.cpp source/Bookshelf.h source/Portal.cpp source/Portal.h)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 

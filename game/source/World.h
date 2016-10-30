@@ -117,6 +117,9 @@ namespace TT
         sf::Music _bgm;
 		sf::Music _fx;
 
+		sf::Sound _doorOpenSound;
+		sf::Sound _doorCloseSound;
+
 		b2World *_physicsWorld;
 
 		Entity *_level1KeyLight;
