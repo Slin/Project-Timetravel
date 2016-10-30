@@ -30,6 +30,8 @@ namespace TT
 
 		int _id;
 		sf::Sprite *_glow;
+
+		sf::Sound _sound;
 	};
 }
 
