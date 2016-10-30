@@ -73,7 +73,7 @@ namespace TT {
 
 	bool LoadingScreen::Fadein()
 	{
-		if (fadingin == false && isfinished == false)
+		if(fadingin == false && isfinished == false && fadingout == false)
 		{
 			isfinished = false;
 			_alpha = 0;
@@ -85,9 +85,12 @@ namespace TT {
 
 	void LoadingScreen::Fadeout()
 	{
-		_alpha = 255;
-		rectangle.setFillColor(sf::Color(0, 0, 0, 255));
-		fadingout = true;
+		if(fadingin == false && isfinished == false && fadingout == false)
+		{
+			_alpha = 255;
+			rectangle.setFillColor(sf::Color(0, 0, 0, 255));
+			fadingout = true;
+		}
 	}
 
 	bool LoadingScreen::isLoading()
