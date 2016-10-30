@@ -21,6 +21,7 @@ namespace TT
 	private:
 		ParticleEmitter *_emitter;
 		float _alpha;
+		sf::Vector2f _impulse;
 	};
 }
 

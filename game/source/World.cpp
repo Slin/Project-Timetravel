@@ -300,7 +300,7 @@ namespace TT
 		_doorOpenSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_open.ogg")));
 		_doorCloseSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_close.ogg")));
 
-		LoadLevel1();
+		LoadLevel2();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;

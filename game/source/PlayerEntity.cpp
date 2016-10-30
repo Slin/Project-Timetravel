@@ -151,6 +151,11 @@ namespace TT {
         }
     }
 
+	sf::Vector2f PlayerEntity::GetVelocity()
+	{
+		return sf::Vector2f(_body->GetLinearVelocity().x, _body->GetLinearVelocity().y);
+	}
+
     void PlayerEntity::FindInteractionObjects() {
         float radius = 50.0f * WORLD_TO_BOX2D;
 
