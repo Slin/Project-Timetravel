@@ -27,8 +27,8 @@ namespace TT
 		void StopGlow();
 
 		static int _activeCounter;
-		
 
+		float _timer;
 		int _id;
 		sf::Sprite *_glow;
 		sf::Sprite *_finalGlow;

@@ -4,11 +4,15 @@
 
 #include "Altar.h"
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 namespace TT
 {
 	int Altar::_activeCounter = 0;
 
-	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id), _glow(nullptr)
+	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id), _glow(nullptr), _finalGlow(nullptr), _timer(0.0f)
 	{
         if (World::KEYS[1])
         {
@@ -47,6 +51,18 @@ namespace TT
 	{
 		Actor::Update(timeStep);
 
+		_timer += timeStep*5.0f;
+		if(_timer >= M_PI*2.0f)
+		{
+			_timer -= M_PI*2.0f;
+
+			if(_glow && !_finalGlow && _id == 2)
+			{
+				_finalGlow = World::CreateSprite("assets/textures/level_2/glowall.png");
+				_finalGlow->setPosition(sf::Vector2f(3411 - 0.5*1920, 218));
+			}
+		}
+
 		if(Altar::_activeCounter == 0 && canInteract)
 		{
 			StopGlow();
@@ -59,14 +75,30 @@ namespace TT
                 _sound.stop();
             }
         }
+
+		if(_glow)
+		{
+			_glow->setColor(sf::Color(255, 255, 255, 255.0f*(sinf(_timer)*0.4f+0.6f)));
+		}
+
+		if(_finalGlow)
+		{
+			_finalGlow->setColor(sf::Color(255, 255, 255, 255.0f*(sinf(_timer)*0.3f+0.3f)));
+		}
 	}
 
 	void Altar::Draw(sf::RenderWindow *window)
 	{
 		Actor::Draw(window);
 
+		sf::RenderStates renderStates = sf::RenderStates::Default;
+		renderStates.blendMode = sf::BlendAdd;
+
 		if(_glow)
-			window->draw(*_glow);
+			window->draw(*_glow, renderStates);
+
+		if(_finalGlow)
+			window->draw(*_finalGlow, renderStates);
 	}
 
 	void Altar::OnBlur(Entity *interactor)
