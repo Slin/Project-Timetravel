@@ -9,7 +9,6 @@
 namespace TT
 {
     bool NPC::SOUNDS_LOADED = false;
-    sf::Sound NPC::MUMBLES[4];
 
     NPC::NPC(sf::Vector2f position) : Actor(position, "assets/textures/characters/npc_00.png", b2_kinematicBody, true, sf::Vector2f(5.0f, 5.0f)) {
         if(!SOUNDS_LOADED) {
