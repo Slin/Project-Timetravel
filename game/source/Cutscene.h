@@ -62,10 +62,10 @@ namespace TT {
         int _cutsceneFrames = 0;
 
         int _currentStep = 0;
-        Step _steps_0[6];
-        Step _steps_1[6];
-        Step _steps_2[6];
-        Step _steps_3[6];
+        Step _steps_0[10];
+        Step _steps_1[10];
+        Step _steps_2[10];
+        Step _steps_3[10];
 
         sf::Music _music;
 
