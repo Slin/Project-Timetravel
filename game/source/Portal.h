@@ -16,9 +16,9 @@ namespace TT
 		~Portal();
 
 		void Update(float timeStep) override;
+		void Draw(sf::RenderWindow *window) override;
 
 	private:
-		sf::Sprite *_object;
 		sf::Shader _shader;
 	};
 }

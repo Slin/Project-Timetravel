@@ -40,4 +40,9 @@ namespace TT
 	{
 
 	}
+
+	void Portal::Draw(sf::RenderWindow *window)
+	{
+		window->draw(*_object, &_shader);
+	}
 }
