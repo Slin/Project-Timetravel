@@ -67,6 +67,8 @@ namespace TT
 		float aspectRatio = static_cast<float>(_window->getSize().y)/static_cast<float>(_window->getSize().x);
 		_view = new sf::View(sf::FloatRect(0.0f, -0.5*1920.0f*aspectRatio, 1920, 1920.0f*aspectRatio));
 		_window->setView(*_view);
+
+		_window->clear(sf::Color::Black);
 	}
 
     void World::LoadLevel(int level)
@@ -241,6 +243,9 @@ namespace TT
 
 	void World::Loop()
 	{
+		_doorOpenSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_open.ogg")));
+		_doorCloseSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_close.ogg")));
+
 		LoadLevel1();
 		sf::Clock clock;
 		sf::Time deltaTime;
@@ -338,7 +343,10 @@ namespace TT
 				if(_wantsToLoadLevel == 2)
 					LoadLevel2();
 				if(_wantsToLoadLevel == 3)
+				{
+					_doorOpenSound.play();
 					LoadLevel3();
+				}
 
 				_wantsToLoadLevel = -1;
 			}
@@ -358,6 +366,7 @@ namespace TT
 				{
 					if(World::KEYS[0])
 					{
+						_doorOpenSound.play();
 						_playerSpawnPosition = -windowWidth*0.5f+200.0f;
 						if(LoadingScreen::GetInstance()->Fadein())
 						{
@@ -379,6 +388,7 @@ namespace TT
 					if (LoadingScreen::GetInstance()->Fadein())
 					{
 						LoadLevel1();
+						_doorCloseSound.play();
 					}
 				}
 			}
@@ -390,6 +400,7 @@ namespace TT
 					if (LoadingScreen::GetInstance()->Fadein())
 					{
 						LoadLevel1();
+						_doorCloseSound.play();
 					}
 				}
 			}
