@@ -26,6 +26,7 @@ namespace TT {
 
         Step step;
         step.duration = 6.0f;
+        step.hidePlayer = false;
         step.text = "I remember him stepping out of the portal that opened in our home, the enemy I thought defeated.";
         step.spawnCharacter = true;
         step.spawnCharacterPosition = sf::Vector2f(550.0f, 275.0f);
@@ -67,13 +68,13 @@ namespace TT {
 
         step.loadLevel = false;
         step.duration = 3.0f;
-        step.loadLevel = true;
         step.playMusic = true;
         step.musicPath = "assets/sounds/level_3/magic.ogg";
-        step.musicLoop = false;
+        step.musicLoop = true;
         step.text = "In the depth of ancient towers\nI call thee, you mystic powers";
         _steps_1[0] = step;
 
+        step.playMusic = false;
         step.duration = 3.0f;
         step.text = "Rip the cloth of space and time\nAncient knowledge that is mine";
         _steps_1[1] = step;
@@ -83,13 +84,15 @@ namespace TT {
         _steps_1[2] = step;
 
         step.duration = 3.0f;
+        step.musicLoop = false;
         step.text = "Open up and bring me where\nMy desires lead me there.";
         _steps_1[3] = step;
 
         // STEP 2
         step.loadLevel = false;
-        step.duration = 3.0f;
-        step.text = "What? The portal is powered? But how?\nEven I could never uncover all its secrets! ";
+        step.duration = 0.5f;
+        step.hidePlayer = true;
+        step.text = "";
         step.playMusic = true;
         step.musicPath = "assets/sounds/level_3/dramatic.ogg";
         step.musicLoop = false;
@@ -99,24 +102,32 @@ namespace TT {
         step.spawnCharacterSprite = "assets/textures/characters/wizzard_endscene.png";
         _steps_2[0] = step;
 
+        step.loadLevel = false;
         step.duration = 3.0f;
-        step.text = "Ah well, who cares. \nNow I can finally use it.";
+        step.text = "What? The portal is powered? But how?\nEven I could never uncover all its secrets! ";
         step.playMusic = false;
         step.spawnCharacter = false;
         _steps_2[1] = step;
 
         step.duration = 3.0f;
-        step.text = "Now I can finally make him pay.";
+        step.playMusic = false;
+        step.text = "Ah well, who cares. \nNow I can finally use it.";
+        step.playMusic = false;
+        step.spawnCharacter = false;
         _steps_2[2] = step;
 
         step.duration = 3.0f;
-        step.text = "I'll make him suffer for all he has done to me!";
+        step.text = "Now I can finally make him pay.";
         _steps_2[3] = step;
+
+        step.duration = 3.0f;
+        step.text = "I'll make him suffer for all he has done to me!";
+        _steps_2[4] = step;
 
         step.duration = 3.0f;
         step.loadLevel = true;
         step.loadLevelId = -1;
-        _steps_2[4] = step;
+        _steps_2[5] = step;
     }
 
     Cutscene::~Cutscene() {
@@ -140,7 +151,7 @@ namespace TT {
             step = _steps_1[_currentStep];
         }
         if (_id == 2) {
-            length = 4;
+            length = 6;
             step = _steps_2[_currentStep];
         }
 
@@ -169,12 +180,14 @@ namespace TT {
                 step.sound.play();
             }
 
+            World::GetInstance()->GetPlayer()->_hidden = step.hidePlayer;
+
             if(step.playMusic) {
                 _music.openFromFile(step.musicPath);
-                _music.setLoop(step.musicLoop);
-                _music.setVolume(step.musicVolume);
                 _music.play();
             }
+            _music.setVolume(step.musicVolume);
+            _music.setLoop(step.musicLoop);
 
             _nextStepTimer = step.duration;
             _currentStep++;

@@ -143,7 +143,7 @@ namespace TT {
     }
 
     void PlayerEntity::Draw(sf::RenderWindow *window) {
-        if (_object) {
+        if (_object && !_hidden) {
             _object->setPosition(_position);
             _object->setRotation(_body->GetAngle() * 180.0f / 3.14f);
 

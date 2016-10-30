@@ -131,7 +131,7 @@ namespace TT
 		}
 		if(_id == 5)
 		{
-			_glow = World::CreateSprite("assets/textures/level_3/puzzle_6.png");
+			_glow = World::CreateSprite("assets/textures/level_3/spellbook.png");
 			_glow->setPosition(1545-960+63, 445-410+66);
 		}
 	}

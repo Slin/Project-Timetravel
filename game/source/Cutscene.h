@@ -48,6 +48,8 @@ namespace TT {
             string musicPath;
             bool musicLoop = false;
             float musicVolume = 100.0f;
+
+            bool hidePlayer;
         };
 
     private:
