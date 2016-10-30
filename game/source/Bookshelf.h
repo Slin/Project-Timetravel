@@ -27,6 +27,7 @@ namespace TT
 		void StopGlow();
 
 		static int _activeCounter;
+		static bool _locked;
 
 		int _id;
 		sf::Sprite *_glow;

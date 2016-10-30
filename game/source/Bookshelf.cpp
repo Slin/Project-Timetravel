@@ -10,6 +10,7 @@
 namespace TT
 {
 	int Bookshelf::_activeCounter = 0;
+	bool Bookshelf::_locked = false;
 
 	Bookshelf::Bookshelf(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true, sf::Vector2f(1.0f, 1.0f), sf::Vector2f(64.0f, 64.0f), sf::Vector2f(8.0f, 128.0f)), _id(id), _glow(nullptr)
 	{
@@ -40,8 +41,9 @@ namespace TT
 			canInteract = false;
 		}
 
-		if(_id == 5 && _id == Bookshelf::_activeCounter) {
+		if(!_locked && _id == 5 && _id == Bookshelf::_activeCounter) {
 			StartGlow();
+			canInteract = true;
 		}
 	}
 
@@ -76,9 +78,17 @@ namespace TT
 
 			if(_id == 4)
 			{
-				std::cout << "BAM!" << std::endl;
+
 				Dialog::GetInstance()->SetText("You've solved the last puzzle. Read the spell book to open the portal.");
 				World::GetInstance()->GetPlayer()->PlayPickupSound();
+			}
+
+			if(_id == 5) {
+				_locked = true;
+				canInteract = false;
+				// Cutscene
+				std::cout << "cutscene!" << std::endl;
+				Dialog::GetInstance()->SetText("");
 			}
 		}
 		else

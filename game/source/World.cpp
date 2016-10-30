@@ -241,7 +241,7 @@ namespace TT
 
 	void World::Loop()
 	{
-		LoadLevel1();
+		LoadLevel3();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
