@@ -82,20 +82,19 @@ namespace TT
 		_currentLevel = 0;
 		Reset();
 
+		_bgm.stop();
+		_fx.stop();
+		_fx.openFromFile("assets/sounds/rain.ogg");
+		_fx.setLoop(true);
+		_fx.setVolume(100.0f);
+
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
 
 		Dialog::GetInstance()->SetText("Press ENTER to start");
 
 		LoadingScreen::GetInstance()->Fadeout();
 
-		_fx.openFromFile("assets/sounds/rain.ogg");
-		_fx.setLoop(true);
-		_fx.setVolume(100.0f);
         _fx.play();
-
-		_bgm.setVolume(15.0f);
-		_bgm.setLoop(true);
-		_bgm.play();
 
     }
 
@@ -147,8 +146,17 @@ namespace TT
 	void World::LoadLevel2()
 	{
 		_currentLevel = 2;
-
 		Reset();
+		_bgm.stop();
+		_fx.stop();
+
+		_bgm.openFromFile("assets/sounds/level_2/mood.ogg");
+		_bgm.setLoop(true);
+		_bgm.setVolume(100.0f);
+
+		_fx.openFromFile("assets/sounds/level_2/drops.ogg");
+		_fx.setLoop(true);
+		_fx.setVolume(100.0f);
 
 		new Background(1.0f, "assets/textures/level_2/6.png");
 		new Background(0.7f, "assets/textures/level_2/5.png");
@@ -174,15 +182,8 @@ namespace TT
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
 
-		_bgm.openFromFile("assets/sounds/level_2/mood.ogg");
-		_bgm.setLoop(true);
-		_bgm.setVolume(100.0f);
+		_fx.play();
 		_bgm.play();
-
-		_fx.openFromFile("assets/sounds/level_2/drops.ogg");
-		_fx.setLoop(true);
-		_fx.setVolume(100.0f);
-        _fx.play();
 	}
 
 	void World::LoadLevel3()
