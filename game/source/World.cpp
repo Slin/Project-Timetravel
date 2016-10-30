@@ -93,7 +93,7 @@ namespace TT
 
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
 
-		Dialog::GetInstance()->SetText("Press ENTER to start");
+		Dialog::GetInstance()->SetText("Press ANY KEY to start");
 
 		LoadingScreen::GetInstance()->Fadeout();
 
@@ -536,20 +536,13 @@ namespace TT
                     {
                         _window->close();
                     }
-					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-					{
-						if(_currentLevel == 0)
-						{
-                            Cutscene::GetInstance()->StartCutscene(0);
-						}
-					}
 
-					if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-					{
-						cout << "PLAYER POSITION:" << _player->_position.x << " " << _player->_position.y << endl;
-					}
+		            if(_currentLevel == 0)
+		            {
+			            Cutscene::GetInstance()->StartCutscene(0);
+		            }
 
-					if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 					{
                         // Cutscene::GetInstance()->SkipStep();
 
