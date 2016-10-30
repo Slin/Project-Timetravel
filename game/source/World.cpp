@@ -134,7 +134,7 @@ namespace TT
 
 		_bgm.openFromFile("assets/sounds/level_1/bgm.ogg");
 		_bgm.setLoop(true);
-		_bgm.setVolume(15.0f);
+		_bgm.setVolume(10.0f);
 		_bgm.play();
 
 		_fx.openFromFile("assets/sounds/rain.ogg");
