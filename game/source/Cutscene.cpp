@@ -23,7 +23,6 @@ namespace TT {
         _id = id;
 
         // STEP 0
-
         Step step;
         step.duration = 6.0f;
         step.hidePlayer = true;
@@ -207,6 +206,13 @@ namespace TT {
                 character->StartFadeIn(true);
             }
 
+            if(step.playMusic) {
+                _music.openFromFile(step.musicPath);
+                _music.play();
+            }
+            _music.setVolume(step.musicVolume);
+            _music.setLoop(step.musicLoop);
+
             if(step.playSound) {
                 step.sound.setVolume(step.soundVolume);
                 step.sound.play();
@@ -215,13 +221,6 @@ namespace TT {
             if(World::GetInstance()->GetPlayer()) {
                 World::GetInstance()->GetPlayer()->_hidden = step.hidePlayer;
             }
-
-            if(step.playMusic) {
-                _music.openFromFile(step.musicPath);
-                _music.play();
-            }
-            _music.setVolume(step.musicVolume);
-            _music.setLoop(step.musicLoop);
 
             if (step.loadLevel) {
                 World::GetInstance()->LoadLevel(step.loadLevelId);
@@ -239,6 +238,7 @@ namespace TT {
                 World::GetInstance()->GetPlayer()->_disabled = false;
                 World::GetInstance()->GetPlayer()->_hidden = false;
             }
+            _music.stop();
         }
 
         _nextStepTimer -= timeStep;
