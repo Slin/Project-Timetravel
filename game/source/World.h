@@ -58,6 +58,11 @@ namespace TT
 			return _view;
 		}
 
+		PlayerEntity *GetPlayer() const
+		{
+			return _player;
+		}
+
 		bool SelectPuzzlePiece(int id);
 
 		static World *GetInstance();

@@ -3,7 +3,7 @@
 //
 
 #include "Bookshelf.h"
-#include "Actor.h"
+#include <iostream>
 
 namespace TT
 {
@@ -59,14 +59,17 @@ namespace TT
 			Bookshelf::_activeCounter += 1;
 			StartGlow();
 
-			if(_id == 2)
+			std::cout << "Yo!" << std::endl;
+
+			if(_id == 4)
 			{
-				//World::KEYS[1] = true;
+				std::cout << "BAM!" << std::endl;
 				canInteract = false;
 			}
 		}
 		else
 		{
+			std::cout << "NOOOO!" << std::endl;
 			Bookshelf::_activeCounter = 0;
 		}
 	}

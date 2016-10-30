@@ -3,7 +3,8 @@
 //
 
 #include "ActorEmitter.h"
-#include "KeyEntity.h"
+#include "Dialog.h"
+#include "PlayerEntity.h"
 
 namespace TT {
     ActorEmitter::ActorEmitter(sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true) {
@@ -28,6 +29,9 @@ namespace TT {
             //KeyEntity *entity = new KeyEntity(_position + sf::Vector2f(200.0f, 175.0f));
             //entity->id = keyId;
             World::KEYS[0] = true;
+	        World::GetInstance()->GetPlayer()->PlayPickupSound();
+	        Dialog::GetInstance()->SetText("You've picked up a key!");
+	        Dialog::GetInstance()->SetResetTimer(5.0f);
         }
 
         if(emitOnce) {

@@ -73,12 +73,10 @@ namespace TT
         _wantsToLoadLevel = level;
     }
 
-	void World::LoadStartScreen() {
+	void World::LoadStartScreen()
+	{
         KEYS[0] = false;
         KEYS[1] = false;
-
-        _fx.openFromFile("assets/sounds/rain.ogg");
-        _fx.setLoop(true);
 
 		_currentLevel = 0;
 		Reset();
@@ -89,6 +87,9 @@ namespace TT
 
 		LoadingScreen::GetInstance()->Fadeout();
 
+		_fx.openFromFile("assets/sounds/rain.ogg");
+		_fx.setLoop(true);
+		_fx.setVolume(100.0f);
         _fx.play();
 
 		_bgm.setVolume(15.0f);
@@ -100,13 +101,6 @@ namespace TT
 	void World::LoadLevel1()
 	{
 		_currentLevel = 1;
-
-        _bgm.openFromFile("assets/sounds/level_1/bgm.ogg");
-        _bgm.setLoop(true);
-        _bgm.setVolume(15.0f);
-
-        _fx.openFromFile("assets/sounds/rain.ogg");
-        _fx.setLoop(true);
 
 		Reset();
 		new Background(0.0f, "assets/textures/level_1/6.png"); //->1920
@@ -136,28 +130,21 @@ namespace TT
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
 
-
-        _bgm.play();
-        _fx.play();
-
-		_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg");
-		_bgm.setVolume(15.0f);
+		_bgm.openFromFile("assets/sounds/level_1/bgm.ogg");
 		_bgm.setLoop(true);
+		_bgm.setVolume(15.0f);
 		_bgm.play();
-		_fx.stop();
+
+		_fx.openFromFile("assets/sounds/rain.ogg");
+		_fx.setLoop(true);
+		_fx.setVolume(100.0f);
+		_fx.play();
 
 	}
 
 	void World::LoadLevel2()
 	{
 		_currentLevel = 2;
-
-
-        _bgm.openFromFile("assets/sounds/level_2/mood.ogg");
-        _bgm.setLoop(true);
-
-        _fx.openFromFile("assets/sounds/level_2/drops.ogg");
-        _fx.setLoop(true);
 
 		Reset();
 
@@ -183,19 +170,15 @@ namespace TT
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
 
-
-        _bgm.play();
-        _fx.play();
-
 		_bgm.openFromFile("assets/sounds/level_2/mood.ogg");
-		_bgm.setVolume(15.0f);
 		_bgm.setLoop(true);
+		_bgm.setVolume(100.0f);
 		_bgm.play();
-		_fx.openFromFile("assets/sounds/level_2/drops.ogg");
-		_fx.setVolume(10.0f);
-		_fx.setLoop(true);
-		_fx.play();
 
+		_fx.openFromFile("assets/sounds/level_2/drops.ogg");
+		_fx.setLoop(true);
+		_fx.setVolume(100.0f);
+        _fx.play();
 	}
 
 	void World::LoadLevel3()
@@ -211,10 +194,10 @@ namespace TT
 		new Background(0.0f, "assets/textures/level_3/3.png");
 
 		new Bookshelf(0, sf::Vector2f(-577, 278));
-		new Bookshelf(2, sf::Vector2f(198, 278));
-		new Bookshelf(1, sf::Vector2f(856, 278));
-		new Bookshelf(1, sf::Vector2f(119, 278));
-		new Bookshelf(1, sf::Vector2f(544, 278));
+		new Bookshelf(1, sf::Vector2f(198, 278));
+		new Bookshelf(2, sf::Vector2f(856, 278));
+		new Bookshelf(3, sf::Vector2f(-114, 278));
+		new Bookshelf(4, sf::Vector2f(544, 278));
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
@@ -226,8 +209,9 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
+
 		_bgm.openFromFile("assets/sounds/level_3/level3music.ogg");
-		_bgm.setVolume(250.0f);
+		_bgm.setVolume(100.0f);
 		_bgm.setLoop(true);
 		_bgm.play();
 		_fx.stop();
@@ -251,12 +235,10 @@ namespace TT
 
 	void World::Loop()
 	{
-		LoadStartScreen();
+		LoadLevel3();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
-
-
 		
 		while(_window->isOpen())
 		{
