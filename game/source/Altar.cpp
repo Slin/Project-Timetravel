@@ -29,6 +29,7 @@ namespace TT
             _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_2/altar_pulse_02.ogg"));
         }
 		_sound.setLoop(true);
+        _sound.setVolume(25.0f);
 	}
 
 	Altar::~Altar()
