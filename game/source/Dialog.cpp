@@ -48,7 +48,8 @@ namespace TT {
 
     void Dialog::OnGUI(sf::RenderWindow *window) {
         _scale = window->getSize().y / 1080.0f;
-        _text.setPosition(18.0f, 410.0f * window->getSize().y / 1080.0f);
+        float aspectRatio = static_cast<float>(window->getSize().y)/static_cast<float>(window->getSize().x);
+        _text.setPosition(18.0f, 410.0f * window->getSize().y/(1920.0f*aspectRatio) + _text.getCharacterSize());
 
         window->draw(_text);
     }

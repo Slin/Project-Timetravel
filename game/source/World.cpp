@@ -60,7 +60,7 @@ namespace TT
 #if defined(FULLSCREEN)
 		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Timetravel", sf::Style::Fullscreen);
 #else
-		_window = new sf::RenderWindow(sf::VideoMode(1920, 1200), "Timetravel");
+		_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Timetravel");
 #endif
 		_window->setFramerateLimit(60);
 		_window->setVerticalSyncEnabled(true);
