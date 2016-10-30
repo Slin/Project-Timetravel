@@ -26,19 +26,28 @@ namespace TT {
         step.spawnCharacter = true;
         step.spawnCharacterPosition = sf::Vector2f(550.0f, 275.0f);
         step.spawnCharacterSprite = "assets/textures/characters/player_startscene.png";
+        step.playMusic = true;
+        step.musicPath = "assets/sounds/startscreen/bgm.ogg";
+        step.musicLoop = true;
         _steps_0[0] = step;
+
         step.duration = 5.0f;
+        step.playMusic = false;
         step.text = "I remember him slinging his spells at us, telling me I had created my own doom.";
         _steps_0[1] = step;
+
         step.duration = 5.0f;
         step.text = "I remember you slumping down, me cradling you, while you died in my arms, Corra, my love, my life.";
         _steps_0[2] = step;
+
         step.duration = 5.0f;
         step.text = "The power of time he claimed to have conquered before he fled, laughing at my misery...";
         _steps_0[3] = step;
+
         step.duration = 3.0f;
         step.text = "I will take it from him. I will take his power and save you!";
         _steps_0[4] = step;
+
         step.duration = 3.0f;
         step.text = "";
         step.loadLevel = 1;
@@ -82,11 +91,24 @@ namespace TT {
 
             if (step.loadLevel >= 0) {
                 World::GetInstance()->LoadLevel(step.loadLevel);
+                _music.stop();
             }
 
             if (step.spawnCharacter) {
                 FakeCharacter *character = new FakeCharacter(step.spawnCharacterPosition, step.spawnCharacterSprite);
                 character->StartFadeIn(true);
+            }
+
+            if(step.playSound) {
+                step.sound.setVolume(step.soundVolume);
+                step.sound.play();
+            }
+
+            if(step.playMusic) {
+                _music.openFromFile(step.musicPath);
+                _music.setLoop(step.musicLoop);
+                _music.setVolume(step.musicVolume);
+                _music.play();
             }
 
             _nextStepTimer = step.duration;

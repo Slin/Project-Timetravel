@@ -29,6 +29,15 @@ namespace TT {
             bool spawnCharacter;
             sf::Vector2f spawnCharacterPosition;
             string spawnCharacterSprite;
+
+            bool playSound = false;
+            sf::Sound sound;
+            float soundVolume = 50.0f;
+
+            bool playMusic = false;
+            string musicPath;
+            bool musicLoop = false;
+            float musicVolume = 100.0f;
         };
 
     private:
@@ -41,6 +50,9 @@ namespace TT {
         int _currentStep = 0;
         Step _steps_0[6];
         Step _steps_1[6];
+
+        sf::Music _music;
+
     };
 }
 

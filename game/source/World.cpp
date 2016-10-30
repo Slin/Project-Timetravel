@@ -210,7 +210,7 @@ namespace TT
 
 	void World::Loop()
 	{
-		LoadLevel2();
+		LoadStartScreen();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
