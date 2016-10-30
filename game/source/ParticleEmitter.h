@@ -23,6 +23,7 @@ namespace TT
 
 	private:
 		std::vector<ShroomDustParticle*> _particles;
+		std::vector<ShroomDustParticle*> _particlesToRemove;
 	};
 }
 
