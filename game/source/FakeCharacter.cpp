@@ -20,11 +20,11 @@ namespace TT {
             alpha -= timeStep * 100.0f * fadeSpeed;
         }
 
-        if (alpha < 0.0f) {
-            alpha = 0.0f;
+        if (alpha < minAlpha) {
+            alpha = minAlpha;
         }
-        if (alpha > 255.0f) {
-            alpha = 255.0f;
+        if (alpha > maxAlpha) {
+            alpha = maxAlpha;
         }
     }
 
@@ -40,16 +40,16 @@ namespace TT {
     void FakeCharacter::StartFadeIn(bool reset) {
         fadeIn = true;
         fadeOut = false;
-        if (reset || alpha >= 255.0f) {
-            alpha = 0.0f;
+        if (reset || alpha >= maxAlpha) {
+            alpha = minAlpha;
         }
     }
 
     void FakeCharacter::StartFadeOut(bool reset) {
         fadeIn = false;
         fadeOut = true;
-        if (reset || alpha <= 0.0f) {
-            alpha = 255.0f;
+        if (reset || alpha <= minAlpha) {
+            alpha = maxAlpha;
         }
     }
 

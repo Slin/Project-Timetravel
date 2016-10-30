@@ -33,6 +33,8 @@ namespace TT
 		sf::Sprite *_glow;
 		sf::Sprite *_finalGlow;
 		sf::Sound _sound;
+
+		sf::Sound _successSound;
 	};
 }
 

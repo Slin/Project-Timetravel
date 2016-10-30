@@ -3,6 +3,8 @@
 //
 
 #include "Altar.h"
+#include "Dialog.h"
+#include "PlayerEntity.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -129,6 +131,9 @@ namespace TT
 			{
 				World::KEYS[1] = true;
 				canInteract = false;
+				Dialog::GetInstance()->SetText("You've found the password.");
+				Dialog::GetInstance()->SetResetTimer(5.0f);
+				World::GetInstance()->GetPlayer()->PlayPickupSound();
 			}
 		}
 		else

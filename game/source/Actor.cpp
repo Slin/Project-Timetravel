@@ -76,7 +76,6 @@ namespace TT
         _spriteIndex = (int) _animationTimer;
     }
 
-
     void Actor::Draw(sf::RenderWindow *window)
     {
         if(!hidden && _object)

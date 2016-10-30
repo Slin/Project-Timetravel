@@ -11,6 +11,8 @@ namespace TT {
 
     class FakeCharacter : public Actor {
         public:
+            float maxAlpha = 255.0f;
+            float minAlpha = 0.0f;
 
             FakeCharacter(sf::Vector2f position, string spritePath);
 

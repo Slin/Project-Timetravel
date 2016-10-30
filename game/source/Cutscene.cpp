@@ -35,6 +35,10 @@ namespace TT {
         step.duration = 5.0f;
         step.playMusic = false;
         step.text = "I remember him slinging his spells at us, telling me I had created my own doom.";
+        step.spawnCharacter = true;
+        step.spawnCharacterMaxAlpha = 100.0f;
+        step.spawnCharacterPosition = sf::Vector2f(1700.0f, 140.0f);
+        step.spawnCharacterSprite = "assets/textures/characters/wizzard_startscene.png";
         _steps_0[1] = step;
 
         step.duration = 5.0f;
@@ -102,6 +106,8 @@ namespace TT {
 
             if (step.spawnCharacter) {
                 FakeCharacter *character = new FakeCharacter(step.spawnCharacterPosition, step.spawnCharacterSprite);
+                character->maxAlpha = step.spawnCharacterMaxAlpha;
+                character->minAlpha = step.spawnCharacterMinAlpha;
                 character->StartFadeIn(true);
             }
 

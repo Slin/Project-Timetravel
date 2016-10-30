@@ -12,13 +12,17 @@ namespace TT {
     public:
 
         static Cutscene *GetInstance();
+
         ~Cutscene();
 
         virtual void Update(float timeStep);
+
         virtual void Draw(sf::RenderWindow *window);
 
         void StartCutscene(unsigned int id);
+
         void CancelCutscene();
+
         void SkipStep();
 
     protected:
@@ -26,7 +30,10 @@ namespace TT {
             string text;
             float duration = 2.0f;
             int loadLevel = -1;
+
             bool spawnCharacter;
+            float spawnCharacterMinAlpha = 0.0f;
+            float spawnCharacterMaxAlpha = 255.0f;
             sf::Vector2f spawnCharacterPosition;
             string spawnCharacterSprite;
 
@@ -42,6 +49,7 @@ namespace TT {
 
     private:
         Cutscene(unsigned int id);
+
         static Cutscene *_instance;
 
         int _id = 0;
