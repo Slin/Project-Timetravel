@@ -1,19 +1,19 @@
 //
-// Created by Nils Daumann on 29.10.16.
+// Created by Nils Daumann on 30.10.16.
 //
+
+#ifndef TIMETRAVEL_BOOKSHELF_H
+#define TIMETRAVEL_BOOKSHELF_H
 
 #include "Actor.h"
 
-#ifndef TIMETRAVEL_ALTAR_H
-#define TIMETRAVEL_ALTAR_H
-
 namespace TT
 {
-	class Altar : public Actor
+	class Bookshelf : public Actor
 	{
 	public:
-		Altar(int id, sf::Vector2f position);
-		~Altar();
+		Bookshelf(int id, sf::Vector2f position);
+		~Bookshelf();
 
 		void Update(float timestep);
 		void Draw(sf::RenderWindow *_window);
@@ -27,13 +27,10 @@ namespace TT
 		void StopGlow();
 
 		static int _activeCounter;
-		
 
 		int _id;
 		sf::Sprite *_glow;
-		sf::Sprite *_finalGlow;
-		sf::Sound _sound;
 	};
 }
 
-#endif //TIMETRAVEL_ALTAR_H
+#endif //TIMETRAVEL_BOOKSHELF_H

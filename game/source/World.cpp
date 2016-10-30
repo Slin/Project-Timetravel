@@ -14,6 +14,7 @@
 #include "LoadingScreen.h"
 #include "Cutscene.h"
 #include "Altar.h"
+#include "Bookshelf.h"
 #include "PulsatingLight.h"
 #include <iostream>
 
@@ -164,6 +165,8 @@ namespace TT
 		new Background(0.5f, "assets/textures/level_2/4.png");
 		new Background(0.0f, "assets/textures/level_2/3.png");
 
+		new PulsatingLight("assets/textures/level_2/glowrunes.png", sf::Vector2f(1386 - 0.5*_view->getSize().x, 128), 4.0f, 0.25f);
+
 		new Altar(0, sf::Vector2f(2285, 278));
 		new Altar(2, sf::Vector2f(2452, 278));
 		new Altar(1, sf::Vector2f(2623, 278));
@@ -205,6 +208,12 @@ namespace TT
 		new Background(0.7f, "assets/textures/level_3/5.png");
 		new Background(0.5f, "assets/textures/level_3/4.png");
 		new Background(0.0f, "assets/textures/level_3/3.png");
+
+		new Bookshelf(0, sf::Vector2f(-577, 278));
+		new Bookshelf(2, sf::Vector2f(198, 278));
+		new Bookshelf(1, sf::Vector2f(856, 278));
+		new Bookshelf(1, sf::Vector2f(119, 278));
+		new Bookshelf(1, sf::Vector2f(544, 278));
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 

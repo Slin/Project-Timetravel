@@ -103,13 +103,19 @@ namespace TT
 			return;
 
 		if(_id == 0) {
+		{
 			_glow = World::CreateSprite("assets/textures/level_2/glow1.png");
+			_glow->setPosition(sf::Vector2f(3245 - 0.5*1920, 218));
 		}
 		if(_id == 2) {
+		{
 			_glow = World::CreateSprite("assets/textures/level_2/glow2.png");
+			_glow->setPosition(sf::Vector2f(3411 - 0.5*1920, 219));
 		}
 		if(_id == 1) {
+		{
 			_glow = World::CreateSprite("assets/textures/level_2/glow3.png");
+			_glow->setPosition(sf::Vector2f(3580 - 0.5*1920, 215));
 		}
 
         _sound.play();
