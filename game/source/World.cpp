@@ -239,7 +239,7 @@ namespace TT
 
 	void World::Loop()
 	{
-		LoadLevel3();
+		LoadStartScreen();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
