@@ -17,6 +17,7 @@
 #include "Bookshelf.h"
 #include "PulsatingLight.h"
 #include "ParticleEmitter.h"
+#include "Portal.h"
 #include <iostream>
 
 #if __APPLE__
@@ -200,6 +201,8 @@ namespace TT
 		new Background(0.05f, "assets/textures/level_3/4.png");
 		new Background(0.0f, "assets/textures/level_3/3.png");
 
+		new Portal();
+
 		new Bookshelf(0, sf::Vector2f(-577, 278));
 		new Bookshelf(1, sf::Vector2f(-114, 278));
 		new Bookshelf(2, sf::Vector2f(198, 278));
@@ -246,7 +249,7 @@ namespace TT
 		_doorOpenSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_open.ogg")));
 		_doorCloseSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_close.ogg")));
 
-		LoadLevel1();
+		LoadLevel3();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
