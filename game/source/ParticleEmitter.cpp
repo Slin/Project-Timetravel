@@ -41,6 +41,13 @@ namespace TT
 		{
 			particle->Update(timeStep);
 		}
+
+		for(ShroomDustParticle *particle : _particlesToRemove)
+		{
+			_particles.erase(std::find(_particles.begin(), _particles.end(), particle));
+			delete particle;
+		}
+		_particlesToRemove.clear();
 	}
 
 	void ParticleEmitter::Draw(sf::RenderWindow *window)
@@ -55,7 +62,6 @@ namespace TT
 
 	void ParticleEmitter::RemoveParticle(ShroomDustParticle *particle)
 	{
-		_particles.erase(std::find(_particles.begin(), _particles.end(), particle));
-		delete particle;
+		_particlesToRemove.push_back(particle);
 	}
 }
