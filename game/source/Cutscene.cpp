@@ -209,9 +209,9 @@ namespace TT {
             if(step.playMusic) {
                 _music.openFromFile(step.musicPath);
                 _music.play();
+                _music.setVolume(step.musicVolume);
+                _music.setLoop(step.musicLoop);
             }
-            _music.setVolume(step.musicVolume);
-            _music.setLoop(step.musicLoop);
 
             if(step.playSound) {
                 step.sound.setVolume(step.soundVolume);
@@ -238,7 +238,6 @@ namespace TT {
                 World::GetInstance()->GetPlayer()->_disabled = false;
                 World::GetInstance()->GetPlayer()->_hidden = false;
             }
-            _music.stop();
         }
 
         _nextStepTimer -= timeStep;
