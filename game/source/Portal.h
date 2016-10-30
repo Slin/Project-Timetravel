@@ -20,6 +20,7 @@ namespace TT
 
 	private:
 		sf::Shader _shader;
+		float _time;
 	};
 }
 
