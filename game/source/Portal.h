@@ -16,12 +16,13 @@ namespace TT
 		~Portal();
 
 		void Update(float timeStep) override;
+		void Draw(sf::RenderWindow *window) override;
 
 		void OnInteract(Entity* interactor) override;
 
 	private:
-		sf::Sprite *_object;
 		sf::Shader _shader;
+		float _time;
 	};
 }
 

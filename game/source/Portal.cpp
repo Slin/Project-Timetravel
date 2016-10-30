@@ -9,7 +9,7 @@
 
 namespace TT
 {
-	Portal::Portal(sf::Vector2f position) : Actor(position, "assets/textures/level_3/portal.png",  b2_kinematicBody, true, sf::Vector2f(1.0f, 1.0f), sf::Vector2f(436.0f, 482.0f))
+	Portal::Portal(sf::Vector2f position) : Actor(position, "assets/textures/level_3/portal.png",  b2_kinematicBody, true, sf::Vector2f(1.0f, 1.0f), sf::Vector2f(436.0f, 482.0f)), _time(0.0f)
 	{
 		canInteract = true;
 
@@ -23,9 +23,12 @@ namespace TT
 
 		const std::string fragmentShader = \
 				"uniform sampler2D texture;"\
+				"uniform float time;"\
                 "void main()"\
 				"{"\
-				"   vec4 color = texture2D(texture, gl_TexCoord[0].xy);"\
+				"   vec2 texcoords = gl_TexCoord[0].xy;"\
+				"   texcoords.y += sin(time*5.0+texcoords.x*30.0)*0.01;"\
+				"   vec4 color = texture2D(texture, texcoords);"\
 				"   gl_FragColor = gl_Color * color;"\
 				"}";
 
@@ -42,7 +45,13 @@ namespace TT
 
 	void Portal::Update(float timeStep)
 	{
+		_time += timeStep;
+	}
 
+	void Portal::Draw(sf::RenderWindow *window)
+	{
+		_shader.setUniform("time", _time);
+		window->draw(*_object, &_shader);
 	}
 
 	void Portal::OnInteract(Entity *interactor) {
