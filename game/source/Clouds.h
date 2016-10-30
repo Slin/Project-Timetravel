@@ -17,12 +17,8 @@ namespace TT
 		void Update(float timeStep);
 	private:
 		float _offset;
+		float xproblematic;
 		float _offsetspeed;
-		
 	};
-
-
-
-
 }
 #endif

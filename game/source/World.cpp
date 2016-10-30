@@ -132,7 +132,7 @@ namespace TT
 
 		Reset();
 		new Background(0.0f, "assets/textures/level_1/6.png"); //->1920
-		new Clouds(0.0f, 0.8f, "assets/textures/level_1/clouds.png");
+		new Clouds(7.0f, 0.8f, "assets/textures/level_1/clouds.png");
 		new Background(0.7f, "assets/textures/level_1/5.png");
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
@@ -284,7 +284,6 @@ namespace TT
 
 	void World::Reset()
 	{
-		_puzzleState = 0;
         GUIManager::GetInstance()->RemoveAllWidgets();
 		EntityManager::GetInstance()->RemoveAllEntities();
 		_player = nullptr;
@@ -303,6 +302,7 @@ namespace TT
 		_doorCloseSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_close.ogg")));
 
 		LoadStartScreen();
+
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;

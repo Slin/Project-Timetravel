@@ -24,6 +24,7 @@ namespace TT
 		void Draw(sf::RenderWindow *window);
 
 		bool IsGrounded();
+		sf::Vector2f GetVelocity();
 
 		bool ReportFixture(b2Fixture* fixture);
 
