@@ -191,8 +191,6 @@ namespace TT
 
 	void World::LoadLevel3()
 	{
-		float windowWidth = _view->getSize().x;
-		_playerSpawnPosition = -windowWidth*0.5f+200.0f;
 		_currentLevel = 3;
 
 		Reset();
@@ -225,6 +223,36 @@ namespace TT
 		_bgm.setVolume(100.0f);
 		_bgm.setLoop(true);
 		_bgm.play();
+		_fx.stop();
+
+	}
+
+	void World::LoadLevel4()
+	{
+		_currentLevel = 4;
+
+		Reset();
+
+		new Background(1.0f, "assets/textures/level_4/6.png");
+		new Background(0.7f, "assets/textures/level_4/5.png");
+		new Background(0.5f, "assets/textures/level_4/4.png");
+		new Background(0.0f, "assets/textures/level_4/3.png");
+
+		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
+
+		new Background(-0.3f, "assets/textures/level_4/2.png");
+		new Background(-0.7f, "assets/textures/level_4/1.png");
+
+		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
+		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
+		LoadingScreen::GetInstance()->Fadeout();
+		_player->level = _currentLevel;
+
+//		_bgm.openFromFile("assets/sounds/level_3/level3music.ogg");
+//		_bgm.setVolume(100.0f);
+//		_bgm.setLoop(true);
+		_bgm.stop();
 		_fx.stop();
 
 	}
@@ -327,6 +355,13 @@ namespace TT
 				_view->setCenter(3840.0f-_view->getSize().x, _view->getCenter().y);
 			}
 		}
+		if(_currentLevel == 4)
+		{
+			if(_view->getCenter().x > (3840.0f-_view->getSize().x))
+			{
+				_view->setCenter(3840.0f-_view->getSize().x, _view->getCenter().y);
+			}
+		}
 	}
 
 	void World::Update(float timeStep)
@@ -347,9 +382,12 @@ namespace TT
 					LoadLevel2();
 				if(_wantsToLoadLevel == 3)
 				{
+					_playerSpawnPosition = -windowWidth*0.5f+200.0f;
 					_doorOpenSound.play();
-					LoadLevel3();
+					LoadLevel4();
 				}
+				if(_wantsToLoadLevel == 4)
+					LoadLevel3();
 
 				_wantsToLoadLevel = -1;
 			}
@@ -399,11 +437,33 @@ namespace TT
 			{
 				if(_player->_position.x < -windowWidth*0.5f+100.0f)
 				{
+					_playerSpawnPosition = 2618;
+					if (LoadingScreen::GetInstance()->Fadein())
+					{
+						LoadLevel4();
+						_doorCloseSound.play();
+					}
+				}
+			}
+			if(_currentLevel == 4)
+			{
+				if(_player->_position.x < -windowWidth*0.5f+100.0f)
+				{
 					_playerSpawnPosition = 2460;
 					if (LoadingScreen::GetInstance()->Fadein())
 					{
 						LoadLevel1();
 						_doorCloseSound.play();
+					}
+				}
+
+				if(_player->_position.x > 3740.0f-windowWidth*0.5f)
+				{
+					_playerSpawnPosition = -windowWidth*0.5f+200.0f;
+					if (LoadingScreen::GetInstance()->Fadein())
+					{
+						LoadLevel3();
+						_doorOpenSound.play();
 					}
 				}
 			}
