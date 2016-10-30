@@ -442,7 +442,7 @@ namespace TT
 						cout << "PLAYER POSITION:" << _player->_position.x << " " << _player->_position.y << endl;
 					}
 
-					if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 					{
                         // Cutscene::GetInstance()->SkipStep();
 
