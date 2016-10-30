@@ -19,17 +19,19 @@ namespace TT {
 			return;
 		}
 
-		sf::Vector2f center;
+/*		sf::Vector2f center;
 		center = window->getView().getCenter();
 		float width = (float)window->getSize().x;
 
-		if (_object->getPosition().x > center.x + width)
+		if(_object->getPosition().x > center.x + 5757)
 		{
 			_object->setPosition(center.x - width, 0.0f);
 			_offset = 0.0f;
-		}
+		}*/
 
-		_object->setPosition((center.x - 0.7*width) * GetSpeed() + _offset, 0.0f);
+		sf::Vector2f center = window->getView().getCenter();
+		float width = (float)window->getSize().x;
+		_object->setPosition(center.x * GetSpeed() + _offset, 0.0f);
 		
 		window->draw(*_object);
 	}

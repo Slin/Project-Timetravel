@@ -105,6 +105,7 @@ namespace TT
 
 		Reset();
 		new Background(0.0f, "assets/textures/level_1/6.png"); //->1920
+		new Clouds(0.0f, 0.8f, "assets/textures/level_1/clouds.png");
 		new Background(0.7f, "assets/textures/level_1/5.png");
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
@@ -193,7 +194,7 @@ namespace TT
 		Reset();
 
 		new Background(0.7f, "assets/textures/level_3/5.png");
-		new Background(0.5f, "assets/textures/level_3/4.png");
+		new Background(0.05f, "assets/textures/level_3/4.png");
 		new Background(0.0f, "assets/textures/level_3/3.png");
 
 		new Bookshelf(0, sf::Vector2f(-577, 278));
@@ -238,7 +239,7 @@ namespace TT
 
 	void World::Loop()
 	{
-		LoadLevel2();
+		LoadLevel3();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
