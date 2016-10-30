@@ -47,11 +47,10 @@ namespace TT
                     // Check for the password
                     if (World::KEYS[1]) {
                         // Allow to enter the next screne
-                        PlayMumbleSound(4);
+                        PlayMumbleSound(3);
                         Dialog::GetInstance()->SetText(
                                 "Correct! You've found the password. You can now enter the dungeon.");
                         Dialog::GetInstance()->SetResetTimer(3.2f);
-                        PlayMumbleSound(4);
                         canInteract = true;
                     } else {
                         // Write dialog
@@ -64,17 +63,17 @@ namespace TT
                             case 0:
                                 _playerIgnoreTimer = 3.2f;
                                 Dialog::GetInstance()->SetText(
-                                        "Hello stranger! What is the password? You don't know it? Then you cannot enter...");
+                                        "Hello stranger! You cannot pass this door.");
                                 break;
                             case 1:
                                 _playerIgnoreTimer = 3.2f;
                                 Dialog::GetInstance()->SetText(
-                                        "You have still no key. Why are you bothering me? Leave me alone!");
+                                        "I said that you are not allowed to pass this door.\nWhy are you bothering me? Leave me alone!");
                                 break;
                             case 2:
                                 _playerIgnoreTimer = 6.0f;
                                 Dialog::GetInstance()->SetText(
-                                        "You need to go to the cave in the East from here.\nDo that stupid riddle and come back with the password.");
+                                        "Okay...\nYou can pass the door if you solve the puzzle in the case.\nGo to the East and activate the altars.");
                                 break;
                         }
                         Dialog::GetInstance()->SetResetTimer(_playerIgnoreTimer);

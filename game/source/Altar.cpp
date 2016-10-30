@@ -131,7 +131,7 @@ namespace TT
 			{
 				World::KEYS[1] = true;
 				canInteract = false;
-				Dialog::GetInstance()->SetText("You've found the password.");
+				Dialog::GetInstance()->SetText("You've solved the uber complex puzzle.\nGo back to the guard to pass the door.");
 				Dialog::GetInstance()->SetResetTimer(5.0f);
 				World::GetInstance()->GetPlayer()->PlayPickupSound();
 			}

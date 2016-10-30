@@ -149,12 +149,12 @@ namespace TT {
     }
 
     void PlayerEntity::FindInteractionObjects() {
-        float radius = 100.0f * WORLD_TO_BOX2D;
+        float radius = 50.0f * WORLD_TO_BOX2D;
 
         // Check distance to interactionTarget
         if (_interactionTarget) {
             float distance = Math::distance(_interactionTarget->_position, _position) * WORLD_TO_BOX2D;
-            if (!_interactionTarget->canInteract || distance > radius * 2.0f) {
+            if (!_interactionTarget->canInteract || distance > radius) {
                 _interactionTarget->OnBlur(this);
                 _interactionTarget = nullptr;
             }

@@ -11,13 +11,13 @@ namespace TT
 {
 	int Bookshelf::_activeCounter = 0;
 
-	Bookshelf::Bookshelf(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id), _glow(nullptr)
+	Bookshelf::Bookshelf(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true, sf::Vector2f(1.0f, 1.0f), sf::Vector2f(64.0f, 64.0f), sf::Vector2f(8.0f, 128.0f)), _id(id), _glow(nullptr)
 	{
 		canInteract = true;
 		hidden = true;
 
 		if(id == 5) {
-			StartGlow();
+			canInteract = false;
 		}
 	}
 
@@ -32,12 +32,16 @@ namespace TT
 
 		if(Bookshelf::_activeCounter == 0 && canInteract)
 		{
-			// StopGlow();
+			StopGlow();
 		}
 
 		if(Bookshelf::_activeCounter == 5)
 		{
 			canInteract = false;
+		}
+
+		if(_id == 5 && _id == Bookshelf::_activeCounter) {
+			StartGlow();
 		}
 	}
 
@@ -75,7 +79,6 @@ namespace TT
 				std::cout << "BAM!" << std::endl;
 				Dialog::GetInstance()->SetText("You've solved the last puzzle. Read the spell book to open the portal.");
 				World::GetInstance()->GetPlayer()->PlayPickupSound();
-
 			}
 		}
 		else
@@ -116,8 +119,8 @@ namespace TT
 		}
 		if(_id == 5)
 		{
-			_glow = World::CreateSprite("assets/textures/level_3/puzzle_5.png");
-			_glow->setPosition(1545-960+63, 400-410+66);
+			_glow = World::CreateSprite("assets/textures/level_3/puzzle_6.png");
+			_glow->setPosition(1545-960+63, 445-410+66);
 		}
 	}
 

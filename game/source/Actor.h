@@ -16,7 +16,7 @@ namespace TT {
         bool canInteract = false;
         bool hidden = false;
 
-        Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType = b2_dynamicBody, bool sensor = false, sf::Vector2f scale = sf::Vector2f(1.0f, 1.0f), sf::Vector2f size = sf::Vector2f(64.0f, 64.0f));
+        Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType = b2_dynamicBody, bool sensor = false, sf::Vector2f scale = sf::Vector2f(1.0f, 1.0f), sf::Vector2f size = sf::Vector2f(64.0f, 64.0f), sf::Vector2f customColliderSize = sf::Vector2f(-1.0f, -1.0f));
         ~Actor();
 
         virtual void Update(float timeStep);

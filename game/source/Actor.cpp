@@ -7,7 +7,7 @@
 
 namespace TT
 {
-    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale, sf::Vector2f size) : canInteract(false)
+    Actor::Actor(sf::Vector2f position, sf::String spritePath, b2BodyType bodyType, bool sensor, sf::Vector2f scale, sf::Vector2f size, sf::Vector2f customColliderSize) : canInteract(false)
     {
         _object = nullptr;
         _size = size;
@@ -26,9 +26,16 @@ namespace TT
         //bodyDef.linearDamping = 10.0f;
         bodyDef.position.Set(_object->getPosition().x * WORLD_TO_BOX2D, _object->getPosition().y * WORLD_TO_BOX2D);
         bodyDef.userData = (void *) this;
+
         _body = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
-        dynamicBox.SetAsBox(_object->getLocalBounds().width * 0.2f * WORLD_TO_BOX2D,
-                            _object->getLocalBounds().height * 0.5f * WORLD_TO_BOX2D);
+        if(customColliderSize.x != -1.0f && customColliderSize.y != -1.0f) {
+            dynamicBox.SetAsBox(customColliderSize.x  * 0.2f * WORLD_TO_BOX2D,
+                                customColliderSize.y * 0.5f * WORLD_TO_BOX2D);
+        } else {
+            dynamicBox.SetAsBox(_object->getLocalBounds().width * 0.2f * WORLD_TO_BOX2D,
+                                _object->getLocalBounds().height * 0.5f * WORLD_TO_BOX2D);
+        }
+
         fixtureDef.shape = &dynamicBox;
 
         if (bodyType == b2_dynamicBody) {

@@ -113,8 +113,8 @@ namespace TT
 
 		if(!World::KEYS[0])
 		{
-			ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
-			emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
+			ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1440.0f, 278.0f));
+			emitter->emitterOffset = sf::Vector2f(0.0f, 180.0f);
 
 			_level1KeyLight = new PulsatingLight("assets/textures/level_1/keylight.png", sf::Vector2f(2413 - 0.5*_view->getSize().x, 184), 5.0f, 0.2f);
 		}
@@ -241,7 +241,7 @@ namespace TT
 
 	void World::Loop()
 	{
-		LoadLevel3();
+		LoadLevel1();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
