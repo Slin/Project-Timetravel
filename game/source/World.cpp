@@ -189,7 +189,7 @@ namespace TT
 		new Background(0.7f, "assets/textures/level_2/5.png");
 		new Background(0.5f, "assets/textures/level_2/4.png");
 
-		//new ParticleEmitter();
+		new ParticleEmitter();
 		new Background(0.0f, "assets/textures/level_2/3.png");
 
 		new PulsatingLight("assets/textures/level_2/glowrunes.png", sf::Vector2f(1386 - 0.5*_view->getSize().x, 128), 4.0f, 0.25f);
