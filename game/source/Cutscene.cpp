@@ -59,13 +59,18 @@ namespace TT {
 
         step.duration = 3.0f;
         step.text = "";
-        step.loadLevel = 1;
+        step.loadLevel = true;
+        step.loadLevelId = 1;
         _steps_0[5] = step;
 
         // STEP 1
 
-        step.loadLevel = -1;
+        step.loadLevel = false;
         step.duration = 3.0f;
+        step.loadLevel = true;
+        step.playMusic = true;
+        step.musicPath = "assets/sounds/level_3/magic.ogg";
+        step.musicLoop = false;
         step.text = "In the depth of ancient towers\nI call thee, you mystic powers";
         _steps_1[0] = step;
 
@@ -82,16 +87,16 @@ namespace TT {
         _steps_1[3] = step;
 
         // STEP 2
-        step.loadLevel = -1;
+        step.loadLevel = false;
         step.duration = 3.0f;
         step.text = "What? The portal is powered? But how?\nEven I could never uncover all its secrets! ";
         step.playMusic = true;
         step.musicPath = "assets/sounds/level_3/dramatic.ogg";
         step.musicLoop = false;
         step.spawnCharacter = true;
-        step.spawnCharacterMaxAlpha = 100.0f;
-        step.spawnCharacterPosition = sf::Vector2f(1700.0f, 140.0f);
-        step.spawnCharacterSprite = "assets/textures/characters/wizzard_startscene.png";
+        step.spawnCharacterMaxAlpha = 255.0f;
+        step.spawnCharacterPosition = sf::Vector2f(1250.0f, 140.0f);
+        step.spawnCharacterSprite = "assets/textures/characters/wizzard_endscene.png";
         _steps_2[0] = step;
 
         step.duration = 3.0f;
@@ -107,6 +112,11 @@ namespace TT {
         step.duration = 3.0f;
         step.text = "I'll make him suffer for all he has done to me!";
         _steps_2[3] = step;
+
+        step.duration = 3.0f;
+        step.loadLevel = true;
+        step.loadLevelId = -1;
+        _steps_2[4] = step;
     }
 
     Cutscene::~Cutscene() {
@@ -142,8 +152,8 @@ namespace TT {
             Dialog::GetInstance()->SetText(step.text);
             Dialog::GetInstance()->SetResetTimer(step.duration);
 
-            if (step.loadLevel >= 0) {
-                World::GetInstance()->LoadLevel(step.loadLevel);
+            if (step.loadLevel) {
+                World::GetInstance()->LoadLevel(step.loadLevelId);
                 _music.stop();
             }
 
@@ -187,9 +197,6 @@ namespace TT {
 
     void Cutscene::StartCutscene(unsigned int id)
     {
-	    if(_currentStep != -1)
-		    return;
-
         _id = id;
         _currentStep = 0;
     }

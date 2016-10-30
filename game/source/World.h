@@ -28,7 +28,7 @@ namespace TT
 	class World
 	{
 	public:
-        static bool KEYS[2];
+        static bool KEYS[3];
 
 		void Loop();
 		void Update(float timeStep);
@@ -97,7 +97,7 @@ namespace TT
 
 	private:
 		World();
-
+		void LoadEndScreen();
 		void LoadStartScreen();
 		void LoadLevel1();
 		void LoadLevel2();

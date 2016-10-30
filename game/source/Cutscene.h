@@ -30,7 +30,8 @@ namespace TT {
         struct Step {
             string text;
             float duration = 2.0f;
-            int loadLevel = -1;
+            bool loadLevel = false;
+            int loadLevelId = -1;
 
             bool spawnCharacter;
             float spawnCharacterMinAlpha = 0.0f;

@@ -2,6 +2,8 @@
 // Created by Nils Daumann on 30.10.16.
 //
 
+#include "PlayerEntity.h"
+#include "Cutscene.h"
 #include "Portal.h"
 #include "World.h"
 
@@ -9,6 +11,8 @@ namespace TT
 {
 	Portal::Portal(sf::Vector2f position) : Actor(position, "assets/textures/level_3/portal.png",  b2_kinematicBody, true, sf::Vector2f(1.0f, 1.0f), sf::Vector2f(436.0f, 482.0f))
 	{
+		canInteract = true;
+
 		const std::string vertexShader = \
 				"void main()"\
 				"{"\
@@ -39,5 +43,14 @@ namespace TT
 	void Portal::Update(float timeStep)
 	{
 
+	}
+
+	void Portal::OnInteract(Entity *interactor) {
+		Actor::OnInteract(interactor);
+
+		if(World::KEYS[2]) {
+			World::GetInstance()->GetPlayer()->PlayPickupSound();
+			Cutscene::GetInstance()->StartCutscene(2);
+		}
 	}
 }

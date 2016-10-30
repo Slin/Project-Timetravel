@@ -88,9 +88,9 @@ namespace TT
 				_locked = true;
 				canInteract = false;
 				// Cutscene
-				std::cout << "cutscene!" << std::endl;
 				Dialog::GetInstance()->SetText("");
-				Cutscene::GetInstance()->StartCutscene(2);
+				Cutscene::GetInstance()->StartCutscene(1);
+                World::KEYS[2] = true;
 			}
 		}
 		else

@@ -17,6 +17,8 @@ namespace TT
 
 		void Update(float timeStep) override;
 
+		void OnInteract(Entity* interactor) override;
+
 	private:
 		sf::Sprite *_object;
 		sf::Shader _shader;

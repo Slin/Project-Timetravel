@@ -29,7 +29,7 @@
 
 namespace TT
 {
-	bool World::KEYS[2] = {false, false};
+	bool World::KEYS[3] = {false, false, false};
 	World *World::_instance = nullptr;
 
 	World *World::GetInstance()
@@ -100,6 +100,30 @@ namespace TT
         _fx.play();
 
     }
+
+	void World::LoadEndScreen()
+	{
+		KEYS[0] = false;
+		KEYS[1] = false;
+
+		_currentLevel = -1;
+		Reset();
+
+		_bgm.stop();
+		_fx.stop();
+		_fx.openFromFile("assets/sounds/rain.ogg");
+		_fx.setLoop(true);
+		_fx.setVolume(100.0f);
+
+		new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
+
+		Dialog::GetInstance()->SetText("Press ENTER to start");
+
+		LoadingScreen::GetInstance()->Fadeout();
+
+		_fx.play();
+
+	}
 
 	void World::LoadLevel1()
 	{
