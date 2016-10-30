@@ -131,7 +131,7 @@ namespace TT
 
 		Reset();
 		new Background(0.0f, "assets/textures/level_1/6.png"); //->1920
-		new Clouds(5.0f, 0.8f, "assets/textures/level_1/clouds.png");
+		new Clouds(7.0f, 0.8f, "assets/textures/level_1/clouds.png");
 		new Background(0.7f, "assets/textures/level_1/5.png");
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
@@ -189,7 +189,7 @@ namespace TT
 		new Background(0.7f, "assets/textures/level_2/5.png");
 		new Background(0.5f, "assets/textures/level_2/4.png");
 
-		new ParticleEmitter();
+		//new ParticleEmitter();
 		new Background(0.0f, "assets/textures/level_2/3.png");
 
 		new PulsatingLight("assets/textures/level_2/glowrunes.png", sf::Vector2f(1386 - 0.5*_view->getSize().x, 128), 4.0f, 0.25f);
