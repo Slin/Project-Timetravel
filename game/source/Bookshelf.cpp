@@ -18,6 +18,34 @@ namespace TT
 		canInteract = true;
 		hidden = true;
 
+		if (id == 0)
+		{
+			_sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_3/book_01.ogg"));
+			_sound.setLoop(false);
+		}
+		if (id == 1)
+		{
+			_sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_3/book_01.ogg"));
+			_sound.setLoop(false);
+		}
+		if (id == 2)
+		{
+			_sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_3/book_02.ogg"));
+			_sound.setLoop(false);
+		}
+
+		if (id == 3)
+		{
+			_sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_3/book_02.ogg"));
+			_sound.setLoop(false);
+		}
+		if (id == 4)
+		{
+			_sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_3/book_03.ogg"));
+			_sound.setLoop(false);
+		}
+        _sound.setVolume(50.0f);
+
 		if(id == 5) {
 			canInteract = false;
 		}
@@ -79,7 +107,6 @@ namespace TT
 
 			if(_id == 4)
 			{
-
 				Dialog::GetInstance()->SetText("You've solved the last puzzle. Read the spell book to open the portal.");
 				World::GetInstance()->GetPlayer()->PlayPickupSound();
 			}
@@ -108,26 +135,31 @@ namespace TT
 		{
 			_glow = World::CreateSprite("assets/textures/level_3/puzzle_1.png");
 			_glow->setPosition(352-960+42, 485-410+52);
+			_sound.play();
 		}
 		if(_id == 1)
 		{
 			_glow = World::CreateSprite("assets/textures/level_3/puzzle_2.png");
 			_glow->setPosition(802-960+47, 309-410+52);
+			_sound.play();
 		}
 		if(_id == 2)
 		{
 			_glow = World::CreateSprite("assets/textures/level_3/puzzle_3.png");
 			_glow->setPosition(1097-960+43, 638-410+44);
+			_sound.play();
 		}
 		if(_id == 3)
 		{
 			_glow = World::CreateSprite("assets/textures/level_3/puzzle_4.png");
 			_glow->setPosition(1466-960+58, 283-410+56);
+			_sound.play();
 		}
 		if(_id == 4)
 		{
 			_glow = World::CreateSprite("assets/textures/level_3/puzzle_5.png");
 			_glow->setPosition(1751-960+63, 413-410+66);
+			_sound.play();
 		}
 		if(_id == 5)
 		{

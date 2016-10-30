@@ -11,7 +11,8 @@ namespace TT
 {
 	Portal::Portal(sf::Vector2f position) : Actor(position, "assets/textures/level_3/portal.png",  b2_kinematicBody, true, sf::Vector2f(1.0f, 1.0f), sf::Vector2f(436.0f, 482.0f)), _time(0.0f)
 	{
-		canInteract = true;
+		canInteract = false;
+		hidden = true;
 
 		const std::string vertexShader = \
 				"void main()"\
@@ -46,12 +47,16 @@ namespace TT
 	void Portal::Update(float timeStep)
 	{
 		_time += timeStep;
+
+		canInteract = World::KEYS[2];
+		hidden = !canInteract;
 	}
 
-	void Portal::Draw(sf::RenderWindow *window)
-	{
-		_shader.setUniform("time", _time);
-		window->draw(*_object, &_shader);
+	void Portal::Draw(sf::RenderWindow *window) {
+		if (!hidden) {
+			_shader.setUniform("time", _time);
+			window->draw(*_object, &_shader);
+		}
 	}
 
 	void Portal::OnInteract(Entity *interactor) {

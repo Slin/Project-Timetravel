@@ -97,9 +97,7 @@ namespace TT
     }
 
     void NPC::PlayMumbleSound(unsigned int id) {
-        if (MUMBLES[id].getStatus() != sf::SoundSource::Playing) {
-            MUMBLES[id].play();
-        }
+        MUMBLES[id].play();
     }
 
     void NPC::OnBlur(Entity *interactor) {

@@ -106,20 +106,21 @@ namespace TT
 		KEYS[0] = false;
 		KEYS[1] = false;
 
-		_currentLevel = -1;
+		_currentLevel = 5;
 		Reset();
 
 		_bgm.stop();
 		_fx.stop();
+
 		_fx.openFromFile("assets/sounds/rain.ogg");
 		_fx.setLoop(true);
 		_fx.setVolume(100.0f);
 
-		new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
+		new Background(1.0f, "assets/textures/endscreen/background.png"); //->1920
 
-		Dialog::GetInstance()->SetText("Press ENTER to start");
+        Cutscene::GetInstance()->StartCutscene(3);
 
-		LoadingScreen::GetInstance()->Fadeout();
+        LoadingScreen::GetInstance()->Fadeout();
 
 		_fx.play();
 
@@ -301,7 +302,7 @@ namespace TT
 		_doorOpenSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_open.ogg")));
 		_doorCloseSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_close.ogg")));
 
-		LoadLevel3();
+		LoadStartScreen();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
@@ -412,6 +413,8 @@ namespace TT
 				}
 				if(_wantsToLoadLevel == 4)
 					LoadLevel3();
+                if(_wantsToLoadLevel == 5)
+                    LoadEndScreen();
 
 				_wantsToLoadLevel = -1;
 			}

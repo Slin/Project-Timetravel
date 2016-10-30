@@ -26,7 +26,7 @@ namespace TT {
 
         Step step;
         step.duration = 6.0f;
-        step.hidePlayer = false;
+        step.hidePlayer = true;
         step.text = "I remember him stepping out of the portal that opened in our home, the enemy I thought defeated.";
         step.spawnCharacter = true;
         step.spawnCharacterPosition = sf::Vector2f(550.0f, 275.0f);
@@ -68,6 +68,7 @@ namespace TT {
 
         step.loadLevel = false;
         step.duration = 3.0f;
+        step.hidePlayer = false;
         step.playMusic = true;
         step.musicPath = "assets/sounds/level_3/magic.ogg";
         step.musicLoop = true;
@@ -110,10 +111,7 @@ namespace TT {
         _steps_2[1] = step;
 
         step.duration = 3.0f;
-        step.playMusic = false;
         step.text = "Ah well, who cares. \nNow I can finally use it.";
-        step.playMusic = false;
-        step.spawnCharacter = false;
         _steps_2[2] = step;
 
         step.duration = 3.0f;
@@ -125,9 +123,48 @@ namespace TT {
         _steps_2[4] = step;
 
         step.duration = 3.0f;
+        step.text = "";
         step.loadLevel = true;
-        step.loadLevelId = -1;
+        step.loadLevelId = 5;
         _steps_2[5] = step;
+
+        // STEP 3
+        step.duration = 5.0f;
+        step.hidePlayer = true;
+        step.loadLevel = false;
+        step.text = "I went through the portal.\nThe knowledge I had gotten led me back to the moment\nwhere I could see myself with my dear Corra happy side by side.";
+        step.spawnCharacter = false;
+        step.playMusic = true;
+        step.musicPath = "assets/sounds/endscreen/bgm.ogg";
+        step.musicLoop = true;
+        _steps_3[0] = step;
+
+        step.duration = 5.0f;
+        step.playMusic = false;
+        step.text = "I hid and waited for the portal to open, an arrow notched on my bow.";
+        _steps_3[1] = step;
+
+        step.duration = 5.0f;
+        step.text = "But when the portal opened everything happened like it had the first time.";
+        _steps_3[2] = step;
+
+        step.duration = 5.0f;
+        step.text = "My arrows could not stop him from killing Corra, they only drove him away.";
+        _steps_3[3] = step;
+
+        step.duration = 5.0f;
+        step.text = "I had to watch her die again.\nAnd that's when I realized, that the portal had been inactive until I used it to return.";
+        _steps_3[4] = step;
+
+        step.duration = 5.0f;
+        step.text = "It was I who had handed my Archenemy the power to travel through time.";
+        _steps_3[5] = step;
+
+        step.duration = 3.0f;
+        step.text = "Le Fin";
+        step.loadLevel = true;
+        step.loadLevelId = 0;
+        _steps_3[6] = step;
     }
 
     Cutscene::~Cutscene() {
@@ -136,38 +173,33 @@ namespace TT {
 
     void Cutscene::Update(float timeStep)
     {
-        if(_currentStep < 0)
+        if(_currentStep < 0 || _currentStep >= _cutsceneFrames)
             return;
 
-        int length = 0;
         Step step;
 
         if (_id == 0) {
-            length = 6;
             step = _steps_0[_currentStep];
         }
         if (_id == 1) {
-            length = 4;
             step = _steps_1[_currentStep];
         }
         if (_id == 2) {
-            length = 6;
             step = _steps_2[_currentStep];
         }
+        if (_id == 3) {
+            step = _steps_3[_currentStep];
+        }
 
-        _cutsceneRunning = _currentStep < length && _currentStep >= 0;
-        World::GetInstance()->GetPlayer()->_disabled = _cutsceneRunning;
+        _cutsceneRunning = _currentStep < _cutsceneFrames && _currentStep >= 0;
+        if(World::GetInstance()->GetPlayer()) {
+            World::GetInstance()->GetPlayer()->_disabled = _cutsceneRunning;
+        }
 
-        if (_currentStep < length && _nextStepTimer <= 0.0f)
+        if (_currentStep < _cutsceneFrames && _nextStepTimer <= 0.0f)
         {
             Dialog::GetInstance()->SetText(step.text);
             Dialog::GetInstance()->SetResetTimer(step.duration);
-
-            if (step.loadLevel) {
-                World::GetInstance()->LoadLevel(step.loadLevelId);
-                _music.stop();
-            }
-
             if (step.spawnCharacter) {
                 FakeCharacter *character = new FakeCharacter(step.spawnCharacterPosition, step.spawnCharacterSprite);
                 character->maxAlpha = step.spawnCharacterMaxAlpha;
@@ -180,7 +212,9 @@ namespace TT {
                 step.sound.play();
             }
 
-            World::GetInstance()->GetPlayer()->_hidden = step.hidePlayer;
+            if(World::GetInstance()->GetPlayer()) {
+                World::GetInstance()->GetPlayer()->_hidden = step.hidePlayer;
+            }
 
             if(step.playMusic) {
                 _music.openFromFile(step.musicPath);
@@ -189,12 +223,22 @@ namespace TT {
             _music.setVolume(step.musicVolume);
             _music.setLoop(step.musicLoop);
 
+            if (step.loadLevel) {
+                World::GetInstance()->LoadLevel(step.loadLevelId);
+                _music.stop();
+            }
+
             _nextStepTimer = step.duration;
             _currentStep++;
         }
-	    else if(_currentStep >= length)
+
+        if(_currentStep >= _cutsceneFrames)
         {
 	        _currentStep = -1;
+            if(World::GetInstance()->GetPlayer()) {
+                World::GetInstance()->GetPlayer()->_disabled = false;
+                World::GetInstance()->GetPlayer()->_hidden = false;
+            }
         }
 
         _nextStepTimer -= timeStep;
@@ -211,7 +255,21 @@ namespace TT {
     void Cutscene::StartCutscene(unsigned int id)
     {
         _id = id;
+        _nextStepTimer = 0.0f;
         _currentStep = 0;
+
+        if (_id == 0) {
+            _cutsceneFrames = 6;
+        }
+        if (_id == 1) {
+            _cutsceneFrames = 4;
+        }
+        if (_id == 2) {
+            _cutsceneFrames = 6;
+        }
+        if (_id == 3) {
+            _cutsceneFrames = 7;
+        }
     }
 
     void Cutscene::CancelCutscene() {

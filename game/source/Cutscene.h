@@ -59,11 +59,13 @@ namespace TT {
 
         int _id = 0;
         float _nextStepTimer = 0.0f;
+        int _cutsceneFrames = 0;
 
         int _currentStep = 0;
         Step _steps_0[6];
         Step _steps_1[6];
         Step _steps_2[6];
+        Step _steps_3[6];
 
         sf::Music _music;
 

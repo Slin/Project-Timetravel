@@ -21,17 +21,6 @@ namespace TT
 		sf::Sprite *_object;
 		float _speed;
 
-
-
-
-
-
-
 	};
-
-
-
-
-
 }
 #endif
