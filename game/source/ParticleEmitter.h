@@ -6,7 +6,7 @@
 #define TIMETRAVEL_PARTICLEEMITTER_H
 
 #include "Entity.h"
-//#include "BloodParticle.h"
+#include "ShroomDustParticle.h"
 
 namespace TT
 {
@@ -18,13 +18,11 @@ namespace TT
 
 		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
-		void DrawLate(sf::RenderWindow *window);
 
-		void Bleed();
+		void RemoveParticle(ShroomDustParticle *particle);
 
 	private:
-//		BloodParticle *_particles[10000];
-		int _currentParticle;
+		std::vector<ShroomDustParticle*> _particles;
 	};
 }
 

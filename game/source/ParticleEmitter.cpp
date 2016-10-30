@@ -8,57 +8,54 @@ namespace TT
 {
 	ParticleEmitter::ParticleEmitter()
 	{
-		_currentParticle = 0;
-//		memset(_particles, 0, sizeof(_particles));
+		for(int i = 100; i > 0; i--)
+		{
+			Update(0.5f);
+		}
 	}
 
 	ParticleEmitter::~ParticleEmitter()
 	{
-
-	}
-
-/*	void ParticleEmitter::Bleed()
-	{
-		for(int i = 0; i < 1000; i++)
+		for(ShroomDustParticle *particle : _particles)
 		{
-			_particles[_currentParticle] = new BloodParticle();
-			_particles[_currentParticle]->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 550.0f*World::GetInstance()->GetScaleFactor());
-
-			sf::Vector2f dir((rand()/(float)RAND_MAX)-0.5f, -(rand()/(float)RAND_MAX)-0.5f);
-			float length = sqrt(dir.x*dir.x+dir.y*dir.y);
-			dir *= length*5.0f*((rand()/(float)RAND_MAX)*0.5f + 0.5f);
-			_particles[_currentParticle]->speed = dir;
-
-			_currentParticle += 1;
-			if(_currentParticle >= 10000)
-				_currentParticle = 0;
+			delete particle;
 		}
-	}*/
+	}
 
 	void ParticleEmitter::Update(float timeStep)
 	{
-/*		for(int i = 0; i < 10000; i++)
+		for(int i = _particles.size(); i < 100; i++)
 		{
-			if(!_particles[i])
-				continue;
+			_particles.push_back(new ShroomDustParticle(this));
 
-			_particles[i]->Update(timeStep);
-		}*/
+			sf::Vector2f dir((rand()/(float)RAND_MAX)-0.5f, (rand()/(float)RAND_MAX)-0.5f);
+			dir.x *= 3000;
+			dir.x += 400;
+			dir.y *= 50;
+			dir.y += 250;
+			_particles[i]->setPosition(dir);
+			_particles[i]->speed = sf::Vector2f(0.0f, -(rand()/(float)RAND_MAX+1.0f)*10.0f);
+		}
+
+		for(ShroomDustParticle *particle : _particles)
+		{
+			particle->Update(timeStep);
+		}
 	}
 
 	void ParticleEmitter::Draw(sf::RenderWindow *window)
 	{
-
+		for(ShroomDustParticle *particle : _particles)
+		{
+			sf::RenderStates renderStates = sf::RenderStates::Default;
+			renderStates.blendMode = sf::BlendAdd;
+			window->draw(*particle, renderStates);
+		}
 	}
 
-	void ParticleEmitter::DrawLate(sf::RenderWindow *window)
+	void ParticleEmitter::RemoveParticle(ShroomDustParticle *particle)
 	{
-//		for(int i = 0; i < 10000; i++)
-		{
-/*			if(!_particles[i])
-				continue;
-
-			window->draw(*_particles[i]);*/
-		}
+		_particles.erase(std::find(_particles.begin(), _particles.end(), particle));
+		delete particle;
 	}
 }
