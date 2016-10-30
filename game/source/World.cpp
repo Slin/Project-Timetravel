@@ -131,7 +131,7 @@ namespace TT
 
 		Reset();
 		new Background(0.0f, "assets/textures/level_1/6.png"); //->1920
-		new Clouds(0.0f, 0.8f, "assets/textures/level_1/clouds.png");
+		new Clouds(5.0f, 0.8f, "assets/textures/level_1/clouds.png");
 		new Background(0.7f, "assets/textures/level_1/5.png");
 		new Background(0.5f, "assets/textures/level_1/4.png");
 		new Background(0.0f, "assets/textures/level_1/3.png");
