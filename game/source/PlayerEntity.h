@@ -13,6 +13,8 @@ namespace TT
 	{
 	public:
 
+		bool _disabled = false;
+
 		PlayerEntity(sf::Vector2f position);
 		~PlayerEntity();
 

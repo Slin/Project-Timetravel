@@ -87,8 +87,9 @@ namespace TT {
     }
 
     void PlayerEntity::Update(float timeStep) {
-        sf::Vector2f moveDirection;
+        if(_disabled) return;
 
+        sf::Vector2f moveDirection;
         moveDirection.x = sf::Keyboard::isKeyPressed(sf::Keyboard::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 
         if (fabsf(moveDirection.x) > 0.0f) {

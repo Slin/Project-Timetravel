@@ -5,6 +5,7 @@
 #include "PlayerEntity.h"
 #include "Dialog.h"
 #include "Bookshelf.h"
+#include "Cutscene.h"
 #include <iostream>
 
 namespace TT
@@ -89,6 +90,7 @@ namespace TT
 				// Cutscene
 				std::cout << "cutscene!" << std::endl;
 				Dialog::GetInstance()->SetText("");
+				Cutscene::GetInstance()->StartCutscene(2);
 			}
 		}
 		else

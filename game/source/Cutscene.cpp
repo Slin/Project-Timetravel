@@ -2,6 +2,7 @@
 // Created by Matthias Bruns on 29/10/2016.
 //
 
+#include "PlayerEntity.h"
 #include "Cutscene.h"
 #include "Dialog.h"
 #include "FakeCharacter.h"
@@ -20,6 +21,8 @@ namespace TT {
     Cutscene::Cutscene(unsigned int id) : _currentStep(-1)
     {
         _id = id;
+
+        // STEP 0
 
         Step step;
         step.duration = 6.0f;
@@ -41,6 +44,7 @@ namespace TT {
         step.spawnCharacterSprite = "assets/textures/characters/wizzard_startscene.png";
         _steps_0[1] = step;
 
+        step.spawnCharacter = false;
         step.duration = 5.0f;
         step.text = "I remember you slumping down, me cradling you, while you died in my arms, Corra, my love, my life.";
         _steps_0[2] = step;
@@ -58,19 +62,51 @@ namespace TT {
         step.loadLevel = 1;
         _steps_0[5] = step;
 
+        // STEP 1
+
         step.loadLevel = -1;
         step.duration = 3.0f;
         step.text = "In the depth of ancient towers\nI call thee, you mystic powers";
         _steps_1[0] = step;
+
         step.duration = 3.0f;
         step.text = "Rip the cloth of space and time\nAncient knowledge that is mine";
         _steps_1[1] = step;
+
         step.duration = 3.0f;
         step.text = "Door that past and future holds,\nLead me where my path unfolds!";
         _steps_1[2] = step;
+
         step.duration = 3.0f;
         step.text = "Open up and bring me where\nMy desires lead me there.";
         _steps_1[3] = step;
+
+        // STEP 2
+        step.loadLevel = -1;
+        step.duration = 3.0f;
+        step.text = "What? The portal is powered? But how?\nEven I could never uncover all its secrets! ";
+        step.playMusic = true;
+        step.musicPath = "assets/sounds/level_3/dramatic.ogg";
+        step.musicLoop = false;
+        step.spawnCharacter = true;
+        step.spawnCharacterMaxAlpha = 100.0f;
+        step.spawnCharacterPosition = sf::Vector2f(1700.0f, 140.0f);
+        step.spawnCharacterSprite = "assets/textures/characters/wizzard_startscene.png";
+        _steps_2[0] = step;
+
+        step.duration = 3.0f;
+        step.text = "Ah well, who cares. \nNow I can finally use it.";
+        step.playMusic = false;
+        step.spawnCharacter = false;
+        _steps_2[1] = step;
+
+        step.duration = 3.0f;
+        step.text = "Now I can finally make him pay.";
+        _steps_2[2] = step;
+
+        step.duration = 3.0f;
+        step.text = "I'll make him suffer for all he has done to me!";
+        _steps_2[3] = step;
     }
 
     Cutscene::~Cutscene() {
@@ -93,6 +129,13 @@ namespace TT {
             length = 4;
             step = _steps_1[_currentStep];
         }
+        if (_id == 2) {
+            length = 4;
+            step = _steps_2[_currentStep];
+        }
+
+        _cutsceneRunning = _currentStep < length && _currentStep >= 0;
+        World::GetInstance()->GetPlayer()->_disabled = _cutsceneRunning;
 
         if (_currentStep < length && _nextStepTimer <= 0.0f)
         {

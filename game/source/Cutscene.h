@@ -10,6 +10,7 @@
 namespace TT {
     class Cutscene : public Entity {
     public:
+        bool _cutsceneRunning = false;
 
         static Cutscene *GetInstance();
 
@@ -39,6 +40,7 @@ namespace TT {
 
             bool playSound = false;
             sf::Sound sound;
+
             float soundVolume = 50.0f;
 
             bool playMusic = false;
@@ -58,6 +60,7 @@ namespace TT {
         int _currentStep = 0;
         Step _steps_0[6];
         Step _steps_1[6];
+        Step _steps_2[6];
 
         sf::Music _music;
 
