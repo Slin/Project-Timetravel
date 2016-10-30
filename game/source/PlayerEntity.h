@@ -43,6 +43,7 @@ namespace TT
 		sf::Sound _pickupSound;
 		sf::Sound _walkingSoundForest;
 		sf::Sound _walkingSoundCave[7];
+		sf::Sound _walkingSoundLibrary[4];
 	};
 }
 

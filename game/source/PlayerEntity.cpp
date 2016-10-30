@@ -49,6 +49,11 @@ namespace TT {
         _walkingSoundCave[4].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep5.ogg"));
         _walkingSoundCave[5].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep6.ogg"));
         _walkingSoundCave[6].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep7.ogg"));
+		_walkingSoundCave[0].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep1.ogg"));
+		_walkingSoundLibrary[0].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/libraryfootstep1.ogg"));
+		_walkingSoundLibrary[1].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/libraryfootstep2.ogg"));
+		_walkingSoundLibrary[2].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/libraryfootstep3.ogg"));
+		_walkingSoundLibrary[3].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/libraryfootstep4.ogg"));
         sound_counter = 0;
     }
 
@@ -212,6 +217,17 @@ namespace TT {
                 sound_counter++;
             }
         }
+
+		if (level == 3)
+		{
+			if ((_animationTimer > 1.03 && _animationTimer < 1.13) ||
+				(_animationTimer > 5.00 && _animationTimer < 5.13))
+			{
+				_walkingSoundLibrary[sound_counter % 4].play();
+				sound_counter++;
+			}
+
+		}
     }
 
     void PlayerEntity::StopPlayingWalking() {

@@ -87,7 +87,13 @@ namespace TT
 		Dialog::GetInstance()->SetText("Press ENTER to start");
 
 		LoadingScreen::GetInstance()->Fadeout();
+
         _fx.play();
+
+		_bgm.setVolume(15.0f);
+		_bgm.setLoop(true);
+		_bgm.play();
+
     }
 
 	void World::LoadLevel1()
@@ -128,8 +134,16 @@ namespace TT
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
 
+
         _bgm.play();
         _fx.play();
+
+		_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg");
+		_bgm.setVolume(15.0f);
+		_bgm.setLoop(true);
+		_bgm.play();
+		_fx.stop();
+
 	}
 
 	void World::LoadLevel2()
@@ -165,8 +179,19 @@ namespace TT
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
 
+
         _bgm.play();
         _fx.play();
+
+		_bgm.openFromFile("assets/sounds/level_2/mood.ogg");
+		_bgm.setVolume(15.0f);
+		_bgm.setLoop(true);
+		_bgm.play();
+		_fx.openFromFile("assets/sounds/level_2/drops.ogg");
+		_fx.setVolume(10.0f);
+		_fx.setLoop(true);
+		_fx.play();
+
 	}
 
 	void World::LoadLevel3()
@@ -191,6 +216,12 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
+		_bgm.openFromFile("assets/sounds/level_3/level3music.ogg");
+		_bgm.setVolume(250.0f);
+		_bgm.setLoop(true);
+		_bgm.play();
+		_fx.stop();
+
 	}
 
 	void World::Reset()
@@ -211,11 +242,12 @@ namespace TT
 	void World::Loop()
 	{
 		LoadStartScreen();
-
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
 
+
+		
 		while(_window->isOpen())
 		{
             HandleEvents();
