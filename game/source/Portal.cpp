@@ -33,7 +33,7 @@ namespace TT
 
 	Portal::~Portal()
 	{
-		delete _object;
+
 	}
 
 	void Portal::Update(float timeStep)

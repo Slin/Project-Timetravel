@@ -247,12 +247,12 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		LoadingScreen::GetInstance()->Fadeout();
-		_player->level = _currentLevel;
+		_player->level = 3;
 
-//		_bgm.openFromFile("assets/sounds/level_3/level3music.ogg");
-//		_bgm.setVolume(100.0f);
-//		_bgm.setLoop(true);
-		_bgm.stop();
+		_bgm.openFromFile("assets/sounds/level_3/level3music.ogg");
+		_bgm.setVolume(100.0f);
+		_bgm.setLoop(true);
+		_bgm.play();
 		_fx.stop();
 
 	}
