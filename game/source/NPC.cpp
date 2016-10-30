@@ -14,13 +14,9 @@ namespace TT
     NPC::NPC(sf::Vector2f position) : Actor(position, "assets/textures/characters/npc_00.png", b2_kinematicBody, true, sf::Vector2f(5.0f, 5.0f)) {
         if(!SOUNDS_LOADED) {
             MUMBLES[0].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/mumble_00.ogg"));
-            MUMBLES[0].setVolume(90.0f);
             MUMBLES[1].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/mumble_01.ogg"));
-            MUMBLES[1].setVolume(90.0f);
             MUMBLES[2].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/mumble_02.ogg"));
-            MUMBLES[2].setVolume(90.0f);
             MUMBLES[3].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/mumble_03.ogg"));
-            MUMBLES[3].setVolume(90.0f);
             SOUNDS_LOADED = true;
         }
 

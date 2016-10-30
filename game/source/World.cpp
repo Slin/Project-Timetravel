@@ -65,8 +65,6 @@ namespace TT
 		float aspectRatio = static_cast<float>(_window->getSize().y)/static_cast<float>(_window->getSize().x);
 		_view = new sf::View(sf::FloatRect(0.0f, -0.5*1920.0f*aspectRatio, 1920, 1920.0f*aspectRatio));
 		_window->setView(*_view);
-
-		_bgm.openFromFile("assets/sounds/startscreen/bgm.ogg");
 	}
 
     void World::LoadLevel(int level)
@@ -78,6 +76,9 @@ namespace TT
         KEYS[0] = false;
         KEYS[1] = false;
 
+        _fx.openFromFile("assets/sounds/rain.ogg");
+        _fx.setLoop(true);
+
 		_currentLevel = 0;
 		Reset();
 
@@ -86,11 +87,19 @@ namespace TT
 		Dialog::GetInstance()->SetText("Press ENTER to start");
 
 		LoadingScreen::GetInstance()->Fadeout();
+        _fx.play();
     }
 
 	void World::LoadLevel1()
 	{
 		_currentLevel = 1;
+
+        _bgm.openFromFile("assets/sounds/level_1/bgm.ogg");
+        _bgm.setLoop(true);
+        _bgm.setVolume(15.0f);
+
+        _fx.openFromFile("assets/sounds/rain.ogg");
+        _fx.setLoop(true);
 
 		Reset();
 		new Background(0.0f, "assets/textures/level_1/6.png"); //->1920
@@ -118,11 +127,21 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(5759 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
+
+        _bgm.play();
+        _fx.play();
 	}
 
 	void World::LoadLevel2()
 	{
 		_currentLevel = 2;
+
+
+        _bgm.openFromFile("assets/sounds/level_2/mood.ogg");
+        _bgm.setLoop(true);
+
+        _fx.openFromFile("assets/sounds/level_2/drops.ogg");
+        _fx.setLoop(true);
 
 		Reset();
 
@@ -145,6 +164,9 @@ namespace TT
 		CreateStaticBoxCollider(sf::Vector2f(3840 + 5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
+
+        _bgm.play();
+        _fx.play();
 	}
 
 	void World::LoadLevel3()
@@ -193,10 +215,6 @@ namespace TT
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
-
-		_bgm.setVolume(15.0f);
-        _bgm.setLoop(true);
-        _bgm.play();
 
 		while(_window->isOpen())
 		{
@@ -396,7 +414,9 @@ namespace TT
 
 					if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 					{
-						if(_player) {
+                        // Cutscene::GetInstance()->SkipStep();
+
+                        if(_player) {
 							_player->TriggerInteraction();
 						}
 					}

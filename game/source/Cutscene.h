@@ -19,6 +19,7 @@ namespace TT {
 
         void StartCutscene(unsigned int id);
         void CancelCutscene();
+        void SkipStep();
 
     protected:
         struct Step {

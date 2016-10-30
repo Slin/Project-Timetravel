@@ -112,4 +112,8 @@ namespace TT {
     void Cutscene::CancelCutscene() {
 
     }
+
+    void Cutscene::SkipStep() {
+        _nextStepTimer = 0.0f;
+    }
 }
