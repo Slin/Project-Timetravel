@@ -2,6 +2,8 @@
 // Created by Nils Daumann on 30.10.16.
 //
 
+#include "PlayerEntity.h"
+#include "Dialog.h"
 #include "Bookshelf.h"
 #include <iostream>
 
@@ -13,6 +15,10 @@ namespace TT
 	{
 		canInteract = true;
 		hidden = true;
+
+		if(id == 5) {
+			StartGlow();
+		}
 	}
 
 	Bookshelf::~Bookshelf()
@@ -26,7 +32,7 @@ namespace TT
 
 		if(Bookshelf::_activeCounter == 0 && canInteract)
 		{
-			StopGlow();
+			// StopGlow();
 		}
 
 		if(Bookshelf::_activeCounter == 5)
@@ -67,6 +73,9 @@ namespace TT
 			if(_id == 4)
 			{
 				std::cout << "BAM!" << std::endl;
+				Dialog::GetInstance()->SetText("You've solved the last puzzle. Read the spell book to open the portal.");
+				World::GetInstance()->GetPlayer()->PlayPickupSound();
+
 			}
 		}
 		else
@@ -104,6 +113,11 @@ namespace TT
 		{
 			_glow = World::CreateSprite("assets/textures/level_3/puzzle_5.png");
 			_glow->setPosition(1751-960+63, 413-410+66);
+		}
+		if(_id == 5)
+		{
+			_glow = World::CreateSprite("assets/textures/level_3/puzzle_5.png");
+			_glow->setPosition(1545-960+63, 400-410+66);
 		}
 	}
 

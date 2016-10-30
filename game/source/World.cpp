@@ -203,6 +203,7 @@ namespace TT
 		new Bookshelf(2, sf::Vector2f(198, 278));
 		new Bookshelf(3, sf::Vector2f(544, 278));
 		new Bookshelf(4, sf::Vector2f(856, 278));
+		new Bookshelf(5, sf::Vector2f(639, 278));
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
@@ -240,7 +241,7 @@ namespace TT
 
 	void World::Loop()
 	{
-		LoadStartScreen();
+		LoadLevel3();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;
