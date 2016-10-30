@@ -79,8 +79,7 @@ namespace TT
 
 			if(_id == 4)
 			{
-
-				Dialog::GetInstance()->SetText("You've solved the last puzzle. Read the spell book to open the portal.");
+				//Dialog::GetInstance()->SetText("You've solved the last puzzle. Read the spell book to open the portal.");
 				World::GetInstance()->GetPlayer()->PlayPickupSound();
 			}
 

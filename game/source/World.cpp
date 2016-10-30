@@ -283,7 +283,6 @@ namespace TT
 
 	void World::Reset()
 	{
-		_puzzleState = 0;
         GUIManager::GetInstance()->RemoveAllWidgets();
 		EntityManager::GetInstance()->RemoveAllEntities();
 		_player = nullptr;
@@ -301,7 +300,7 @@ namespace TT
 		_doorOpenSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_open.ogg")));
 		_doorCloseSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_close.ogg")));
 
-		LoadLevel3();
+		LoadLevel1();
 		sf::Clock clock;
 		sf::Time deltaTime;
 		sf::Time time = sf::Time::Zero;

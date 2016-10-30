@@ -48,8 +48,7 @@ namespace TT
                     if (World::KEYS[1]) {
                         // Allow to enter the next screne
                         PlayMumbleSound(3);
-                        Dialog::GetInstance()->SetText(
-                                "Correct! You've found the password. You can now enter the dungeon.");
+                        Dialog::GetInstance()->SetText("What... what did you do? You seem different.\nPlease enter whenever you are ready.");
                         Dialog::GetInstance()->SetResetTimer(3.2f);
                         canInteract = true;
                     } else {
@@ -63,7 +62,7 @@ namespace TT
                             case 0:
                                 _playerIgnoreTimer = 3.2f;
                                 Dialog::GetInstance()->SetText(
-                                        "Hello stranger! You cannot pass this door.");
+                                        "Hello stranger! You are not worthy to enter.");
                                 break;
                             case 1:
                                 _playerIgnoreTimer = 3.2f;
@@ -73,7 +72,7 @@ namespace TT
                             case 2:
                                 _playerIgnoreTimer = 6.0f;
                                 Dialog::GetInstance()->SetText(
-                                        "Okay...\nYou can pass the door if you solve the puzzle in the case.\nGo to the East and activate the altars.");
+                                        "Okay... Only those effected by the ancient powers are allowed to enter.\nNOT you.");
                                 break;
                         }
                         Dialog::GetInstance()->SetResetTimer(_playerIgnoreTimer);

@@ -63,8 +63,6 @@ namespace TT
 			return _player;
 		}
 
-		bool SelectPuzzlePiece(int id);
-
 		static World *GetInstance();
 
 		static sf::Sprite *CreateSprite(const std::string &file, bool smooth = true)
@@ -110,7 +108,6 @@ namespace TT
 		ContactListener _contactListener;
 		sf::RenderWindow *_window;
 		sf::View *_view;
-		float _scaleFactor;
 		std::string _bundlePath;
         bool _paused = false;
 		int _wantsToLoadLevel;
@@ -127,7 +124,6 @@ namespace TT
 
 		int _currentLevel;
 		float _playerSpawnPosition;
-		int _puzzleState;
 
         void HandleEvents();
         void Render();

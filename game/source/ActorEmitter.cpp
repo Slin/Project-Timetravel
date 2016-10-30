@@ -30,7 +30,7 @@ namespace TT {
             //entity->id = keyId;
             World::KEYS[0] = true;
 	        World::GetInstance()->GetPlayer()->PlayPickupSound();
-	        Dialog::GetInstance()->SetText("You've picked up a key!");
+	        Dialog::GetInstance()->SetText("You picked up a key!");
 	        Dialog::GetInstance()->SetResetTimer(5.0f);
         }
 
