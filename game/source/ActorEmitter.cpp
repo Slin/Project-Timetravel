@@ -25,8 +25,9 @@ namespace TT {
     void ActorEmitter::OnInteract(Entity *interactor) {
         Actor::OnInteract(interactor);
         if(keyId != -1) {
-            KeyEntity *entity = new KeyEntity(_position + sf::Vector2f(200.0f, 175.0f));
-            entity->id = keyId;
+            //KeyEntity *entity = new KeyEntity(_position + sf::Vector2f(200.0f, 175.0f));
+            //entity->id = keyId;
+            World::KEYS[0] = true;
         }
 
         if(emitOnce) {

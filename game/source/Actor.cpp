@@ -46,7 +46,6 @@ namespace TT
     }
 
     Actor::~Actor() {
-        cout << "Actor::~Actor" << endl;
         if (_object) {
             delete _object;
         }

@@ -8,24 +8,30 @@ namespace TT
 {
 	int Altar::_activeCounter = 0;
 
-	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id), _glow(nullptr) {
-        if (World::KEYS[1]) {
+	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id), _glow(nullptr)
+	{
+        if (World::KEYS[1])
+        {
             StartGlow();
             Altar::_activeCounter = 3;
             canInteract = false;
-        } else {
+        } else
+        {
             canInteract = true;
         }
 
         hidden = true;
 
-        if (id == 0) {
+        if (id == 0)
+        {
             _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_2/altar_pulse_00.ogg"));
         }
-        if (id == 1) {
+        if (id == 1)
+        {
             _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_2/altar_pulse_01.ogg"));
         }
-        if (id == 2) {
+        if (id == 2)
+        {
             _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/level_2/altar_pulse_02.ogg"));
         }
 		_sound.setLoop(true);
@@ -46,8 +52,10 @@ namespace TT
 			StopGlow();
 		}
 
-        if(Altar::_activeCounter - 1 != _id) {
-            if(_sound.getStatus() != sf::SoundSource::Stopped) {
+        if(Altar::_activeCounter - 1 != _id)
+        {
+            if(_sound.getStatus() != sf::SoundSource::Stopped)
+            {
                 _sound.stop();
             }
         }
@@ -102,30 +110,29 @@ namespace TT
 		if(_glow)
 			return;
 
-		if(_id == 0) {
+		if(_id == 0)
 		{
 			_glow = World::CreateSprite("assets/textures/level_2/glow1.png");
 			_glow->setPosition(sf::Vector2f(3245 - 0.5*1920, 218));
 		}
-		if(_id == 2) {
+		if(_id == 2)
 		{
 			_glow = World::CreateSprite("assets/textures/level_2/glow2.png");
 			_glow->setPosition(sf::Vector2f(3411 - 0.5*1920, 219));
 		}
-		if(_id == 1) {
+		if(_id == 1)
 		{
 			_glow = World::CreateSprite("assets/textures/level_2/glow3.png");
 			_glow->setPosition(sf::Vector2f(3580 - 0.5*1920, 215));
 		}
 
         _sound.play();
-
-		_glow->setPosition(2450, 110);
 	}
 
 	void Altar::StopGlow()
 	{
-		if(!_glow) {
+		if(!_glow)
+		{
             _sound.stop();
             return;
         }

@@ -17,7 +17,8 @@ namespace TT {
         return _instance;
     }
 
-    Cutscene::Cutscene(unsigned int id) {
+    Cutscene::Cutscene(unsigned int id) : _currentStep(-1)
+    {
         _id = id;
 
         Step step;
@@ -72,7 +73,11 @@ namespace TT {
         _instance = NULL;
     }
 
-    void Cutscene::Update(float timeStep) {
+    void Cutscene::Update(float timeStep)
+    {
+        if(_currentStep < 0)
+            return;
+
         int length = 0;
         Step step;
 
@@ -85,7 +90,8 @@ namespace TT {
             step = _steps_1[_currentStep];
         }
 
-        if (_currentStep < length && _nextStepTimer <= 0.0f) {
+        if (_currentStep < length && _nextStepTimer <= 0.0f)
+        {
             Dialog::GetInstance()->SetText(step.text);
             Dialog::GetInstance()->SetResetTimer(step.duration);
 
@@ -114,6 +120,10 @@ namespace TT {
             _nextStepTimer = step.duration;
             _currentStep++;
         }
+	    else if(_currentStep >= length)
+        {
+	        _currentStep = -1;
+        }
 
         _nextStepTimer -= timeStep;
 
@@ -126,7 +136,11 @@ namespace TT {
 
     }
 
-    void Cutscene::StartCutscene(unsigned int id) {
+    void Cutscene::StartCutscene(unsigned int id)
+    {
+	    if(_currentStep != -1)
+		    return;
+
         _id = id;
         _currentStep = 0;
     }

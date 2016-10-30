@@ -23,6 +23,7 @@
 
 namespace TT
 {
+	class Entity;
 	class PlayerEntity;
 	class World
 	{
@@ -112,7 +113,8 @@ namespace TT
 		sf::Music _fx;
 
 		b2World *_physicsWorld;
-        std::list<b2Body*> _deadBodies;
+
+		Entity *_level1KeyLight;
 
 		int _currentLevel;
 		float _playerSpawnPosition;

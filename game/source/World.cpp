@@ -40,7 +40,7 @@ namespace TT
 		return _instance;
 	}
 
-	World::World() : _physicsWorld(nullptr), _player(nullptr), _playerSpawnPosition(0.0f), _wantsToLoadLevel(-1)
+	World::World() : _physicsWorld(nullptr), _player(nullptr), _playerSpawnPosition(0.0f), _wantsToLoadLevel(-1), _level1KeyLight(nullptr)
 	{
 #if __APPLE__ && !(TARGET_OS_IPHONE) && NDEBUG
 		CFBundleRef bundle = CFBundleGetMainBundle();
@@ -115,12 +115,13 @@ namespace TT
 		new Background(0.0f, "assets/textures/level_1/3.png");
 
 		new PulsatingLight("assets/textures/level_1/cavelight.png", sf::Vector2f(5254 - 0.5*_view->getSize().x, 140), 2.0f, 0.25f);
-		new PulsatingLight("assets/textures/level_1/keylight.png", sf::Vector2f(2413 - 0.5*_view->getSize().x, 184), 5.0f, 0.2f);
 
 		if(!World::KEYS[0])
 		{
 			ActorEmitter *emitter = new ActorEmitter(sf::Vector2f(1555.0f, 150.0f));
 			emitter->emitterOffset = sf::Vector2f(10.0f, 180.0f);
+
+			_level1KeyLight = new PulsatingLight("assets/textures/level_1/keylight.png", sf::Vector2f(2413 - 0.5*_view->getSize().x, 184), 5.0f, 0.2f);
 		}
 
 		new NPC(sf::Vector2f(2350.0f, 278.5f));
@@ -359,6 +360,12 @@ namespace TT
 		{
 			if(_currentLevel == 1)
 			{
+				if(World::KEYS[0] && _level1KeyLight)
+				{
+					EntityManager::GetInstance()->RemoveEntity(_level1KeyLight);
+					_level1KeyLight = nullptr;
+				}
+
 				if(_player->_position.x > 5650.0f-windowWidth*0.5f)
 				{
 					if(World::KEYS[0])
