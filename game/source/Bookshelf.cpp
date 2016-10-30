@@ -12,7 +12,7 @@ namespace TT
 	Bookshelf::Bookshelf(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id), _glow(nullptr)
 	{
 		canInteract = true;
-		hidden = false;
+		hidden = true;
 	}
 
 	Bookshelf::~Bookshelf()
@@ -27,6 +27,11 @@ namespace TT
 		if(Bookshelf::_activeCounter == 0 && canInteract)
 		{
 			StopGlow();
+		}
+
+		if(Bookshelf::_activeCounter == 5)
+		{
+			canInteract = false;
 		}
 	}
 
@@ -59,17 +64,13 @@ namespace TT
 			Bookshelf::_activeCounter += 1;
 			StartGlow();
 
-			std::cout << "Yo!" << std::endl;
-
 			if(_id == 4)
 			{
 				std::cout << "BAM!" << std::endl;
-				canInteract = false;
 			}
 		}
 		else
 		{
-			std::cout << "NOOOO!" << std::endl;
 			Bookshelf::_activeCounter = 0;
 		}
 	}
@@ -79,14 +80,31 @@ namespace TT
 		if(_glow)
 			return;
 
-/*		if(_id == 0)
-			_glow = World::CreateSprite("assets/textures/level_3/glow1.png");
-		if(_id == 2)
-			_glow = World::CreateSprite("assets/textures/level_3/glow2.png");
+		if(_id == 0)
+		{
+			_glow = World::CreateSprite("assets/textures/level_3/puzzle_1.png");
+			_glow->setPosition(352-960+42, 485-410+52);
+		}
 		if(_id == 1)
-			_glow = World::CreateSprite("assets/textures/level_3/glow3.png");
-
-		_glow->setPosition(2450, 110);*/
+		{
+			_glow = World::CreateSprite("assets/textures/level_3/puzzle_2.png");
+			_glow->setPosition(802-960+47, 309-410+52);
+		}
+		if(_id == 2)
+		{
+			_glow = World::CreateSprite("assets/textures/level_3/puzzle_3.png");
+			_glow->setPosition(1097-960+43, 638-410+44);
+		}
+		if(_id == 3)
+		{
+			_glow = World::CreateSprite("assets/textures/level_3/puzzle_4.png");
+			_glow->setPosition(1466-960+58, 283-410+56);
+		}
+		if(_id == 4)
+		{
+			_glow = World::CreateSprite("assets/textures/level_3/puzzle_5.png");
+			_glow->setPosition(1751-960+63, 413-410+66);
+		}
 	}
 
 	void Bookshelf::StopGlow()

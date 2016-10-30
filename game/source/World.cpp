@@ -198,10 +198,10 @@ namespace TT
 		new Background(0.0f, "assets/textures/level_3/3.png");
 
 		new Bookshelf(0, sf::Vector2f(-577, 278));
-		new Bookshelf(1, sf::Vector2f(198, 278));
-		new Bookshelf(2, sf::Vector2f(856, 278));
-		new Bookshelf(3, sf::Vector2f(-114, 278));
-		new Bookshelf(4, sf::Vector2f(544, 278));
+		new Bookshelf(1, sf::Vector2f(-114, 278));
+		new Bookshelf(2, sf::Vector2f(198, 278));
+		new Bookshelf(3, sf::Vector2f(544, 278));
+		new Bookshelf(4, sf::Vector2f(856, 278));
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
