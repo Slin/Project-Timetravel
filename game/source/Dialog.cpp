@@ -3,6 +3,7 @@
 //
 
 #include "Dialog.h"
+#include "World.h"
 
 namespace TT {
     Dialog *Dialog::_instance = NULL;
@@ -17,16 +18,13 @@ namespace TT {
 
     Dialog::Dialog() {
         _resetTimer = -1.0f;
-        _font.loadFromFile("assets/fonts/PixelFJVerdana12pt.ttf");
+        _font.loadFromFile(World::GetInstance()->GetBundlePath()+"assets/fonts/PixelFJVerdana12pt.ttf");
 
         // disable smoothing
         const_cast<sf::Texture&>(_font.getTexture(12)).setSmooth(false);
 
         // select the font
         _text.setFont(_font); // font is a sf::Font
-
-        // set the string to display
-        _text.setString("TEST");
     }
 
     Dialog::~Dialog() {

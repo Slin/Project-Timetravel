@@ -207,7 +207,7 @@ namespace TT {
             }
 
             if(step.playMusic) {
-                _music.openFromFile(step.musicPath);
+                _music.openFromFile(World::GetInstance()->GetBundlePath()+step.musicPath);
                 _music.play();
                 _music.setVolume(step.musicVolume);
                 _music.setLoop(step.musicLoop);
@@ -253,6 +253,9 @@ namespace TT {
 
     void Cutscene::StartCutscene(unsigned int id)
     {
+	    if(_currentStep != -1)
+		    return;
+
         _id = id;
         _nextStepTimer = 0.0f;
         _currentStep = 0;

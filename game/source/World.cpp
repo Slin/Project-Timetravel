@@ -24,7 +24,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-//#define FULLSCREEN
+#define FULLSCREEN
 #define SIMULATIONSTEP (1.0f/120.0f)
 
 namespace TT
@@ -58,9 +58,9 @@ namespace TT
 #endif
 
 #if defined(FULLSCREEN)
-		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Timetravel", sf::Style::Fullscreen);
+		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Corra", sf::Style::Fullscreen);
 #else
-		_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Timetravel");
+		_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Corra");
 #endif
 		_window->setFramerateLimit(60);
 		_window->setVerticalSyncEnabled(true);
@@ -87,7 +87,7 @@ namespace TT
 
 		_bgm.stop();
 		_fx.stop();
-		_fx.openFromFile("assets/sounds/rain.ogg");
+		_fx.openFromFile(_bundlePath+"assets/sounds/rain.ogg");
 		_fx.setLoop(true);
 		_fx.setVolume(100.0f);
 
@@ -112,7 +112,7 @@ namespace TT
 		_bgm.stop();
 		_fx.stop();
 
-		_fx.openFromFile("assets/sounds/rain.ogg");
+		_fx.openFromFile(_bundlePath+"assets/sounds/rain.ogg");
 		_fx.setLoop(true);
 		_fx.setVolume(100.0f);
 
@@ -159,12 +159,12 @@ namespace TT
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
 
-		_bgm.openFromFile("assets/sounds/level_1/bgm.ogg");
+		_bgm.openFromFile(_bundlePath+"assets/sounds/level_1/bgm.ogg");
 		_bgm.setLoop(true);
 		_bgm.setVolume(10.0f);
 		_bgm.play();
 
-		_fx.openFromFile("assets/sounds/rain.ogg");
+		_fx.openFromFile(_bundlePath+"assets/sounds/rain.ogg");
 		_fx.setLoop(true);
 		_fx.setVolume(100.0f);
 		_fx.play();
@@ -178,11 +178,11 @@ namespace TT
 		_bgm.stop();
 		_fx.stop();
 
-		_bgm.openFromFile("assets/sounds/level_2/mood.ogg");
+		_bgm.openFromFile(_bundlePath+"assets/sounds/level_2/mood.ogg");
 		_bgm.setLoop(true);
 		_bgm.setVolume(100.0f);
 
-		_fx.openFromFile("assets/sounds/level_2/drops.ogg");
+		_fx.openFromFile(_bundlePath+"assets/sounds/level_2/drops.ogg");
 		_fx.setLoop(true);
 		_fx.setVolume(100.0f);
 
@@ -244,7 +244,7 @@ namespace TT
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = _currentLevel;
 
-		_bgm.openFromFile("assets/sounds/level_3/level3music.ogg");
+		_bgm.openFromFile(_bundlePath+"assets/sounds/level_3/level3music.ogg");
 		_bgm.setVolume(100.0f);
 		_bgm.setLoop(true);
 		_bgm.play();
@@ -274,7 +274,7 @@ namespace TT
 		LoadingScreen::GetInstance()->Fadeout();
 		_player->level = 3;
 
-		_bgm.openFromFile("assets/sounds/level_3/level3music.ogg");
+		_bgm.openFromFile(_bundlePath+"assets/sounds/level_3/level3music.ogg");
 		_bgm.setVolume(100.0f);
 		_bgm.setLoop(true);
 		_bgm.play();

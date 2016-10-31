@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.4)
 project(Timetravel)
 
-set(EXECUTABLE_NAME "Timetravel")
+set(EXECUTABLE_NAME "Corra")
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
