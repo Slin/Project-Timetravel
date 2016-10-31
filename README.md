@@ -1,4 +1,4 @@
-# Project - Time cheating
+# Project - Timetravel
 igjam10 project
 
 # Credits
