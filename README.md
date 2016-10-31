@@ -1,15 +1,12 @@
 # Project - Time cheating
 igjam10 project
 
-
-
 # Credits
-Game Design & Narrative - Dominik Marwege; 
-Art & Images - Can Basdogan; 
-Animation & Effects - Matthias Brun, Nils Daumann; 
-Programmers - Filip Cel, Nils Daumann, Matthias Brun;  
-
+- Art & Images - Can Basdogan
+- Animation & Effects - Matthias Brun 
+- Programming - Filip Cel, Nils Daumann, Matthias Brun
+- Game Design & Narrative - Dominik Marwege
 
 # Sources
-Pixel Art Base Model - Tobias Krämer; 
-Sounds - freesound.org
+- Pixel Art Base - Tobias Krämer
+- Sounds - freesound.org
