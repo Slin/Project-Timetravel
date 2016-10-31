@@ -210,8 +210,9 @@ namespace TT {
                 _music.openFromFile(World::GetInstance()->GetBundlePath()+step.musicPath);
                 _music.play();
                 _music.setVolume(step.musicVolume);
-                _music.setLoop(step.musicLoop);
             }
+
+	        _music.setLoop(step.musicLoop);
 
             if(step.playSound) {
                 step.sound.setVolume(step.soundVolume);
