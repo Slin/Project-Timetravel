@@ -24,7 +24,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-#define FULLSCREEN
+//#define FULLSCREEN
 #define SIMULATIONSTEP (1.0f/120.0f)
 
 namespace TT
@@ -42,7 +42,7 @@ namespace TT
 		return _instance;
 	}
 
-	World::World() : _physicsWorld(nullptr), _player(nullptr), _playerSpawnPosition(0.0f), _wantsToLoadLevel(-1), _level1KeyLight(nullptr)
+	World::World() : _wantsToLoadLevel(-1), _player(nullptr), _physicsWorld(nullptr), _level1KeyLight(nullptr), _playerSpawnPosition(0.0f)
 	{
 #if __APPLE__ && !(TARGET_OS_IPHONE) && NDEBUG
 		CFBundleRef bundle = CFBundleGetMainBundle();
@@ -92,8 +92,13 @@ namespace TT
 		_fx.setVolume(100.0f);
 
         new Background(1.0f, "assets/textures/startscreen/background.png"); //->1920
-
 		Dialog::GetInstance()->SetText("Press ANY KEY to start");
+		
+#if __APPLE__
+#if TARGET_OS_IPHONE
+		Dialog::GetInstance()->SetText("Tap to start");
+#endif
+#endif
 
 		LoadingScreen::GetInstance()->Fadeout();
 
@@ -131,11 +136,24 @@ namespace TT
 		_currentLevel = 1;
 
 		Reset();
-		new Background(0.0f, "assets/textures/level_1/6.png"); //->1920
-		new Clouds(7.0f, 0.8f, "assets/textures/level_1/clouds.png");
+		std::vector<std::string> filePaths;
+		filePaths.push_back("assets/textures/level_1/6-0.png");
+		filePaths.push_back("assets/textures/level_1/6-1.png");
+		new Background(0.0f, filePaths); //->1920
+		filePaths.clear();
+		
+		filePaths.push_back("assets/textures/level_1/clouds-0.png");
+		filePaths.push_back("assets/textures/level_1/clouds-1.png");
+		new Clouds(7.0f, 0.8f, filePaths);
+		filePaths.clear();
+		
 		new Background(0.7f, "assets/textures/level_1/5.png");
 		new Background(0.5f, "assets/textures/level_1/4.png");
-		new Background(0.0f, "assets/textures/level_1/3.png");
+		
+		filePaths.push_back("assets/textures/level_1/3-0.png");
+		filePaths.push_back("assets/textures/level_1/3-1.png");
+		new Background(0.0f, filePaths);
+		filePaths.clear();
 
 		new PulsatingLight("assets/textures/level_1/cavelight.png", sf::Vector2f(5254 - 0.5*_view->getSize().x, 140), 2.0f, 0.25f);
 
@@ -150,8 +168,17 @@ namespace TT
 		new NPC(sf::Vector2f(2350.0f, 278.5f));
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
-		new Background(-0.3f, "assets/textures/level_1/2.png"); //->5759+(5759-1920)*0.5
-		new Background(-0.7f, "assets/textures/level_1/1.png"); //->5759
+		
+		filePaths.push_back("assets/textures/level_1/2-0.png");
+		filePaths.push_back("assets/textures/level_1/2-1.png");
+		new Background(-0.3f, filePaths); //->5759+(5759-1920)*0.5
+		filePaths.clear();
+		
+		filePaths.push_back("assets/textures/level_1/1-0.png");
+		filePaths.push_back("assets/textures/level_1/1-1.png");
+		filePaths.push_back("assets/textures/level_1/1-2.png");
+		new Background(-0.7f, filePaths); //->5759
+		filePaths.clear();
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
@@ -201,8 +228,16 @@ namespace TT
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
-		new Background(-0.3f, "assets/textures/level_2/2.png");
-		new Background(-0.7f, "assets/textures/level_2/1.png");
+		std::vector<std::string> filePaths;
+		filePaths.push_back("assets/textures/level_2/2-0.png");
+		filePaths.push_back("assets/textures/level_2/2-1.png");
+		new Background(-0.3f, filePaths);
+		filePaths.clear();
+		
+		filePaths.push_back("assets/textures/level_2/1-0.png");
+		filePaths.push_back("assets/textures/level_2/1-1.png");
+		new Background(-0.7f, filePaths);
+		filePaths.clear();
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
@@ -221,7 +256,13 @@ namespace TT
 		Reset();
 
 		new Background(0.7f, "assets/textures/level_3/5.png");
-		new Background(0.05f, "assets/textures/level_3/4.png");
+		
+		std::vector<std::string> filePaths;
+		filePaths.push_back("assets/textures/level_3/4-0.png");
+		filePaths.push_back("assets/textures/level_3/4-1.png");
+		new Background(0.05f, filePaths);
+		filePaths.clear();
+		
 		new Background(0.0f, "assets/textures/level_3/3.png");
 
 		new Portal(sf::Vector2f(3070-960+218, 82));
@@ -235,8 +276,15 @@ namespace TT
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
-		new Background(-0.3f, "assets/textures/level_3/2.png");
-		new Background(-0.7f, "assets/textures/level_3/1.png");
+		filePaths.push_back("assets/textures/level_3/2-0.png");
+		filePaths.push_back("assets/textures/level_3/2-1.png");
+		new Background(-0.3f, filePaths);
+		filePaths.clear();
+		
+		filePaths.push_back("assets/textures/level_3/1-0.png");
+		filePaths.push_back("assets/textures/level_3/1-1.png");
+		new Background(-0.7f, filePaths);
+		filePaths.clear();
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
@@ -265,8 +313,16 @@ namespace TT
 
 		_player = new PlayerEntity(sf::Vector2f(_playerSpawnPosition, 285.0f));
 
-		new Background(-0.3f, "assets/textures/level_4/2.png");
-		new Background(-0.7f, "assets/textures/level_4/1.png");
+		std::vector<std::string> filePaths;
+		filePaths.push_back("assets/textures/level_4/2-0.png");
+		filePaths.push_back("assets/textures/level_4/2-1.png");
+		new Background(-0.3f, filePaths);
+		filePaths.clear();
+		
+		filePaths.push_back("assets/textures/level_4/1-0.png");
+		filePaths.push_back("assets/textures/level_4/1-1.png");
+		new Background(-0.7f, filePaths);
+		filePaths.clear();
 
 		CreateStaticBoxCollider(sf::Vector2f(0.0f, 415.0f), sf::Vector2u(100000, 10));
 		CreateStaticBoxCollider(sf::Vector2f(-5.0f - 0.5*_view->getSize().x, 0.0f), sf::Vector2u(10, 10000));
@@ -302,6 +358,7 @@ namespace TT
 		_doorCloseSound.setBuffer(*(SoundPool::GetInstance()->GetSound("assets/sounds/irongate_close.ogg")));
 
 		LoadStartScreen();
+		//LoadLevel1();
 
 		sf::Clock clock;
 		sf::Time deltaTime;
@@ -546,12 +603,28 @@ namespace TT
 					{
                         // Cutscene::GetInstance()->SkipStep();
 
-                        if(_player) {
+                        if(_player)
+						{
 							_player->TriggerInteraction();
 						}
 					}
 
                     break;
+					
+				case sf::Event::TouchEnded:
+					if(_currentLevel == 0)
+					{
+						Cutscene::GetInstance()->StartCutscene(0);
+					}
+					
+					if(event.touch.x > (_view->getSize().x/3) && event.touch.x < (2*_view->getSize().x/3))
+					{
+						if(_player)
+						{
+							_player->TriggerInteraction();
+						}
+					}
+					break;
 
                     // we don't process other types of events
                 default:

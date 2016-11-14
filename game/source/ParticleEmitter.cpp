@@ -24,7 +24,7 @@ namespace TT
 
 	void ParticleEmitter::Update(float timeStep)
 	{
-		for(int i = _particles.size(); i < 100; i++)
+		for(unsigned long i = _particles.size(); i < 100; i++)
 		{
 			_particles.push_back(new ShroomDustParticle(this));
 

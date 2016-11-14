@@ -14,7 +14,7 @@ namespace TT
 {
 	int Altar::_activeCounter = 0;
 
-	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _id(id), _glow(nullptr), _finalGlow(nullptr), _timer(0.0f)
+	Altar::Altar(int id, sf::Vector2f position) : Actor(position, "assets/textures/none.png", b2_kinematicBody, true), _timer(0.0f), _id(id), _glow(nullptr), _finalGlow(nullptr)
 	{
         if (World::KEYS[1])
         {

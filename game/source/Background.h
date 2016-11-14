@@ -12,13 +12,15 @@ namespace TT
 	{
 	public:
 		Background();
+		Background(float speed, const std::vector<std::string> &paths);
 		Background(float speed, const std::string path);
+		
 		~Background();
 		virtual void Update(float timeStep);
 		virtual void Draw(sf::RenderWindow *window);
 		float GetSpeed() { return _speed; };
 	protected:
-		sf::Sprite *_object;
+		std::vector<sf::Sprite *> _objects;
 		float _speed;
 
 	};

@@ -6,27 +6,35 @@ namespace TT {
 	{
 	}
 
-	Clouds::Clouds(float offsetspeed, float speed, const std::string path) : Background(speed, path), _offset(0.0f), _offsetspeed(offsetspeed)
+	Clouds::Clouds(float offsetspeed, float speed, const std::vector<std::string> &paths) : Background(speed, paths), _offset(0.0f), _offsetspeed(offsetspeed)
 	{
-		_object->setOrigin(0.0, _object->getOrigin().y);
-		xproblematic = 0.0f;
+		float offset = 0;
+		for(sf::Sprite *object : _objects)
+		{
+			object->setOrigin(-offset, object->getOrigin().y);
+			offset += object->getGlobalBounds().width;
+		}
+		
+		_maxOffset = offset;
 	}
 
 	void Clouds::Draw(sf::RenderWindow *window)
 	{
-		if (!_object)
+		if(_objects.size() == 0)
 		{
 			return;
 		}
-		sf::Vector2f center;
-		center = window->getView().getCenter();
-		float width = (float)window->getSize().x;
-		if (_offset > 5757.0f) _offset = 0;
-		_object->setPosition(center.x * GetSpeed() + _offset, 0.0f);
-		xproblematic = _object->getPosition().x;
-		window->draw(*_object);
-		_object->setPosition(xproblematic -5757.0, 0.0f);
-		window->draw(*_object);
+		
+		if(_offset > _maxOffset) _offset -= _maxOffset;
+		float totalOffset = window->getView().getCenter().x*GetSpeed() + _offset;
+		
+		for(sf::Sprite *object : _objects)
+		{
+			object->setPosition(totalOffset, 0.0f);
+			window->draw(*object);
+			object->setPosition(totalOffset - _maxOffset, 0.0f);
+			window->draw(*object);
+		}
 	}
 
 	void Clouds::Update(float timeStep)

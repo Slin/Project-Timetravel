@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[])
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	TT::World::GetInstance()->Loop();
 	return 0;
 }

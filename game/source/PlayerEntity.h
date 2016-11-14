@@ -23,6 +23,7 @@ namespace TT
 		void Interpolate(float factor);
 		void Draw(sf::RenderWindow *window);
 
+		float MovementForTouches();
 		bool IsGrounded();
 		sf::Vector2f GetVelocity();
 

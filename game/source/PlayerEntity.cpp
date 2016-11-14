@@ -38,8 +38,6 @@ namespace TT {
         _body->SetFixedRotation(true);
         _body->SetBullet(true);
 
-
-        // _sound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/jump.ogg"));
         _pickupSound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/pickup.ogg"));
         _walkingSoundForest.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/walking.ogg"));
         _walkingSoundCave[0].setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/walking/cavefootstep1.ogg"));
@@ -85,11 +83,37 @@ namespace TT {
         }
         return (grounded && !blocked);
     }
+	
+	float PlayerEntity::MovementForTouches()
+	{
+		float movement = 0;
+		for(int finger = 0; finger < 5; finger++)
+		{
+			if(sf::Touch::isDown(finger))
+			{
+				if(sf::Touch::getPosition(finger).x < (World::GetInstance()->GetView()->getSize().x/3))
+				{
+					if(movement > -1)
+						movement -= 1;
+				}
+				if(sf::Touch::getPosition(finger).x > (2*World::GetInstance()->GetView()->getSize().x/3))
+				{
+					if(movement < 1)
+						movement += 1;
+				}
+			}
+		}
+		
+		return movement;
+	}
 
     void PlayerEntity::Update(float timeStep) {
         sf::Vector2f moveDirection;
         if(!_disabled) {
             moveDirection.x = sf::Keyboard::isKeyPressed(sf::Keyboard::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+			if(fabsf(MovementForTouches()) > 0.1f)
+				moveDirection.x = MovementForTouches();
+			
         } else {
             moveDirection.x = 0.0f;
         }

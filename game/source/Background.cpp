@@ -4,31 +4,51 @@ namespace TT
 {
 	Background::Background()
 	{
-		_object = nullptr;
+		
 	}
-	Background::Background(float speed, const std::string path)
+	
+	Background::Background(float speed, const std::string path) : _speed(speed)
 	{
-		_object = World::CreateSprite(path);
-		_object->setOrigin(0.5f*World::GetInstance()->GetView()->getSize().x, _object->getLocalBounds().height*0.5f);
-		_speed = speed;
+		sf::Sprite *object = World::CreateSprite(path);
+		object->setOrigin(0.5f*World::GetInstance()->GetView()->getSize().x, object->getLocalBounds().height*0.5f);
+		_objects.push_back(object);
+	}
+	
+	Background::Background(float speed, const std::vector<std::string> &paths) : _speed(speed)
+	{
+		float offset = 0;
+		for(std::string path : paths)
+		{
+			sf::Sprite *object = World::CreateSprite(path);
+			object->setOrigin(0.5f*World::GetInstance()->GetView()->getSize().x-offset, object->getLocalBounds().height*0.5f);
+			_objects.push_back(object);
+			
+			offset += object->getGlobalBounds().width;
+		}
 	}
 
 	Background::~Background()
 	{
-		delete _object;
+		for(sf::Sprite *object : _objects)
+		{
+			delete object;
+		}
 	}
 
 	void Background::Draw(sf::RenderWindow *window)
 	{
-		if(!_object)
+		if(_objects.size() == 0)
 		{
 			return;
 		}
 
 		sf::Vector2f center;
 		center = window->getView().getCenter();
-		_object->setPosition(center.x * GetSpeed(), 0.0f);
-		window->draw(*_object);
+		for(sf::Sprite *object : _objects)
+		{
+			object->setPosition(center.x * GetSpeed(), 0.0f);
+			window->draw(*object);
+		}
 	}
 
 	void Background::Update(float timeStep)

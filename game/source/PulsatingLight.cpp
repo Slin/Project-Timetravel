@@ -14,7 +14,7 @@
 
 namespace TT
 {
-	PulsatingLight::PulsatingLight(std::string filename, sf::Vector2f position, float speed, float range) : _speed(speed), _range(range), _time(0.0f)
+	PulsatingLight::PulsatingLight(std::string filename, sf::Vector2f position, float speed, float range) : _time(0.0f), _speed(speed), _range(range)
 	{
 		_object = World::GetInstance()->CreateSprite(filename);
 		_object->setPosition(position);
