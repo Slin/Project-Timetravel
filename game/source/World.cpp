@@ -617,7 +617,7 @@ namespace TT
 						Cutscene::GetInstance()->StartCutscene(0);
 					}
 					
-					if(event.touch.x > (_view->getSize().x/3) && event.touch.x < (2*_view->getSize().x/3))
+					if(event.touch.x > (_window->getSize().x/4) && event.touch.x < (3*_window->getSize().x/4))
 					{
 						if(_player)
 						{

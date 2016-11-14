@@ -91,14 +91,14 @@ namespace TT {
 		{
 			if(sf::Touch::isDown(finger))
 			{
-				if(sf::Touch::getPosition(finger).x < (World::GetInstance()->GetView()->getSize().x/3))
+				if(sf::Touch::getPosition(finger).x < (World::GetInstance()->GetWindow()->getSize().x/4.0f))
 				{
-					if(movement > -1)
+					if(movement > -0.5f)
 						movement -= 1;
 				}
-				if(sf::Touch::getPosition(finger).x > (2*World::GetInstance()->GetView()->getSize().x/3))
+				if(sf::Touch::getPosition(finger).x > (3.0f*World::GetInstance()->GetWindow()->getSize().x/4.0f))
 				{
-					if(movement < 1)
+					if(movement < 0.5f)
 						movement += 1;
 				}
 			}

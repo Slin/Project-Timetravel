@@ -38,6 +38,8 @@
 	<string>Launch Screen</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>UIStatusBarHidden</key>
